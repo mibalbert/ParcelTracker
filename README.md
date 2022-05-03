@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Getting Started
 
@@ -57,3 +58,6 @@ You should check this document before asking your module leader for help.
 v10.4.0
 
 v6.5.1
+=======
+# parosa_sem3
+>>>>>>> remotes/origin/main
