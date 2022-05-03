@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # Getting Started
 
 This template is designed to be installed inside a Codio box. To to this, open the terminal and run the following command:
@@ -58,6 +56,3 @@ You should check this document before asking your module leader for help.
 v10.4.0
 
 v6.5.1
-=======
-# parosa_sem3
->>>>>>> remotes/origin/main
