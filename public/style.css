@@ -1,9 +1,17 @@
 
 /* style.css */
 
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@200&display=swap');
+
+@font-face{
+    font-family :'Libre Franklin', sans-serif;
+}
 
 
-
+h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 40px;
+}
 
 
 
