@@ -2,11 +2,13 @@
 /* accounts.js */
 
 import { compare, genSalt, hash } from 'bcrypt'
+import { create, verify, decode } from 'https://deno.land/x/djwt@v2.1/mod.ts'
 
 import { db } from 'db'
 
 const saltRounds = 10
 const salt = await genSalt(saltRounds)
+const key = 'secrete-key'
 
 /**
  * Checks user credentials.
@@ -23,7 +25,13 @@ export async function login(data) {
 	records = await db.query(sql)
 	const valid = await compare(data.password, records[0].pass)
 	if(valid === false) throw new Error(`invalid password for account "${data.username}"`)
-	return data.username
+	sql = `SELECT role FROM accounts WHERE user = "${data.username}"`
+	records = await db.query(sql)
+	// const role = records[0].role
+	// data.role = await encodeRole(role)
+	data.role = records[0].role
+	console.log(data.role)
+	return { username: data.username, role: data.role }
 }
 
 /**
@@ -39,3 +47,41 @@ export async function register(data) {
 	await db.query(sql)
 	return true
 }
+
+
+// /**
+//  * Creates JWT Token for user permissions.
+//  * @param {string} key
+//  * @param {string} role
+//  * @returns {string} JWT encoded 'role'
+//  */
+// async function encodeRole(role){
+// 	const jwt = await create({alg: 'HS512', type: 'JWT'}, {role:role}, key)
+// 	return jwt
+// }
+
+
+// /**
+//  * Decodes the user role.
+//  * @param {string} jwt
+//  * @param {string} hash
+//  * @returns {string} decoded 'role'
+//  */
+// export async function verifyRole(jwt){
+// 	const veri = await verify(jwt, key, 'HS512')
+// 	console.log(veri)
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

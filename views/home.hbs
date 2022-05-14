@@ -13,22 +13,20 @@
 	<body>
 		<header>
 			<h1>Home</h1>
-			{{#if authorised}}
 				<a href="/logout">Log out</a>
-			{{else}}
-				<a href="/login">Log in</a>
-			{{/if}}
 		</header>
 	<main>
-		<p>This is the home page. Users can see it without logging in.</p>
+		<p>This is the home page.</p>
 		{{#if authorised}}
 			<p><a href="/send">Send 📦</a></p>
 		{{/if}}
+
+
 	</main>
 	
 	<footer>
 		<hr />
-		
+		<p>This is the footer</p>
 	</footer>
 	</body>
 	

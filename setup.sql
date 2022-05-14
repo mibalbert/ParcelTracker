@@ -8,11 +8,12 @@ DROP TABLE IF EXISTS accounts;
 CREATE TABLE IF NOT EXISTS accounts (
   id MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user VARCHAR(25) NOT NULL,
-  pass VARCHAR(70) NOT NULL
+  pass VARCHAR(70) NOT NULL,
+  role VARCHAR(25) DEFAULT 'customer'
 );
 
-INSERT INTO accounts(user, pass)
-	VALUES("doej", "$2b$10$gL33obKAFUT5DK3pEbh72OIHztsWBniBBh.PdeKOrF1yr5KFAsdZO");
+INSERT INTO accounts(user, pass, role)
+	VALUES("doej", "$2b$10$gL33obKAFUT5DK3pEbh72OIHztsWBniBBh.PdeKOrF1yr5KFAsdZO", "admin");
 
 
 DROP TABLE IF EXISTS parcels;
@@ -30,12 +31,12 @@ CREATE TABLE IF NOT EXISTS parcels (
   status VARCHAR(45) DEFAULT 'not-dispatched'
 );
 
-#For testing
+-- For testing
 INSERT INTO parcels(sender_postcode, recipient_postcode,
                     weight_kg, recipient_name, full_address,
                     sender_username, uuid)
-
-	VALUES("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "doej", UUID());
+                                                                                      -- Or use the UUID() function
+	VALUES("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "doej", "4fe2dd30-d325-11ec-b8eb-a21261897db1");
 
 
 
