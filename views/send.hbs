@@ -22,15 +22,15 @@
 		  <p><a href="/">Home page</a></p>
 		
 		<form action="/send" method="post" enctype="multipart/form-data">
-			<label>Origin Postcode<input type="text"></label></br>
-			<label>Destination Postcode<input type="text"></label></br>
+			<label>Origin Postcode<input type="text" name="sender_postcode" required></label></br>
+			<label>Destination Postcode<input type="text" name="recipient_postcode" required></label></br>
 			<label>Weight
-				<input type="range" id="slider" min="0" max="20" placeholder="Kg">
+				<input type="range" name="weight_kg" id="slider" min="0" max="20" placeholder="Kg">
 				<output name="weight_val">
 			</label></br>
-			<label>Recipient Name<input type="text"></label></br>
+			<label>Recipient Name<input type="text" name="recipient_name"></label></br>
 			<label>Full Adress</label></br>
-			<textarea rows="5" cols="40"></textarea></br>
+			<textarea name="full_address" rows="5" cols="40"></textarea></br>
 			<input type="submit" value="Submit">
 			</form>
 		
