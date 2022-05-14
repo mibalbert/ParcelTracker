@@ -13,14 +13,17 @@
 	<body>
 		<header>
 			<h1>Home</h1>
-				<a href="/logout">Log out</a>
+
+			{{#if authorised}}
+				<p><a href="/send">Send 📦</a></p>
+				<p><a href="/logout">Log out</a></p>
+			{{else}}
+				<p><a href="/login">Log in</a></p>
+			{{/if}}
 		</header>
 	<main>
 		<p>This is the home page.</p>
-		{{#if authorised}}
-			<p><a href="/send">Send 📦</a></p>
-		{{/if}}
-
+		<p><a href="/home-courier">Home-Courier</a></p>
 
 	</main>
 	

@@ -15,6 +15,18 @@ CREATE TABLE IF NOT EXISTS accounts (
 INSERT INTO accounts(user, pass, role)
 	VALUES("doej", "$2b$10$gL33obKAFUT5DK3pEbh72OIHztsWBniBBh.PdeKOrF1yr5KFAsdZO", "admin");
 
+INSERT INTO accounts(user, pass, role)
+	VALUES("courier1", "$2a$10$cn1SBeTylMQNR6vWSSdAlO4pSv2r2ObOpZngqxSt9tWgYurMZnQia", "courier");
+
+INSERT INTO accounts(user, pass, role)
+	VALUES("courier2", "$2a$10$i2ejgx8v2y.taWzQA0/C/O1e5wEPsFbTwgPIzlbU3z2pDv2iUjPGq", "courier");
+
+INSERT INTO accounts(user, pass, role)
+	VALUES("customer1", "$2a$10$X5T11GyRD5CeCg8YjYBvTO8U1bm.R8Dr.ocK21q/pJ91xqoUsJjuC", "customer");
+
+INSERT INTO accounts(user, pass, role)
+	VALUES("customer2", "$2a$10$i2ejgx8v2y.taWzQA0/C/O1e5wEPsFbTwgPIzlbU3z2pDv2iUjPGq", "customer");
+
 
 DROP TABLE IF EXISTS parcels;
 
