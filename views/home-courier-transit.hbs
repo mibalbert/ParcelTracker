@@ -12,14 +12,20 @@
 	</head>
 	<body>
 		<header>
+
 			<h1>Home</h1>
-				<p><a href="/home-courier-transit">Transit</a></p>
-				<p><a href="/">Home</a></p>
+			<h2>Hi {{authorised}}</h2>
 				<p><a href="/logout">Log out</a></p>
+				<p><a href="/">Home</a></p>
 
 		</header>
 	<main>
-		<p>This is the couriere's home page.</p>
+		<p>Enter the UUID in order to change the status of the parcel:</p>
+		<form action="/home-courier-transit" method="post" enctype="multipart/form-data">
+			<label>Parcel's UUID:<input type="search" name="search"></label>
+			<input type="submit" name="submit">
+		</form>
+		{{!-- {{#if parcels}} --}}
 		<table>
 			<thead>
 				<tr>
@@ -50,9 +56,7 @@
 			{{/each}}
 			</tbody>
 		</table>
-
-
-
+		{{!-- {{/if}} --}}
 	</main>
 	
 	<footer>

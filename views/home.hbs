@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<title>Home Page</title>
 		<meta name="description" content="form to add new books">
-		<meta name="author" content="Mark Tyers">
+		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link href="/style.css" type="text/css" rel="stylesheet" />
 	</head>
@@ -15,16 +15,30 @@
 			<h1>Home</h1>
 
 			{{#if authorised}}
-				<p><a href="/send">Send 📦</a></p>
+				{{#if role.customer}}
+					<p><a href="/send">Send 📦</a></p>
+					<p><a href="/home-customer">Sended</a></p>	
+				{{/if}}
+				{{#if role.courier}}
+					<p><a href="/home-courier">Courrier</a></p>
+					<p><a href="/home-courier-transit">Transit</a></p>
+				{{/if}}
+				{{#if role.admin}}
+					<p><a href="/send">Send 📦</a></p>
+					<p><a href="/home-courier">Courrier</a></p>
+					<p><a href="/home-customer">Sended</a></p>	
+				{{/if}}
 				<p><a href="/logout">Log out</a></p>
 			{{else}}
 				<p><a href="/login">Log in</a></p>
 			{{/if}}
+		
+		
 		</header>
 	<main>
 		<p>This is the home page.</p>
-		<p><a href="/home-courier">Home-Courier</a></p>
 
+		
 	</main>
 	
 	<footer>

@@ -6,7 +6,7 @@ import { Handlebars } from 'handlebars'
 
 import { login, register } from 'accounts'
 import { addParcel } from './modules/send.js'
-import { getParcels } from './modules/retrieve.js'
+import { getParcels,  getParcelsCustomer, setParcelStatus, getParcelsAccepted} from './modules/retrieve.js'
 
 const handle = new Handlebars({ defaultLayout: '' })
 
@@ -16,7 +16,11 @@ const router = new Router()
 // Main homepage - describes the project
 router.get('/', async context => {
 	const authorised = await context.cookies.get('authorised')
-	const data = { authorised }
+	const permission = await context.cookies.get('permission')
+	const role = { customer : permission == 'customer', 
+				  courier : permission == 'courier',
+				  admin : permission == 'admin'}
+	const data = { authorised, role }
 	const body = await handle.renderView('home', data)
 	context.response.body = body
 })
@@ -65,12 +69,12 @@ router.post('/login', async context => {
 	}
 })
 
-
 // Courier home page 
 router.get('/home-courier', async context => {
 	const authorised = await context.cookies.get('authorised')
 	const permission = await context.cookies.get('permission')
-	if (authorised == undefined || permission !== ('courier','admin')) context.response.redirect('/login')
+	const role = permission !== 'courier' && permission !== 'admin'
+	if (authorised == undefined || role) context.response.redirect('/login')
 	const parcels = await getParcels()
 	const data = { authorised, parcels }
 	const body = await handle.renderView('home-courier', data)
@@ -78,25 +82,70 @@ router.get('/home-courier', async context => {
 })
 
 
-// // Customer home page
-// router.get('/home-courier', async context => {
-// 	const authorised = await context.cookies.get('authorised')
-// 	const permission = await context.cookies.get('permission')
-// 	console.log(permission !== 'courier' || permission !== 'admin')
-// 	if (authorised == undefined && permission !== 'courier') context.response.redirect('/login')
-// 	// if (authorised !== undefined && permission == 'courier') context.response.redirect('/home-courier')
-// 	const parcels = await getParcels()
-// 	const data = { authorised, parcels }
-// 	const body = await handle.renderView('home-courier', data)
-// 	context.response.body = body
+// Courier transit page 
+router.get('/home-courier-transit', async context => {
+	console.log('/GET /home-courier-transit')
+	const authorised = await context.cookies.get('authorised')
+	const permission = await context.cookies.get('permission')
+	const role = permission !== 'courier' && permission !== 'admin'
+	if (authorised == undefined || role) context.response.redirect('/login')
+	const parcels = await getParcelsAccepted()
+	const data = { authorised, parcels}
+	const body = await handle.renderView('home-courier-transit', data)
+	context.response.body = body
+})
+
+// Courier POST transit page 
+router.post('/home-courier-transit', async context => {
+	console.log('/POST /home-courier-transit')
+	const body = context.request.body({type: 'form-data'})
+	const data = await body.value.read()
+	await setParcelStatus(data)
+	context.response.redirect('/home-courier-transit')
+})
+
+// Courier delivered parcel input page 
+router.get('/home-courier-receiver-details', async context => {
+	console.log('/GET /home-courier-receiver-details')
+	const authorised = await context.cookies.get('authorised')
+	const permission = await context.cookies.get('permission')
+	const role = permission !== 'courier' && permission !== 'admin'
+	if (authorised == undefined || role) context.response.redirect('/login')
+	// const parcels = await getParcelsAccepted()
+	// const data = { authorised, parcels}
+	const body = await handle.renderView('home-courier-receiver-details')
+	context.response.body = body
+})
+
+// // Courier POST transit page 
+// router.post('/home-courier-receiver-details', async context => {
+// 	console.log('/POST /home-courier-receiver-details')
+// 	const body = context.request.body({type: 'form-data'})
+// 	const data = await body.value.read()
+// 	await setParcelStatus(data)
+// 	context.response.redirect('/home-courier-transit')
 // })
+
+
+// Customer home page
+router.get('/home-customer', async context => {
+	const authorised = await context.cookies.get('authorised')
+	const permission = await context.cookies.get('permission')
+	const role = permission !== 'customer' && permission !== 'admin'
+	if (authorised == undefined || role) context.response.redirect('/login')
+	const parcels = await getParcelsCustomer(authorised)
+	const data = { authorised, parcels }
+	const body = await handle.renderView('home-customer', data)
+	context.response.body = body
+})
 
 // Customer send parcel page
 router.get('/send', async context => {
 	console.log('GET /send')
 	const authorised = context.cookies.get('authorised')
 	const permission = context.cookies.get('permission')
-	if(authorised === undefined) context.response.redirect('/')
+	const role = permission !== 'customer' && permission !== 'admin'
+	if(authorised === undefined || role) context.response.redirect('/')
 	const data = { authorised }
 	const body = await handle.renderView('send', data)
 	context.response.body = body
@@ -108,7 +157,7 @@ router.post('/send', async context =>{
 	const data = await body.value.read()
 	const authorised = context.cookies.get('authorised')
 	const result = await addParcel(data, authorised)
-	context.response.redirect('/')
+	context.response.redirect('/home-customer')
 })
 
 
