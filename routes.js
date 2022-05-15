@@ -129,6 +129,7 @@ router.get('/home-courier-receiver-details', async context => {
 
 // Customer home page
 router.get('/home-customer', async context => {
+	console.log('GET /home-customer')	
 	const authorised = await context.cookies.get('authorised')
 	const permission = await context.cookies.get('permission')
 	const role = permission !== 'customer' && permission !== 'admin'
@@ -141,11 +142,10 @@ router.get('/home-customer', async context => {
 
 // Customer send parcel page
 router.get('/send', async context => {
-	console.log('GET /send')
-	const authorised = context.cookies.get('authorised')
-	const permission = context.cookies.get('permission')
-	const role = permission !== 'customer' && permission !== 'admin'
-	if(authorised === undefined || role) context.response.redirect('/')
+	console.log('GET /send')	
+	const authorised = await context.cookies.get('authorised')
+	const permission = await context.cookies.get('permission')
+	if (authorised == undefined || permission !== 'customer') context.response.redirect('/login')
 	const data = { authorised }
 	const body = await handle.renderView('send', data)
 	context.response.body = body
