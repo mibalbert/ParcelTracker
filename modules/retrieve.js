@@ -12,8 +12,8 @@ export async function getParcels(){
 
 // Retrieve customer sent parcels
 export async function getParcelsCustomer(authorised){
-    const sql = `SELECT * FROM parcels WHERE sender_username = "${authorised}"`
-    const result = await db.query(sql)
+    let sql = `SELECT * FROM parcels WHERE sender_username = "${authorised}"`
+    let result = await db.query(sql)
     // console.log(result)
     return result
 }
@@ -22,15 +22,23 @@ export async function getParcelsCustomer(authorised){
 // Update parcel status
 export async function setParcelStatus(data){
     const uuid = data.fields.search
-    let sql = `UPDATE parcels SET status = "in-transit" WHERE uuid = "${uuid}"`
+    console.log("UUID", uuid)
+    let sql = `SELECT * FROM parcels WHERE uuid = "${uuid}"`
     let result = await db.query(sql)
-    sql = `SELECT * FROM parcels WHERE uuid = "${uuid}"`
-    result = await db.query(sql)
-    // console.log(result)
-    return result
+    if (result[0] !== undefined){
+        if (result[0].status == 'not-dispatched'){
+            sql = `UPDATE parcels SET status = "in-transit" WHERE uuid = "${uuid}"`
+            result = await db.query(sql)
+            
+        }else if(result[0].status == 'in-transit'){
+            sql = `UPDATE parcels SET status = "delivered" WHERE uuid = "${uuid}"`
+            result = await db.query(sql)
+            
+        }
+    }
 }
 
-// Retrieve customer sent parcels
+//Retrieve customer sent parcels
 export async function getParcelsAccepted(){
     const sql = `SELECT * FROM parcels WHERE status = "in-transit"`
     const result = await db.query(sql)

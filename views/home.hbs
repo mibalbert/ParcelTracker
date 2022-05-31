@@ -20,13 +20,13 @@
 					<p><a href="/home-customer">Sended</a></p>	
 				{{/if}}
 				{{#if role.courier}}
-					<p><a href="/home-courier">Courrier</a></p>
+					<p><a href="/home-courier">Packages</a></p>
 					<p><a href="/home-courier-transit">Transit</a></p>
 				{{/if}}
 				{{#if role.admin}}
-					<p><a href="/send">Send 📦</a></p>
+					{{!-- <p><a href="/send">Send 📦</a></p>
 					<p><a href="/home-courier">Courrier</a></p>
-					<p><a href="/home-customer">Sended</a></p>	
+					<p><a href="/home-customer">Sended</a></p>	 --}}
 				{{/if}}
 				<p><a href="/logout">Log out</a></p>
 			{{else}}

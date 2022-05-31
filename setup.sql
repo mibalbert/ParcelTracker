@@ -41,6 +41,9 @@ CREATE TABLE IF NOT EXISTS parcels (
   date_time TIMESTAMP,
   uuid VARCHAR(255) NOT NULL,
   status VARCHAR(45) DEFAULT 'not-dispatched'
+
+
+
 );
 
 -- For testing
@@ -49,22 +52,6 @@ INSERT INTO parcels(sender_postcode, recipient_postcode,
                     sender_username, uuid)
                                                                                       -- Or use the UUID() function
 	VALUES("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "doej", "4fe2dd30-d325-11ec-b8eb-a21261897db1");
-
-
-
--- DROP TABLE IF EXISTS record;
-
--- CREATE TABLE IF NOT EXISTS record (
---   id MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
---   sender_postcode VARCHAR(25) NOT NULL,
---   recipient_postcode VARCHAR(25) NOT NULL,
---   weight_kg INT(5),
---   recipient_name VARCHAR(255),
---   full_address VARCHAR(512),
---   sender_username VARCHAR(255),
---   date_time TIMESTAMP,
---   uuid VARCHAR(255) NOT NULL
--- );
 
 
 
