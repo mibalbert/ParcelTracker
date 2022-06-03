@@ -1,7 +1,7 @@
 
 /* retrieve.js */
 
-import { db } from 'db'
+import { db } from './db.js'
 
 export async function getParcels(){
     const sql = `SELECT * FROM parcels`
@@ -19,6 +19,8 @@ export async function getParcelsCustomer(authorised){
 }
 
 
+
+
 // Update parcel status
 export async function setParcelStatus(data){
     const uuid = data.fields.search
@@ -29,13 +31,15 @@ export async function setParcelStatus(data){
         if (result[0].status == 'not-dispatched'){
             sql = `UPDATE parcels SET status = "in-transit" WHERE uuid = "${uuid}"`
             result = await db.query(sql)
-            
+            return 'green'
         }else if(result[0].status == 'in-transit'){
             sql = `UPDATE parcels SET status = "delivered" WHERE uuid = "${uuid}"`
             result = await db.query(sql)
-            
+            return 'yellow'
         }
-    }
+    } 
+    console.log('Wrong uuid bby!')
+    return 'red'
 }
 
 //Retrieve customer sent parcels

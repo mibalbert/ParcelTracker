@@ -22,12 +22,21 @@
 		</header>
         <main>
             <p>Enter the UUID in order to change the status of the parcel:</p>
+            
+
+            <p id="alert"></p>
+            
+            <label>Parcel's UUID:</label>
             <form action="/home-courier-transit" method="post" enctype="multipart/form-data">
-                <label>Parcel's UUID:<input type="search" name="search" value="{{uuid}}"></label>
+                <input type="search" name="search" id="search" >
                 <input type="submit" name="submit">
             </form>
-            <section class="section"></section>
-            <p id="red"></p>
+            <p id="diss">SAHDOSOIDAOIJD</p>
+
+            {{#if alert}}
+                <p id="alert">THIS IS AN ALERT!</p>
+            {{/if}}
+
             <table>
                 <thead>
                     <tr>
@@ -60,7 +69,6 @@
             </table>
         </main>        
         <footer>
-            <hr />
             <p>This is the footer</p>
         </footer>
 	</body>

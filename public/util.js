@@ -1,55 +1,24 @@
 
 /* util.js */
 
-impoer { setParcelStatus } from '../modules/retrieve.js'
+
+// const green = document.createElement('p')
+// green.setAttribute('id','green')
+// const greentext = document.createTextNode('THIS IS THE GREEN ALERT!')
+// green.append(greentext)
+// const alert = document.getElementById('alert')
+// alert.appendChild(green)
+setTimeout( function(){
+	const elem = document.getElementById('diss')
+	elem.remove()
+	// elem.style.display = 'none' 
+	} , 3000)
 
 
-window.addEventListener('DOMContentLoaded', event => {
-	console.log('DOMCONTENTLOADED')
-
-	const slider = document.querySelector('input[name=slider]')
-	const slider_val = document.querySelector('[name=slider_value]')
-	slider.addEventListener('input', event => {
-		// console.log('CHANGE')
-		slider_val.value = slider.value
-	})
-
-addEventListener....keyup, set
-
-})
-
-async function set(){
-
-	const input = document.querySelector('input[name=input]')
-	const result = await setParcelStatus()
-	if(result =='green'){
-		createElement....
-	}else{
-
-	}
-
-}
-
-
-//Slider showing dynamic digits
-
-
-// const red = document.createElement('p')
-// red.innerHTML = 'IT SAYS GREEN!' 
-
-// sec.append(red)
-
-// export function file2DataURI(file) {
-//   return new Promise((resolve, reject) => {
-// 		try {
-// 			const reader = new FileReader()
-// 			reader.onload = () => {
-// 				resolve(reader.result)
-// 			}
-// 			reader.readAsDataURL(file)
-// 		} catch(err) {
-// 			reject(err)
-// 		}
-//   })
-// }
+// const slider = document.querySelector('input[name=slider]')
+// const slider_val = document.querySelector('[name=slider_value]')
+// slider.addEventListener('input', event => {
+// 	// console.log('CHANGE')
+// 	slider_val.value = slider.value
+// })
 
