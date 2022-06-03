@@ -7,14 +7,24 @@
     font-family :'Libre Franklin', sans-serif;
 }
 
+
 body {
     font-family: 'Libre Franklin', 'Arial Narrow', Arial, sans-serif;
+    display: block;
 }
 
+main {
+    height: 70vh;
+    width: 99vw;
+}
 
 h1 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 40px;
+}
+
+footer {
+    padding: 10px;
 }
 
 

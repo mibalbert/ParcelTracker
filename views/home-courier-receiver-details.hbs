@@ -1,0 +1,33 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Home Page</title>
+		<meta name="description" content="form to add new books">
+		<meta name="author" content="Alberto Paros">
+		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		<header>
+			<h1>Details</h1>
+			<h2>Hi {{authorised}}</h2>
+				<p><a href="/logout">Log out</a></p>
+				<p><a href="/">Home</a></p>
+		</header>
+	<main>
+		<p>Details of recipient:</p>
+		<form action="/home-courier-receiver-details" method="post" enctype="multipart/form-data">
+			<label>Recipient's name:<input type="text" name="recip-name"></label>
+			<label>Recipient's signature:<input type="text" name="recip-sign"></label>
+			<input type="submit" name="Submit">
+		</form>
+	</main>
+	<footer>
+		<p>This is the footer</p>
+	</footer>
+	</body>
+	
+</html>
