@@ -23,18 +23,14 @@
         <main>
             <p>Enter the UUID in order to change the status of the parcel:</p>
             
-
-            <p id="alert"></p>
-            
             <label>Parcel's UUID:</label>
             <form action="/home-courier-transit" method="post" enctype="multipart/form-data">
                 <input type="search" name="search" id="search" >
                 <input type="submit" name="submit">
             </form>
-            <p id="diss">SAHDOSOIDAOIJD</p>
 
             {{#if alert}}
-                <p id="alert">THIS IS AN ALERT!</p>
+                <p id="alert">{{alert}}</p>
             {{/if}}
 
             <table>

@@ -20,7 +20,6 @@ export async function getParcelsCustomer(authorised){
 
 
 
-
 // Update parcel status
 export async function setParcelStatus(data){
     const uuid = data.fields.search
@@ -35,10 +34,9 @@ export async function setParcelStatus(data){
         }else if(result[0].status == 'in-transit'){
             sql = `UPDATE parcels SET status = "delivered" WHERE uuid = "${uuid}"`
             result = await db.query(sql)
-            return 'yellow'
+            return 'blue'
         }
     } 
-    console.log('Wrong uuid bby!')
     return 'red'
 }
 
