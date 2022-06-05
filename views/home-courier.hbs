@@ -9,6 +9,7 @@
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link href="/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="util.js"></script>
 	</head>
 	<body>
 		<header>
@@ -29,7 +30,7 @@
 					<th>Recipient Name</th>
 					<th>Full Adress</th>
 					<th>Sender Username</th>
-					<th>Date and Time</th>
+					<th>Date Posted</th>
 					<th>Unique ID</th>
 					<th>Status</th>
 				</tr>
@@ -43,18 +44,14 @@
 					<td>{{this.recipient_name}}</td>
 					<td>{{this.full_address}}</td>
 					<td>{{this.sender_username}}</td>
-					<td>{{this.date_time}}</td>
+					<td>{{this.date_time_created}}</td>
 					<td>{{this.uuid}}</td>
 					<td>{{this.status}}</td>
 				</tr>		
 			{{/each}}
 			</tbody>
 		</table>
-
-
-
 	</main>
-	
 	<footer>
 		<p>This is the footer</p>
 	</footer>

@@ -1,98 +1,55 @@
 
 /* util.js */
 
-
-// const green = document.createElement('p')
-// green.setAttribute('id','green')
-// const greentext = document.createTextNode('THIS IS THE GREEN ALERT!')
-// green.append(greentext)
-// const alert = document.getElementById('alert')
-// alert.appendChild(green)
-setTimeout( function(){
-	const elem = document.getElementById('alert')
-	elem.remove()
-	// elem.style.display = 'none' 
-	} , 3000)
-
-
-// const slider = document.querySelector('input[name=slider]')
-// const slider_val = document.querySelector('[name=slider_value]')
-// slider.addEventListener('input', event => {
-// 	// console.log('CHANGE')
-// 	slider_val.value = slider.value
-// })
-
-
 window.addEventListener('DOMContentLoaded', event => {
 	console.log('DOM CONTENT LOADED')
-	// document.querySelector('form').addEventListener('submit', submitData)
+	if (document.getElementById('alert')){
+		const elem = document.getElementById('alert')
+		if (elem.innerHTML == "Sorry, you inputed a wrong uuid!") {
+			elem.style.color = 'red'
+		} else if (elem.innerHTML == "You've added a parcel to deliver!") {
+			elem.style.color = 'green'}
+		setTimeout( function(){
+				elem.remove()
+			// elem.style.display = 'none' 
+			} , 2000)
+	}
+	// if (document.getElementById('time')){
+	// 	const time = document.getElementById('time') 
+	// 	const s = time.map( el => {el.style.color = 'red'})
+	// 	// const resu = time.map
+	// 	// console.log(time.innerHTML)
+	// 	//  = time.innerHTML.toDateString()
+
+
+	// } 
 })
 
-// async function submitData(event) {
-// 	console.log('FORM SUBMITTED!')
-// 	data = event.target.querySelector('input[name="search"]').value
-// 	console.log(data)
-// 	const json = await apiCall(data)
-// 	console.log(json)
+
+
+    // date_time.forEach(element => {
+    //     const date = element.toDateString();
+    //     const time = element.toLocaleTimeString();
+    //     date_time_formated.push(date + time)
+    // })
+    
+
+    // const result2 = result.map(elem =>{
+        
+    //     const sd  = elem.date_time_created
+    //     const dd = sd.toDateString()
+    //     console.log(dd) 
+    //     // .toDateString();
+    //     // const time = element.toLocaleTimeString();    
+    // })
+    // console.log(date_time_formated)
+    // console.log(result.date_time_created)
+    
+
+
+
+//// Add this one for the signature route
+// if (elem.innerHTML == 'The parcel is beeing delivered now') {
+// 	elem.style.color = 'green'
+// 	console.log("THE INNER HTML IS REEDDDD")
 // }
-
-// async function apiCall(data) {
-// 	console.log('MAKING API POST REQUEST')
-// 	const url = 'https://julietgarage-secondpackage-8080.codio-box.uk/home-courier-transit'
-	
-// 	try {
-// 		const response = await fetch(url, { method: 'POST', // or 'PUT'
-// 								            headers: {
-// 									                'Content-Type': 'application/json',
-// 								                },
-// 								            body: JSON.stringify(data),
-// 								         })
-// 		if(!response.ok) throw new Error('unable to make API call')
-// 		return response.json()
-// 	} catch(err) {
-// 		console.log(`ERROR: ${err.message}`)
-// 	}
-// }
-
-
-
-
-
-
-
-// 	event.preventDefault()
-// 	console.log(event.target)
-// 	const data = {
-//     	uuid: ''
-//   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const config = {
-	// 	method: 'POST',
-	// 	body: JSON.stringify(data),
-	// 	mode: 'no-cors'
-	// }
-	// try {
-	// 	const response = await fetch(url)
-	// 	if(!response.ok) throw new Error('unable to make API call')
-	// 	return response.json()
-	// } catch(err) {
-	// 	console.log(`ERROR: ${err.message}`)
-	// }
-
-	// const data = { username: 'example' };
-
-	

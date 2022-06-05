@@ -38,20 +38,26 @@ CREATE TABLE IF NOT EXISTS parcels (
   recipient_name VARCHAR(255),
   full_address VARCHAR(512),
   sender_username VARCHAR(255),
-  date_time TIMESTAMP,
+  date_time_created DATETIME,
+  date_time_in_transit DATETIME,
+  date_time_delivered DATETIME,
   uuid VARCHAR(255) NOT NULL,
-  status VARCHAR(45) DEFAULT 'not-dispatched'
-
-
-
+  status VARCHAR(45) DEFAULT 'not-dispatched',
+  -- Change Later
+  courier_name VARCHAR(255),
+  recip_name VARCHAR(255),
+  recip_signature VARCHAR(255),
+  coordinate_x DECIMAL(11,7),
+  coordinate_y DECIMAL(11,7)  
 );
+
 
 -- For testing
 INSERT INTO parcels(sender_postcode, recipient_postcode,
                     weight_kg, recipient_name, full_address,
-                    sender_username, uuid)
+                    sender_username, date_time_created, uuid)
                                                                                       -- Or use the UUID() function
-	VALUES("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "doej", "4fe2dd30-d325-11ec-b8eb-a21261897db1");
+	VALUES("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-05 03:43:51", "4fe2dd30-d325-11ec-b8eb-a21261897db1");
 
 
 
