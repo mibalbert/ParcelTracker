@@ -12,17 +12,9 @@ window.addEventListener('DOMContentLoaded', event => {
 		setTimeout( function(){
 				elem.remove()
 			// elem.style.display = 'none' 
-			} , 2000)
+			} , 1500)
 	}
-	// if (document.getElementById('time')){
-	// 	const time = document.getElementById('time') 
-	// 	const s = time.map( el => {el.style.color = 'red'})
-	// 	// const resu = time.map
-	// 	// console.log(time.innerHTML)
-	// 	//  = time.innerHTML.toDateString()
-
-
-	// } 
+	
 })
 
 

@@ -1,3 +1,7 @@
+# Reference
+
+This project is based on a given template ( basic MVC + 2 routes & login + register system ) 
+
 # Getting Started
 
 This template is designed to be installed inside a Codio box. To to this, open the terminal and run the following command:

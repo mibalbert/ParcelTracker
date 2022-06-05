@@ -4,7 +4,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Home Page</title>
+		<title>Transit page</title>
 		<meta name="description" content="form to add new books">
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
@@ -14,7 +14,7 @@
     </head>
 	<body>
 		<header>
-			<h1>Home</h1>
+			<h1>Transit page</h1>
 			<h2>Hi {{authorised}}</h2>
             <p><a href="/home-courier">Packages</a></p>
             <p><a href="/logout">Log out</a></p>
@@ -23,7 +23,7 @@
         <main>
             <p>Enter the UUID in order to change the status of the parcel:</p>
             
-            <label>Parcel's UUID:</label>
+            <label>Search for parcels (UUID):</label>
             <form action="/home-courier-transit" method="post" enctype="multipart/form-data">
                 <input type="search" name="search" id="search" >
                 <input type="submit" name="submit">
@@ -36,6 +36,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Sender PostCode</th>
                         <th>Recipient PostCode</th>
                         <th>Weight</th>
@@ -50,13 +51,14 @@
                 <tbody>
                 {{#each parcels}}
                     <tr>
+                        <td><span class="emoji">📦</span></td>
                         <td>{{this.sender_postcode}}</td>
                         <td>{{this.recipient_postcode}}</td>
                         <td>{{this.weight_kg}}</td>
                         <td>{{this.recipient_name}}</td>
                         <td>{{this.full_address}}</td>
                         <td>{{this.sender_username}}</td>
-                        <td>{{this.date_time}}</td>
+                        <td>{{{lol this.date_time_in_transit}}}</td>
                         <td>{{this.uuid}}</td>
                         <td>{{this.status}}</td>
                     </tr>		
