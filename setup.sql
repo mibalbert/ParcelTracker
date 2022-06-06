@@ -49,8 +49,12 @@ CREATE TABLE IF NOT EXISTS parcels (
   courier_name VARCHAR(255),
   recip_name VARCHAR(255),
   recip_signature VARCHAR(255),
-  coordinate_x DECIMAL(11,7),
-  coordinate_y DECIMAL(11,7)  
+  coordinate_dep_lat DECIMAL(11,7),
+  coordinate_dep_lng DECIMAL(11,7),
+  coordinate_arriv_lat DECIMAL(11,7),
+  coordinate_arriv_lng DECIMAL(11,7),
+  coordinate_actual_arriv_lat DECIMAL(11,7),
+  coordinate_actual_arriv_lng DECIMAL(11,7) 
 );
 
 --  NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -61,8 +65,10 @@ INSERT INTO parcels(sender_postcode, recipient_postcode,
                     weight_kg, recipient_name, full_address,
                     sender_username, date_time_created, date_time_in_transit, date_time_delivered, uuid)
                                              
-	VALUES("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-05 23:51:51", "2022-06-04 13:43:43", "2022-06-03 03:03:03", UUID()),
-        ("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-05 23:51:51", "2022-06-04 13:43:43", "2022-06-03 03:03:03", UUID()),
-        ("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-05 23:51:51", "2022-06-04 13:43:43", "2022-06-03 03:03:03", UUID()),
-        ("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-05 23:51:51", "2022-06-04 13:43:43", "2022-06-03 03:03:03", UUID());
+	VALUES("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-06 00:51:51", null, null, UUID()),
+        ("CV1 4JS", "CV1 5FB", 20, "Johny Doing", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-06 01:51:51", null, null, UUID()),
+        ("CV1 4JS", "CV1 5FB", 20, "Johny Dogs", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-05 01:51:51", null, null, UUID()),
+        ("CV1 4JS", "CV1 5FB", 20, "Luthor James", "Priory St, Coventry CV1 5FB", "customer2", "2022-06-05 01:51:51", null, null, UUID()),
+        ("CV2 2AW", "CV1 5FB", 11, "Mark Spencer", "Priory St, Coventry CV1 5FB", "customer2", "2022-06-04 05:51:51", null, null, UUID()),
+        ("CV1 1VS", "CV1 5FB", 15, "John Ventura", "Priory St, Coventry CV1 5FB", "customer2", "2022-06-03 10:51:51", null, null, UUID());
 

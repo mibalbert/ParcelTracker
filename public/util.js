@@ -22,34 +22,9 @@ window.addEventListener('DOMContentLoaded', event => {
 			// elem.style.display = 'none' 
 			} , 2000)
 	}
-	
+
+
 })
 
 
 
-    // date_time.forEach(element => {
-    //     const date = element.toDateString();
-    //     const time = element.toLocaleTimeString();
-    //     date_time_formated.push(date + time)
-    // })
-    
-
-    // const result2 = result.map(elem =>{
-        
-    //     const sd  = elem.date_time_created
-    //     const dd = sd.toDateString()
-    //     console.log(dd) 
-    //     // .toDateString();
-    //     // const time = element.toLocaleTimeString();    
-    // })
-    // console.log(date_time_formated)
-    // console.log(result.date_time_created)
-    
-
-
-
-//// Add this one for the signature route
-// if (elem.innerHTML == 'The parcel is beeing delivered now') {
-// 	elem.style.color = 'green'
-// 	console.log("THE INNER HTML IS REEDDDD")
-// }

@@ -23,7 +23,7 @@
         <main>
             <p>Enter the UUID in order to change the status of the parcel:</p>
             
-            <label>Search for parcels (UUID):</label>
+            <label>Accept parcel by entering the UUID:</label>
             <form action="/home-courier-transit" method="post" enctype="multipart/form-data">
                 <input type="search" name="search" id="search" >
                 <input type="submit" name="submit">
@@ -43,7 +43,8 @@
                         <th>Recipient Name</th>
                         <th>Full Adress</th>
                         <th>Sender Username</th>
-                        <th>Date and Time</th>
+                        <th>Date-Time Created</th>
+                        <th>Date-Time Accepted</th>
                         <th>Unique ID</th>
                         <th>Status</th>
                     </tr>
@@ -58,6 +59,7 @@
                         <td>{{this.recipient_name}}</td>
                         <td>{{this.full_address}}</td>
                         <td>{{this.sender_username}}</td>
+                        <td>{{{lol this.date_time_created}}}</td>
                         <td>{{{lol this.date_time_in_transit}}}</td>
                         <td>{{this.uuid}}</td>
                         <td>{{this.status}}</td>

@@ -1,0 +1,137 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Parcel Details</title>
+		<meta name="description" content="Individual parcel details">
+		<meta name="author" content="Alberto Paros">
+		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script type="module/javascript" src="./geo-maps.js" defer></script>
+	</head>
+	<body>
+		<header>
+			<h1>Parcel Details</h1>
+			{{#if authorised}}
+				{{#if role.customer}}
+					<p><a href="/send">Send 📦</a></p>
+					<p><a href="/home-customer">Sended</a></p>	
+				{{/if}}
+				{{#if role.courier}}
+					<p><a href="/home-courier-p">Packages</a></p>
+					<p><a href="/home-courier-transit">Transit</a></p>
+				{{/if}}
+				{{#if role.admin}}
+					<p><a href="/home-admin-c">Couriers List</a></p>
+					<p><a href="/home-admin-p">Parcels List</a></p>	
+				{{/if}}
+					<p><a href="/logout">Log out</a></p>
+			{{else}}
+				<p><a href="/login">Log in</a></p>
+			{{/if}}
+		</header>
+	<main>
+		
+		{{!-- <p ></p> --}}
+		{{!-- <span id="lat"></span> <span id="lng"></span> --}}
+			{{!-- <p style="font-size:22px">
+				<strong>
+				
+				</strong> --}}
+			{{!-- </p> --}}
+		
+		
+		<div id="wrapper">
+			<div id="left"><strong>🗺️ Destination</strong></div>
+			<div id="right">
+				
+				{{#each parcels}}
+					<span><strong>{{this.status}}</strong></span>
+				{{/each}}
+			</div>
+		</div>
+
+		<div id="map"></div>
+
+		<p>Full Parcel details.</p>
+
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Sender Username</th>
+					<th>Sender PostCode</th>
+					<th>Recipient PostCode</th>
+					<th>Weight</th>
+					<th>Recipient Name</th>
+					<th>Full Adress</th>
+					<th>Date Posted</th>
+					<th>Date Transit</th>
+					<th>Date Delivered</th>
+					<th>Unique ID</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+			{{#each parcels}}
+				<tr>
+					<td><span class="emoji">📦</span></td>
+					<td>{{this.sender_username}}</td>
+					<td>{{this.sender_postcode}}</td>
+					<td id="postcode">{{this.recipient_postcode}}</td>
+					<td>{{this.weight_kg}}</td>
+					<td>{{this.recipient_name}}</td>
+					<td>{{this.full_address}}</td>
+					<td>{{{lol this.date_time_created}}}</td>
+					<td>{{{lol this.date_time_in_transit}}}</td>
+					<td>{{{lol this.date_time_delivered}}}</td>
+					<td>{{this.uuid}}</td>
+					<td>{{this.status}}</td>
+				</tr>		
+			{{/each}}
+			</tbody>
+		</table>
+	</main>
+	<footer>
+		<p>This is the footer</p>
+	</footer>
+	
+		<script>
+
+			///IDK why I can't import this script from 'public' as a module...
+
+			//Thx to https://www.youtube.com/watch?v=pRiQeo17u6c&ab_channel=TraversyMedia
+			
+			///Display Marker based on found lat & long of PostCode
+			async function initMap() {
+
+			const location = { lat: 52.40533079999999, lng: -1.500054 };
+			const map = new google.maps.Map(document.getElementById("map"), {
+				zoom: 12,
+				center: location,
+			});
+			const marker = new google.maps.Marker({
+				position: location,
+				map: map,
+			});
+			}
+
+			window.initMap = initMap;
+		</script>
+
+
+	  <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&callback=initMap&v=weekly"
+      defer
+      ></script>
+	
+	
+	</body>
+
+	
+</html>

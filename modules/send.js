@@ -18,7 +18,36 @@ export async function addParcel(data, authorised){
     return 1
 }
 
+////////get geolocation of POSTCODE before inserting into db
 
+	///First get the Postcode of the parcel
+	// const postcode = document.getElementById('postcode').innerHTML
+	// //const postcode = "SW1A 1AA"
+	// console.log(postcode)
+
+	// const lat = document.getElementById('lat')
+	// const lng = document.getElementById('lng')
+	// ///Function to retrieve lat & long based on Postcode
+	// function geoCode(){
+	// 	axios.get("https://maps.googleapis.com/maps/api/geocode/json",{
+	// 		params: {
+	// 			address : postcode,
+	// 			key: "AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU"
+	// 		}
+	// 	}).then(function(response){
+	// 		//console.log(response)
+	// 		//console.log(response.data.results[0].geometry.location.lat)
+	// 		//console.log(response.data.results[0].geometry.location.lng)
+	// 		//const lat = document.getElementById('lat')
+	// 		//const lng = document.getElementById('lng')
+	// 		lat.innerHTML = response.data.results[0].geometry.location.lat
+	// 		lat.value = response.data.results[0].geometry.location.lat
+	// 		lng.innerHTML = response.data.results[0].geometry.location.lng
+	// }).catch(function(errors){
+	// 	console.log(errors)
+	// })}
+
+	// geoCode()
 
 
 

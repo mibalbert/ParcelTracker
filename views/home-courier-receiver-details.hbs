@@ -9,7 +9,7 @@
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		<script type="module/javascript" src="util.js" defer></script>
+		<script type="module/javascript" src="geo-maps.js" defer></script>
 	</head>
 	<body>
 		<header>
@@ -27,8 +27,42 @@
 			<form action="/home-courier-receiver-details/{{uuid}}" method="POST" enctype="multipart/form-data">
 				<label>Recipient's name:<input type="text" name="accepted_by"></label>
 				<label>Recipient's signature:<input type="text" name="signature"></label>
+				<input type="hidden" id="latitude" name="latitude">
+				<input type="hidden" id="longitude" name="longitude">
+				<input type="hidden" id="precission_off" name="precission_off">
 				<input type="submit" name="Submit">
 			</form>
+
+			<p id="demo"></p>
+			<script>
+				const latitude = document.getElementById("latitude");
+				const longitude = document.getElementById("longitude");
+				const precission_off = document.getElementById("precission_off");
+				var options = {
+				enableHighAccuracy: true,
+				timeout: 5000,
+				maximumAge: 0
+				};
+
+				function success(pos) {
+				var crd = pos.coords;
+				latitude.value = crd.latitude
+				longitude.value = crd.longitude
+				precission_off.value = crd.accuracy
+
+				//console.log('Your current position is:');
+				//console.log(`Latitude : ${crd.latitude}`);
+				//console.log(`Longitude: ${crd.longitude}`);
+				//console.log(`More or less ${crd.accuracy} meters.`);
+				}
+
+				function error(err) {
+				console.warn(`ERROR(${err.code}): ${err.message}`);
+				}
+
+				navigator.geolocation.getCurrentPosition(success, error, options);
+
+			</script>
 
 		</main>
 		<footer>
