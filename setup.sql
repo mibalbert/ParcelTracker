@@ -30,6 +30,8 @@ INSERT INTO accounts(user, pass, role)
 
 DROP TABLE IF EXISTS parcels;
 
+
+-- Not the best or prettiest but it does the job
 CREATE TABLE IF NOT EXISTS parcels (
   id MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   sender_postcode VARCHAR(25) NOT NULL,
@@ -51,18 +53,16 @@ CREATE TABLE IF NOT EXISTS parcels (
   coordinate_y DECIMAL(11,7)  
 );
 
+--  NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 -- For testing
+-- Customer1 - not-dispatched
 INSERT INTO parcels(sender_postcode, recipient_postcode,
                     weight_kg, recipient_name, full_address,
-                    sender_username, date_time_created, uuid)
-                                                                                      -- Or use the UUID() function
-	VALUES("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-05 03:43:51", "4fe2dd30-d325-11ec-b8eb-a21261897db1");
-
-
-
-
-
-
-
+                    sender_username, date_time_created, date_time_in_transit, date_time_delivered, uuid)
+                                             
+	VALUES("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-05 23:51:51", "2022-06-04 13:43:43", "2022-06-03 03:03:03", UUID()),
+        ("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-05 23:51:51", "2022-06-04 13:43:43", "2022-06-03 03:03:03", UUID()),
+        ("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-05 23:51:51", "2022-06-04 13:43:43", "2022-06-03 03:03:03", UUID()),
+        ("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-05 23:51:51", "2022-06-04 13:43:43", "2022-06-03 03:03:03", UUID());
 

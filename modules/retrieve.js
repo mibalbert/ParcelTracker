@@ -14,34 +14,52 @@ export async function getAllCouriers(){
 
 //Show on admin's page 
 export async function getCourierIndividual(courier){
-    const result = await db.query(`SELECT * FROM parcels WHERE courier_name = ? ORDER BY status DESC`, [courier])
+    const result = await db.query('SELECT * FROM parcels WHERE courier_name = ? ORDER BY status DESC, date_time_created DESC', [courier])
     // console.log(result)
     return result
 }
 
-//Show on courier's page 
+//Show on admin's home page 
+export async function getAllParcels(){
+    const data = await db.query('SELECT * FROM parcels ORDER BY status DESC, date_time_created DESC')
+    const result = data.map(obj => {
+            return {...obj, date_time_created: obj.date_time_created.toDateString() + " " + obj.date_time_created.toLocaleTimeString()}
+        }) //Changes the displayed date format
+    return result
+}
+
+
+//Show on courier's home page 
 export async function getParcels(){
-    const sql = 'SELECT * FROM parcels ORDER BY status DESC'
-    const dbresult = await db.query(sql)
-    const result = dbresult.map(obj => {
-        return {...obj, date_time_created: obj.date_time_created.toDateString() + " " + obj.date_time_created.toLocaleTimeString()}
-    })
-    // console.log(result)
+    const data = await db.query('SELECT * FROM parcels WHERE status="in-transit" OR status="not-dispatched"  ORDER BY status DESC, date_time_created DESC')
+    const result = data.map(obj => {
+            return {...obj, date_time_created: obj.date_time_created.toDateString() + " " + obj.date_time_created.toLocaleTimeString()}
+        }) //Changes the displayed date format
     return result
 }
 
 //Retrieve courier's "accepted" parcels
 export async function getParcelsAccepted(courier){
-    const data = await db.query(`SELECT * FROM parcels WHERE status = "in-transit" AND courier_name = ?`,[courier])
-    const result = data.map(obj => {
-        return {...obj, date_time_in_transit: obj.date_time_created.toDateString() + " " + obj.date_time_created.toLocaleTimeString()}
-    })
+    const result = await db.query('SELECT * FROM parcels WHERE status = "in-transit" AND courier_name = ?',[courier])
+    // const result = await pretiDateTime(data)
     return result
 }
 
 // Retrieve customer sent parcels
 export async function getParcelsCustomer(authorised){
-    const result = await db.query('SELECT * FROM parcels WHERE sender_username = ?',[authorised])
-    // console.log(result)
+    const result = await db.query('SELECT * FROM parcels WHERE sender_username = ? ORDER BY status DESC, date_time_created DESC',[authorised])
+    // const result = await pretiDateTime(data)
     return result
 }
+
+
+// function pretiDateTime(data){
+//     const result = data.map(obj => {
+//         if (obj!=null){
+//             return {...obj, date_time_created: obj.date_time_created.toDateString() + " " + obj.date_time_created.toLocaleTimeString(),
+//                                     date_time_in_transit: obj.date_time_in_transit.toDateString() + " " + obj.date_time_in_transit.toLocaleTimeString(),
+//                                     date_time_delivered: obj.date_time_delivered.toDateString() + " " + obj.date_time_delivered.toLocaleTimeString()
+//                 }
+//         })
+//     return result
+// }

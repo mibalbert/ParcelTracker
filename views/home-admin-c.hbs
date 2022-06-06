@@ -22,6 +22,7 @@
 		<p>This is the Admin's page displaying couriers.</p>
 		<table>
 			<thead>
+					<th></th>
 					<th>Courier</th>
 					<th>Parcels</th>
 				</tr>
@@ -29,6 +30,7 @@
 			<tbody>
 			{{#each couriers}}
 				<tr>
+					<td><span class="emoji">📦</span></td>
 					<td><a href="home-admin-c-indiv/{{this.courier_name}}">{{this.courier_name}}</a></td>
 					<td>{{this.parcels}}</td>
 				</tr>	

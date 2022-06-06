@@ -8,7 +8,7 @@ import { Handlebars } from 'handlebars'
 
 import { login, register } from 'accounts'
 import { addParcel } from './modules/send.js'
-import { getCourierIndividual, getAllCouriers, getParcels,  getParcelsCustomer, getParcelsAccepted } from './modules/retrieve.js'
+import { getCourierIndividual, getAllCouriers, getAllParcels, getParcels,  getParcelsCustomer, getParcelsAccepted } from './modules/retrieve.js'
 import { setParcelStatus, setParcelStatusDelivered } from './modules/update.js'
 
 const handle = new Handlebars({ 
@@ -153,7 +153,7 @@ router.get('/home-admin-p', async context => {
 	const permission = await context.cookies.get('permission')
 	const role = permission !== 'admin'
 	if (authorised == undefined || role) context.response.redirect('/login')
-	const parcels = await getParcels()
+	const parcels = await getAllParcels()
 	// console.log(parcels)
 	const data = { authorised, parcels }
 	const body = await handle.renderView('home-admin-p', data)
@@ -177,8 +177,8 @@ router.get('/home-admin-p', async context => {
 // )
 
 // Courier home page 
-router.get('/home-courier', async context => {
-	console.log('/GET /home-courier')
+router.get('/home-courier-p', async context => {
+	console.log('/GET /home-courier-p')
 	const authorised = await context.cookies.get('authorised')
 	const permission = await context.cookies.get('permission')
 	const role = permission !== 'courier' && permission !== 'admin'
@@ -186,7 +186,7 @@ router.get('/home-courier', async context => {
 	const parcels = await getParcels()
 	// console.log(parcels)
 	const data = { authorised, parcels }
-	const body = await handle.renderView('home-courier', data)
+	const body = await handle.renderView('home-courier-p', data)
 	context.response.body = body
 })
 
@@ -205,7 +205,7 @@ router.get('/home-courier-transit', async context => {
 
 // Courier POST transit page 
 router.post('/home-courier-transit', async context => {
-	// console.log('/POST /home-courier-transit')
+	console.log('/POST /home-courier-transit')
 	const authorised = await context.cookies.get('authorised')
 	let body = context.request.body({type: 'form-data'})
 	let data = await body.value.read()

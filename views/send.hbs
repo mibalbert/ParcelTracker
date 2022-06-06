@@ -4,8 +4,8 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Home Page</title>
-		<meta name="description" content="form to add new books">
+		<title>Send Parcel Page</title>
+		<meta name="description" content="form to add new parcel">
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link href="/style.css" type="text/css" rel="stylesheet" />
@@ -14,13 +14,13 @@
 	<body>
 		<header>
 		<h1>Send parcel 📦</h1>
-		<a href="/logout">Log out</a>
+		<p><a href="/">Home page</a></p>
+		<p><a href="/logout">Log out</a></p>
 		</header>
 		<main>
-		<p><a href="/">Home page</a></p>
-		{{#if authorised}}
-		<p>Logged in as <strong>{{authorised}}</strong></p>
-		{{/if}}
+
+		<p>Hello <strong>{{authorised}}</strong></p>
+
 		<form action="/send" method="post" enctype="multipart/form-data">
 			<label>Origin Postcode<input type="text" name="sender_postcode" maxlength="10" required></label></br>
 			<label>Destination Postcode<input type="text" name="recipient_postcode" maxlength="10" required></label></br>
