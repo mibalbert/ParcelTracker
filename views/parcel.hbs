@@ -10,9 +10,8 @@
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-		<script type="module/javascript" src="./geo-maps.js" defer></script>
+		{{!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> --}}
+		{{!-- <script type="module/javascript" src="geo-maps.js" defer></script> --}}
 	</head>
 	<body>
 		<header>
@@ -83,7 +82,7 @@
 					<td><span class="emoji">📦</span></td>
 					<td>{{this.sender_username}}</td>
 					<td>{{this.sender_postcode}}</td>
-					<td id="postcode">{{this.recipient_postcode}}</td>
+					<td>{{this.recipient_postcode}}</td>
 					<td>{{this.weight_kg}}</td>
 					<td>{{this.recipient_name}}</td>
 					<td>{{this.full_address}}</td>
@@ -91,7 +90,10 @@
 					<td>{{{lol this.date_time_in_transit}}}</td>
 					<td>{{{lol this.date_time_delivered}}}</td>
 					<td>{{this.uuid}}</td>
-					<td>{{this.status}}</td>
+					<td style="display:none" id="snd_lat">{{this.snd_lat}}</td>
+                    <td style="display:none" id="snd_lng">{{this.snd_lng}}</td>
+                    <td style="display:none" id="rcv_lat">{{this.rcv_lat}}</td>
+                    <td style="display:none" id="rcv_lng">{{this.rcv_lng}}</td>
 				</tr>		
 			{{/each}}
 			</tbody>
@@ -101,25 +103,58 @@
 		<p>This is the footer</p>
 	</footer>
 	
-		<script>
+		<script defer>
 
-			///IDK why I can't import this script from 'public' as a module...
+			//var geocoder;
+	
+			const sender_lat = document.getElementById('snd_lat')	
+			const sender_lng = document.getElementById('snd_lng')
+            const s_lat = sender_lat.innerHTML
+            const s_lng = sender_lng.innerHTML
+            const recipient_lat = document.getElementById('rcv_lat')	
+			const recipient_lng = document.getElementById('rcv_lng')
+            const r_lat = recipient_lat.innerHTML
+            const r_lng = recipient_lng.innerHTML
 
-			//Thx to https://www.youtube.com/watch?v=pRiQeo17u6c&ab_channel=TraversyMedia
-			
-			///Display Marker based on found lat & long of PostCode
-			async function initMap() {
+			let map;
+			function initMap(){
+                
+                const directionsRenderer = new google.maps.DirectionsRenderer()
+                const directionsService = new google.maps.DirectionsService()
 
-			const location = { lat: 52.40533079999999, lng: -1.500054 };
-			const map = new google.maps.Map(document.getElementById("map"), {
-				zoom: 12,
-				center: location,
-			});
-			const marker = new google.maps.Marker({
-				position: location,
-				map: map,
-			});
-			}
+                const latlng = new google.maps.LatLng( s_lat, s_lng)
+                //create the map
+                map = new google.maps.Map(document.getElementById('map'),{
+                //add settings to the map
+                    zoom: 12,
+                    center: latlng
+                    
+                });
+                //Creates the marker (the little red pointer)    
+			    //new google.maps.Marker({
+                  //  position: latlng,
+                    //map,
+                    //title: "Hello World!",
+                //});
+            
+                directionsRenderer.setMap(map)
+
+                calculateAndDisplayRoute(directionsService, directionsRenderer)  
+            
+            }
+
+
+            function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+                directionsService
+                    .route({
+                    origin: { lat: s_lat, lng: s_lng },
+                    destination: { lat: r_lat, lng: r_lng },
+                    })
+                    .then((response) => {
+                        directionsRenderer.setDirections(response);
+                    })
+                    .catch((e) => window.alert("Directions request failed due to " + status));
+            }
 
 			window.initMap = initMap;
 		</script>
@@ -127,7 +162,6 @@
 
 	  <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&callback=initMap&v=weekly"
-      defer
       ></script>
 	
 	
@@ -135,3 +169,4 @@
 
 	
 </html>
+

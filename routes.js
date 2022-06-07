@@ -265,7 +265,9 @@ router.post('/send', async context =>{
 	const data = await body.value.read()
 	const authorised = context.cookies.get('authorised')
 	const result = await addParcel(data, authorised)
-	context.response.redirect('/home-customer')
+	const bodys = await handle.renderView('send')
+	context.response.body = bodys
+	// context.response.redirect('/home-customer')
 })
 
 
@@ -283,6 +285,7 @@ router.get('/parcel/:uuid', async context => {
 				  courier : permission == 'courier',
 				  admin : permission == 'admin'}
 	const parcels = await getParcelDetails(uuid)
+	console.log(parcels)
 	const data = { authorised, role, parcels }    
 	const body = await handle.renderView('parcel', data)
 	context.response.body = body

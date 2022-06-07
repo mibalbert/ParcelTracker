@@ -9,7 +9,8 @@
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		<script type="module" src="util.js" defer></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&libraries=places"></script>
+		<script type="module" src="geo-loc.js" defer></script>
 	</head>
 	<body>
 		<header>
@@ -21,9 +22,9 @@
 
 		<p>Hello <strong>{{authorised}}</strong></p>
 
-		<form action="/send" method="post" enctype="multipart/form-data">
-			<label>Origin Postcode<input type="text" name="sender_postcode" maxlength="10" required></label></br>
-			<label>Destination Postcode<input type="text" name="recipient_postcode" maxlength="10" required></label></br>
+		<form name="myform" action="/send" method="post" enctype="multipart/form-data">
+			<label>Origin Postcode<input type="text" id="sender_postcode" name="sender_postcode" maxlength="10" required></label></br>
+			<label>Destination Postcode<input type="text" id="recipient_postcode" name="recipient_postcode" maxlength="10" required></label></br>
 			<label>
 				Weight
 				<input type="range" name="slider" min="0" max="20" value="1">
@@ -32,8 +33,14 @@
 			</label></br>
 			<label>Recipient Name<input type="text" name="recipient_name"></label></br>
 			<label>Full Adress</label></br>
-			<textarea name="full_address" rows="5" cols="40" maxlength="500"></textarea></br>
-			<input type="submit" value="Submit">
+				<textarea name="full_address" rows="5" cols="40" maxlength="500"></textarea></br>
+			
+				<input type="hidden" id="snd_lat" name="snd_lat" value="">
+				<input type="hidden" id="snd_lng" name="snd_lng" value="">
+				<input type="hidden" id="rcv_lat" name="rcv_lat" value="">
+				<input type="hidden" id="rcv_lng" name="rcv_lng" value="">
+			
+			<input type="submit" value="Submit" >
 			</form>
 		</main>
 	</body>
