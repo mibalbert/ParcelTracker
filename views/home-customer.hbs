@@ -23,6 +23,7 @@
 		<table>
 			<thead>
 				<tr>
+					<th></th>
 					<th>Sender PostCode</th>
 					<th>Recipient PostCode</th>
 					<th>Weight</th>
@@ -37,6 +38,8 @@
 			<tbody>
 			{{#each parcels}}
 				<tr>
+					<tr class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
+					<td><span class="emoji">📦</span></td>
 					<td>{{this.sender_postcode}}</td>
 					<td>{{this.recipient_postcode}}</td>
 					<td>{{this.weight_kg}}</td>
@@ -46,7 +49,7 @@
 					<td>{{{lol this.date_time_created}}}</td>
 					<td>{{this.uuid}}</td>
 					<td>{{this.status}}</td>
-				</tr>		
+				</tr>
 			{{/each}}
 			</tbody>
 		</table>

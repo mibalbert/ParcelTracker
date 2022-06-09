@@ -5,7 +5,6 @@ window.addEventListener('DOMContentLoaded', event => {
 	console.log('DOM CONTENT LOADED')
     if (document.getElementById('alert')) {alert()}
 	document.querySelector['name=alert']
-
 })
 
 function alert(){
@@ -14,14 +13,28 @@ function alert(){
 		elem.style.color = 'red'
 	} else if (elem.innerHTML == "You've added a parcel to deliver!") {
 		elem.style.color = 'green'
-	}
-	setTimeout( function(){
+	} setTimeout( function(){
 			elem.remove()
-		// elem.style.display = 'none' 
 	} , 2000)
-
 }
 
+
+
+// <script src="lib/vanilla-toast.min.js"></script>
+
+// vt.success("Success Message");
+// vt.info("Info Message");
+// vt.warn("Warning Message");
+// vt.error("Error Message");
+
+// vt.success("Success Message",{
+//   title: undefined,
+//   position: toastPosition.TopCenter,
+//   duration: 2000,
+//   closable: true,
+//   focusable: true,
+//   callback: undefined
+// });
 
 
 	

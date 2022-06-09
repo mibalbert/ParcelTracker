@@ -33,6 +33,7 @@
 					<th>Date Posted</th>
 					<th>Unique ID</th>
 					<th>Status</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -49,6 +50,11 @@
 						<td>{{this.uuid}}</td>
 						<td>{{this.status}}</td>
 					</tr>
+						<td>
+							<form action="/home-courier-p/{{this.uuid}}" method="post" enctype="multipart/form-data">
+								<input type="submit" name="submit" value="Add-Transit">
+							</form>
+						</td>
 			{{/each}}
 			</tbody>
 		</table>

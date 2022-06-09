@@ -9,9 +9,11 @@
 		<meta name="description" content="Individual parcel details">
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		{{!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> --}}
-		{{!-- <script type="module/javascript" src="geo-maps.js" defer></script> --}}
+		{{!-- <script type="module/javascript" src="util.js" defer></script> --}}
+
+
 	</head>
 	<body>
 		<header>
@@ -35,30 +37,17 @@
 			{{/if}}
 		</header>
 	<main>
-		
-		{{!-- <p ></p> --}}
-		{{!-- <span id="lat"></span> <span id="lng"></span> --}}
-			{{!-- <p style="font-size:22px">
-				<strong>
-				
-				</strong> --}}
-			{{!-- </p> --}}
-		
-		
 		<div id="wrapper">
 			<div id="left"><strong>🗺️ Destination</strong></div>
 			<div id="right">
-				
 				{{#each parcels}}
 					<span><strong>{{this.status}}</strong></span>
 				{{/each}}
 			</div>
 		</div>
-
+		{{!-- Where the map will be displayed --}}
 		<div id="map"></div>
-
-		<p>Full Parcel details.</p>
-
+		<p>Parcel details</p>
 		<table>
 			<thead>
 				<tr>
@@ -74,26 +63,40 @@
 					<th>Date Delivered</th>
 					<th>Unique ID</th>
 					<th>Status</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 			{{#each parcels}}
 				<tr>
 					<td><span class="emoji">📦</span></td>
-					<td>{{this.sender_username}}</td>
-					<td>{{this.sender_postcode}}</td>
-					<td>{{this.recipient_postcode}}</td>
-					<td>{{this.weight_kg}}</td>
-					<td>{{this.recipient_name}}</td>
-					<td>{{this.full_address}}</td>
-					<td>{{{lol this.date_time_created}}}</td>
-					<td>{{{lol this.date_time_in_transit}}}</td>
-					<td>{{{lol this.date_time_delivered}}}</td>
-					<td>{{this.uuid}}</td>
+					<td id="sender_username">{{this.sender_username}}</td>
+					<td id="sender_postcode">{{this.sender_postcode}}</td>
+					<td id="recipient_postcode">{{this.recipient_postcode}}</td>
+					<td id="weight_kg">{{this.weight_kg}}</td>
+					<td id="recipient_name">{{this.recipient_name}}</td>
+					<td id="full_address">{{this.full_address}}</td>
+					<td id="date_time_created">{{{lol this.date_time_created}}}</td>
+					<td id="date_time_in_transit">{{{lol this.date_time_in_transit}}}</td>
+					<td id="date_time_delivered">{{{lol this.date_time_delivered}}}</td>
+					<td id="uuid">{{this.uuid}}</td>
+					<td id="status">{{this.status}}</td>
+					{{!-- Not really used these so far --}}
 					<td style="display:none" id="snd_lat">{{this.snd_lat}}</td>
                     <td style="display:none" id="snd_lng">{{this.snd_lng}}</td>
                     <td style="display:none" id="rcv_lat">{{this.rcv_lat}}</td>
                     <td style="display:none" id="rcv_lng">{{this.rcv_lng}}</td>
+					
+
+					<td>
+						<td>
+							<form  id="formis" action="/home-courier-p/{{this.uuid}}" method="post" enctype="multipart/form-data">
+								<input type="submit" name="submit" value="Add-Transit">
+							</form>
+						</td>
+					</td>
+					<td id="accept"><button onclick="window.location='/home-courier-receiver-details/{{this.uuid}}'" >Deliver</button></td>
+				
 				</tr>		
 			{{/each}}
 			</tbody>
@@ -102,71 +105,118 @@
 	<footer>
 		<p>This is the footer</p>
 	</footer>
-	
-		<script defer>
+		{{!-- Really don't know why it doesn't work if it's not inside the html... --}}
+		<script>
 
-			//var geocoder;
-	
-			const sender_lat = document.getElementById('snd_lat')	
-			const sender_lng = document.getElementById('snd_lng')
-            const s_lat = sender_lat.innerHTML
-            const s_lng = sender_lng.innerHTML
-            const recipient_lat = document.getElementById('rcv_lat')	
-			const recipient_lng = document.getElementById('rcv_lng')
-            const r_lat = recipient_lat.innerHTML
-            const r_lng = recipient_lng.innerHTML
+		const status = document.getElementById('status')
+		console.log(status.innerHTML)
+		if(status.innerHTML == 'not-dispatched'){
+			document.getElementById('accept').style.display = 'none'	
+		}else{
+			document.getElementById('formis').style.display = 'none'
+		}
 
-			let map;
-			function initMap(){
-                
-                const directionsRenderer = new google.maps.DirectionsRenderer()
-                const directionsService = new google.maps.DirectionsService()
-
-                const latlng = new google.maps.LatLng( s_lat, s_lng)
-                //create the map
-                map = new google.maps.Map(document.getElementById('map'),{
-                //add settings to the map
-                    zoom: 12,
-                    center: latlng
-                    
-                });
-                //Creates the marker (the little red pointer)    
-			    //new google.maps.Marker({
-                  //  position: latlng,
-                    //map,
-                    //title: "Hello World!",
-                //});
-            
-                directionsRenderer.setMap(map)
-
-                calculateAndDisplayRoute(directionsService, directionsRenderer)  
-            
-            }
-
-
-            function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-                directionsService
-                    .route({
-                    origin: { lat: s_lat, lng: s_lng },
-                    destination: { lat: r_lat, lng: r_lng },
-                    })
-                    .then((response) => {
-                        directionsRenderer.setDirections(response);
-                    })
-                    .catch((e) => window.alert("Directions request failed due to " + status));
-            }
-
-			window.initMap = initMap;
+		let lat = document.getElementById('sender_postcode')	
+		let lng = document.getElementById('recipient_postcode')
+		lat = lat.innerHTML
+		lng = lng.innerHTML
+		let map;
+		function initMap(){
+			//initiate the directions stuff
+			const directionsRenderer = new google.maps.DirectionsRenderer()
+			const directionsService = new google.maps.DirectionsService()
+			//create the map
+			map = new google.maps.Map(document.getElementById('map'))
+			directionsRenderer.setMap(map)
+			calculateAndDisplayRoute(directionsService, directionsRenderer)
+		}
+		function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+			directionsService.route(
+				{
+					origin: lat ,
+					destination: lng ,
+					travelMode: "DRIVING"
+				},
+				(response, status) => {
+					directionsRenderer.setDirections(response);
+					console.log(status);
+				}
+			)
+		}
+		window.initMap = initMap;
 		</script>
-
-
+	  {{!-- Has to be loaded last --}}
 	  <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&callback=initMap&v=weekly"
-      ></script>
-	
-	
-	</body>
-
-	
+      defer
+	  ></script>
+	</body>	
 </html>
+{{!-- 
+// This example requires the Geometry library. Include the libraries=geometry
+// parameter when you first load the API. For example:
+// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=geometry">
+let marker1, marker2;
+let poly, geodesicPoly;
 
+function initMap() {
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 4,
+    center: { lat: 34, lng: -40.605 },
+  });
+
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(
+    document.getElementById("info")
+  );
+  marker1 = new google.maps.Marker({
+    map,
+    draggable: true,
+    position: { lat: 40.714, lng: -74.006 },
+  });
+  marker2 = new google.maps.Marker({
+    map,
+    draggable: true,
+    position: { lat: 48.857, lng: 2.352 },
+  });
+
+  const bounds = new google.maps.LatLngBounds(
+    marker1.getPosition(),
+    marker2.getPosition()
+  );
+
+  map.fitBounds(bounds);
+  google.maps.event.addListener(marker1, "position_changed", update);
+  google.maps.event.addListener(marker2, "position_changed", update);
+  poly = new google.maps.Polyline({
+    strokeColor: "#FF0000",
+    strokeOpacity: 1.0,
+    strokeWeight: 3,
+    map: map,
+  });
+  geodesicPoly = new google.maps.Polyline({
+    strokeColor: "#CC0099",
+    strokeOpacity: 1.0,
+    strokeWeight: 3,
+    geodesic: true,
+    map: map,
+  });
+  update();
+}
+
+function update() {
+  const path = [marker1.getPosition(), marker2.getPosition()];
+
+  poly.setPath(path);
+  geodesicPoly.setPath(path);
+
+  const heading = google.maps.geometry.spherical.computeHeading(
+    path[0],
+    path[1]
+  );
+
+  document.getElementById("heading").value = String(heading);
+  document.getElementById("origin").value = String(path[0]);
+  document.getElementById("destination").value = String(path[1]);
+}
+
+window.initMap = initMap; --}}

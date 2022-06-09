@@ -30,8 +30,8 @@ export async function getAllParcels(){
 
 
 // Show on courier's home page 
-export async function getParcels(){
-    const data = await db.query('SELECT * FROM parcels WHERE status="in-transit" OR status="not-dispatched"  ORDER BY status DESC, date_time_created DESC')
+export async function getNotDispParcels(){
+    const data = await db.query('SELECT * FROM parcels WHERE status="not-dispatched"  ORDER BY date_time_created DESC')
     const result = data.map(obj => {
             return {...obj, date_time_created: obj.date_time_created.toDateString() + " " + obj.date_time_created.toLocaleTimeString()}
         }) // Changes the displayed date format

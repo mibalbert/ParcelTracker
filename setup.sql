@@ -61,16 +61,20 @@ INSERT INTO parcels(sender_postcode, recipient_postcode,
                     weight_kg, recipient_name, full_address,
                     sender_username, date_time_created, date_time_in_transit, date_time_delivered, snd_lat, snd_lng, rcv_lat, rcv_lng, uuid)
                                              
-	VALUES("CV1 1JU", "CV1 5FB", 10, "John Doe", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-06 00:51:51", null, null, 51.508575,-0.139395, 51.513941, -0.100463, UUID()),
-        ("CV1 4JS", "CV1 5FB", 20, "Johny Doing", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-06 01:51:51", null, null, null,null,null,null, UUID()),
-        ("CV1 4JS", "CV1 5FB", 20, "Johny Dogs", "Priory St, Coventry CV1 5FB", "customer1", "2022-06-05 01:51:51", null, null, null,null,null,null, UUID()),
-        ("CV1 4JS", "CV1 5FB", 20, "Luthor James", "Priory St, Coventry CV1 5FB", "customer2", "2022-06-05 01:51:51", null, null, null,null,null,null, UUID()),
-        ("CV2 2AW", "CV1 5FB", 11, "Mark Spencer", "Priory St, Coventry CV1 5FB", "customer2", "2022-06-04 05:51:51", null, null, null,null,null,null, UUID()),
-        ("CV1 1VS", "CV1 5FB", 15, "John Ventura", "Priory St, Coventry CV1 5FB", "customer2", "2022-06-03 10:51:51", null, null, null,null,null,null, UUID());
+	VALUES("W1J 7TD", "WC1B 3DG", 10, "John Doe", "Great Russell St, London, WC1B 3DG", "customer1", "2022-06-06 00:51:51", null, null, 51.508575,-0.139395, 51.513941, -0.100463, UUID()),
+        ("SW1A 2AA", "WC1B 3DG", 20, "Johny Doing", "Great Russell St, London, WC1B 3DG", "customer1", "2022-06-06 01:51:51", null, null, null,null,null,null, UUID()),
+        ("W1J 7TD", "SW1A 2AA", 20, "Johny Dogs", "10 Downing St, London, SW1A 2AA", "customer1", "2022-06-05 01:51:51", null, null, null,null,null,null, UUID()),
+        ("EC1R 4RR", "W1S 1RQ", 20, "Luthor James", "63 New Bond St", "customer2", "2022-06-05 01:51:51", null, null, null,null,null,null, UUID()),
+        ("E1 1DU", "SW1V 4EQ", 11, "Mark Spencer", "Cambridge St, Pimlico, London SW1V 4EQ", "customer2", "2022-06-04 05:51:51", null, null, null,null,null,null, UUID()),
+        ("W1U 2RQ", "SE1 8SS", 15, "John Ventura", "75 Roupell St, London SE1 8SS", "customer2", "2022-06-03 10:51:51", null, null, null,null,null,null, UUID());
 
 
--- 1.   S Audley St, London , W1J 7TD, 51.506794, -0.1505902  >>>  Great Russell St, London, WC1B 3DG, 51.519362,-0.126873
--- 2.   10 Downing St, London, SW1A 2AA, 51.50354, -0.127695  >>>
-
-
-
+-- 1.   S Audley St, London , W1J 7TD, 51.506794, -0.1505902
+-- 2.   Great Russell St, London, WC1B 3DG, 51.519362,-0.126873
+-- 3.   10 Downing St, London, SW1A 2AA, 51.50354, -0.127695
+-- 4.   70 Rosebery Ave, London EC1R 4RR
+-- 5.   63 New Bond St, London W1S 1RQ
+-- 6.   Office 410, 7 Whitechapel Rd, London E1 1DU
+-- 7.   Cambridge St, Pimlico, London SW1V 4EQ
+-- 8.   20 Wigmore St, London W1U 2RQ
+-- 9.   75 Roupell St, London SE1 8SS

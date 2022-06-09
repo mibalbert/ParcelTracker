@@ -12,12 +12,12 @@ import { addParcel } from './modules/send.js'
 import { getCourierIndividual, 
 		 getAllCouriers, 
 		 getAllParcels, 
-		 getParcels,  
+		 getNotDispParcels,  
 		 getParcelsCustomer, 
 		 getParcelsAccepted,
 		 getParcelDetails } from './modules/retrieve.js'
 
-import { setParcelStatus, setParcelStatusDelivered } from './modules/update.js'
+import { setParcelStatus, setParcelStatus2, setParcelStatusDelivered } from './modules/update.js'
 
 const handle = new Handlebars({ 
 			defaultLayout: '',	
@@ -26,24 +26,27 @@ const handle = new Handlebars({
 					const date_time_nice = date_time
 					const date_time_created = new Date(date_time)
 					const date_time_now = new Date()
+
 					//Reference: https://www.w3resource.com/javascript-exercises/javascript-date-exercise-45.php
+					// Checks if the parcel was posted longer than 48h
 					function diff_hours(dt2, dt1){
 						let diff =(dt2.getTime() - dt1.getTime()) / 1000;
 						diff /= (60 * 60);
 						return Math.abs(Math.round(diff));	
-					}// Checks if the parcel was posted longer than 48h
-
+					}
 						//Add change null -> -
 
 					const hours = diff_hours(date_time_created, date_time_now)
 					if( hours > 48 ){
-						return '<span style="color:#eb3434;">' + date_time_nice + '</span>'
+						return '<span style="color:#eb3434;">' + date_time_nice + ' h: ' + hours + '</span>'
 					}else if( hours > 24 ){
-						return '<span style="color:#ebba34;">' + date_time_nice + '</span>'
+						return '<span style="color:#ebba34;">' + date_time_nice + ' h: ' + hours + '</span>'
 					}else{
 						return date_time_nice
 					}
-				}
+				}   ///   Add the thing to change into grey -> create class of all details
+					///  	-> if the parcels.status.innerHTML = 'dispathced'
+					/// 	-> the class style ... 
 
 			}
 
@@ -61,7 +64,10 @@ router.get('/', async context => {
 	const role = { customer : permission == 'customer', 
 				  courier : permission == 'courier',
 				  admin : permission == 'admin'}
-	const data = { authorised, role }
+	
+	const parcels = await getAllParcels()
+	console.log(parcels)
+	const data = { authorised, role, parcels }
 	const body = await handle.renderView('home', data)
 	context.response.body = body
 })
@@ -164,12 +170,26 @@ router.get('/home-courier-p', async context => {
 	const permission = await context.cookies.get('permission')
 	const role = permission !== 'courier' && permission !== 'admin'
 	if (authorised == undefined || role) context.response.redirect('/login')
-	const parcels = await getParcels()
+	const parcels = await getNotDispParcels()
 	// console.log(parcels)
 	const data = { authorised, parcels }
 	const body = await handle.renderView('home-courier-p', data)
 	context.response.body = body
 })
+
+
+// Courier POST transit page 
+router.post('/home-courier-p/:uuid', async context => {
+	console.log('/POST /home-courier-p')
+	const authorised = await context.cookies.get('authorised')
+	const data = context.params.uuid
+	const result = await setParcelStatus2(data, authorised)
+	console.log(result)
+	context.response.redirect('/home-courier-transit')
+	}
+)
+
+
 
 // Courier transit page 
 router.get('/home-courier-transit', async context => {
@@ -183,15 +203,6 @@ router.get('/home-courier-transit', async context => {
 	const body = await handle.renderView('home-courier-transit', data)
 	context.response.body = body
 })
-
-
-
-
-///		Change the post with just the essential
-///		and do the things for alerts by fetch api
-///     by using the :params 
-/// 	after finish redirect
-
 
 
 // Courier POST transit page 
@@ -208,6 +219,23 @@ router.post('/home-courier-transit', async context => {
 	context.response.body = body
 	}
 )
+
+// Courier POST transit page 
+router.post('/home-courier-transit/:uuid', async context => {
+	console.log('/POST /home-courier-transit')
+	const authorised = await context.cookies.get('authorised')
+	const uuid = context.params.uuid
+	const result = await setParcelStatus3(uuid, authorised)
+	console.log(result)
+	// const parcels = await getParcelsAccepted(authorised)
+	// data = { alert: result, parcels, authorised }    
+	// body = await handle.renderView('home-courier-transit', data)
+	// context.response.body = body
+	context.response.redirect(`/home-courier-receiver-details/${uuid}`)
+	}
+)
+
+
 
 // Courier delivered parcel input page 
 router.get('/home-courier-receiver-details/:uuid', async context => {
@@ -271,29 +299,22 @@ router.post('/send', async context =>{
 })
 
 
-
-
 // Individual Parcel page 
 router.get('/parcel/:uuid', async context => {
 	console.log('/GET /parcel/:uuid')
 	const uuid = context.params.uuid
 	const authorised = await context.cookies.get('authorised')
 	const permission = await context.cookies.get('permission')
-	let role = permission !== 'admin' && permission !== 'courier' && permission !== 'customer'
-	if (authorised == undefined || role) context.response.redirect('/login')
-	role = { customer : permission == 'customer', 
+	if (authorised == undefined) context.response.redirect('/login')
+	const role = { customer : permission == 'customer', 
 				  courier : permission == 'courier',
 				  admin : permission == 'admin'}
 	const parcels = await getParcelDetails(uuid)
-	console.log(parcels)
-	const data = { authorised, role, parcels }    
+	// console.log(parcels)
+	const data = { authorised, role, parcels }
 	const body = await handle.renderView('parcel', data)
 	context.response.body = body
 })
-
-
-
-
 
 
 export default router

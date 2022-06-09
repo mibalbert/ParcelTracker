@@ -9,39 +9,236 @@
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&libraries=places"></script>
-		<script type="module" src="geo-loc.js" defer></script>
+		{{!-- <script type="module" src="geo-loc.js" defer></script> --}}
 	</head>
 	<body>
 		<header>
-		<h1>Send parcel 📦</h1>
-		<p><a href="/">Home page</a></p>
-		<p><a href="/logout">Log out</a></p>
+			<h1>Send parcel 📦</h1>
+			<p><a href="/">Home page</a></p>
+			<p><a href="/logout">Log out</a></p>
 		</header>
 		<main>
+			<p>Hello <strong>{{authorised}}</strong></p>
+			<section name="form">
 
-		<p>Hello <strong>{{authorised}}</strong></p>
+            <p id="alert" style="display:'none'"></p>
+			<form id="sender_form" name="sender_form" action="/send" method="post" enctype="multipart/form-data" autocomplete="off">
+				
+                {{!-- Section regarding the sender --}}
+                <section name="sender_address_section">	
+					<label>Pick up address*
+						<input  id="sender_address" 
+								name="sender_address" 
+								type="text" 
+								autocomplete="off" 
+								placeholder="Search..."
+								required />
+					</label>
+					<label>Apartment, unit, suite, or floor
+						<input id="sender_address_details" name="sender_address_details" />
+					</label>
+					<label>City*
+						<input id="sender_city" name="sender_city" required />
+					</label>
+					<label>Postal code*
+						<input id="sender_postcode" name="sender_postcode" required />
+					</label>
+					<label>Country/Region*
+						<input id="sender_country" name="sender_country" required />
+					<label>
+				</section>
 
-		<form name="myform" action="/send" method="post" enctype="multipart/form-data">
-			<label>Origin Postcode<input type="text" id="sender_postcode" name="sender_postcode" maxlength="10" required></label></br>
-			<label>Destination Postcode<input type="text" id="recipient_postcode" name="recipient_postcode" maxlength="10" required></label></br>
-			<label>
-				Weight
-				<input type="range" name="slider" min="0" max="20" value="1">
-				<output name="slider_value">1</output>
-				Kg
-			</label></br>
-			<label>Recipient Name<input type="text" name="recipient_name"></label></br>
-			<label>Full Adress</label></br>
-				<textarea name="full_address" rows="5" cols="40" maxlength="500"></textarea></br>
-			
-				<input type="hidden" id="snd_lat" name="snd_lat" value="">
-				<input type="hidden" id="snd_lng" name="snd_lng" value="">
-				<input type="hidden" id="rcv_lat" name="rcv_lat" value="">
-				<input type="hidden" id="rcv_lng" name="rcv_lng" value="">
-			
-			<input type="submit" value="Submit" >
+                {{!-- Section regarding the recipient --}}
+				<section name="recipient_address_section">
+					<label>Deliver to*
+						<input  id="recipient_address" 
+								name="recipient_address" 
+								type="text" 
+								autocomplete="off" 
+								placeholder="Search..."
+								required />
+					</label>
+					<label>Apartment, unit, suite, or floor #
+						<input id="recipient_address_details" name="recipient_address_details" />
+					</label>
+					<label>City*
+						<input id="recipient_city" name="recipient_city" required />
+					</label>
+					<label>Postal code*
+						<input id="recipient_postcode" name="recipient_postcode" required />
+					</label>
+					<label>Country/Region*
+						<input id="recipient_country" name="recipient_country" required />
+					</label>
+				</section>
+				<label>
+					Weight
+					<input type="range" name="weight" min="0" max="20" value="1">
+					<output name="weight_value">1</output>
+					Kg
+				</label></br>
+
+				<input type="submit" value="Submit" >
 			</form>
+			</section>
 		</main>
+
+		<script>
+		//Change value displayed when moving slider 
+		const slider = document.querySelector('[name=weight]')
+		slider.addEventListener('input', event => {
+			document.querySelector('[name=weight_value]').value = slider.value
+		})
+
+        let autocomplete
+        let sender_address
+        let sender_address_details
+        let sender_postcode
+        let recipient_address
+       
+       
+        const alert = document.getElementById('alert') 
+
+    	function initAutocomplete() {
+			sender_address = document.querySelector("[name=sender_address]");
+			sender_address_details = document.querySelector("[name=sender_address_details]");
+			sender_postcode = document.querySelector("[name=sender_postcode]");
+			
+			autocomplete = new google.maps.places.Autocomplete(sender_address, {
+				componentRestrictions: { country: [] }, //no-restrictions, add uk or usa for restrictions
+				fields: ["address_components", "geometry"],
+				types: ["address"],
+			});
+			
+			sender_address.focus()
+			
+			autocomplete.addListener("place_changed", fillInAddressSender)
+            //autocomplete.addListener("place_changed", fillInAddressRecipient)
+		}
+
+		function fillInAddressSender() {
+		// Get the place details from the autocomplete object.
+			const place = autocomplete.getPlace()
+			console.log(place)
+			let sender_address1 = ""
+			let sender_postcode1 = ""
+
+			try{
+                for (const component of place.address_components) {
+                    const componentType = component.types[0]
+
+                    switch (componentType) {
+                    case "street_number": {
+                        sender_address1 = `${component.long_name} ${sender_address1}`
+                        break
+                    }
+
+                    case "route": {
+                        sender_address1 += component.short_name
+                        break
+                    }
+                    case "postal_code": {
+                        sender_postcode1 = `${component.long_name}${sender_postcode1}`
+                        break
+                    }
+                    case "postal_code_suffix": {
+                        sender_postcode1 = `${sender_postcode1}-${component.long_name}`
+                        console.log(sender_postcode1)
+                        break
+                    }
+                    case "postal_town":{
+                        document.querySelector("[name=sender_city]").value = component.long_name
+                        break
+                    } 
+                    case "locality":{
+                        document.querySelector("[name=sender_city]").value = component.long_name
+                        break
+                    } 
+                    case "country":
+                        document.querySelector("[name=sender_country]").value = component.long_name
+                        break
+                    }
+                }
+            } catch(err){
+                alert.innerHTML = 'Try inserting the Address again' 
+                alert.style.display = 'block'
+                setTimeout( ()=>{
+                    alert.style.display = 'none'
+                    }, 1500)
+        }
+            
+		sender_address.value = sender_address1
+		sender_postcode.value = sender_postcode1
+		sender_address_details.focus()
+        }
+        
+
+		function fillInAddressRecipient() {
+		// Get the place details from the autocomplete object.
+			const place = autocomplete.getPlace()
+			let sender_address1 = ""
+			let sender_postcode1 = ""
+
+			try{
+                for (const component of place.address_components) {
+                    const componentType = component.types[0]
+
+                    switch (componentType) {
+                    case "street_number": {
+                        //console.log(component)
+                        //console.log(component.long_name)
+                        //console.log(address1)
+                        sender_address1 = `${component.long_name} ${sender_address1}`
+                        break
+                    }
+
+                    case "route": {
+                        sender_address1 += component.short_name
+                        break
+                    }
+                    case "postal_code": {
+                        sender_postcode1 = `${component.long_name}${sender_postcode1}`
+                        console.log("First post code", sender_postcode1)
+                        break
+                    }
+                    case "postal_code_suffix": {
+                        sender_postcode1 = `${sender_postcode1}-${component.long_name}`
+                        console.log(sender_postcode1)
+                        break
+                    }
+                    case "postal_town":{
+                        document.querySelector("[name=sender_city]").value = component.long_name
+                        break
+                    } 
+                    case "locality":{
+                        document.querySelector("[name=sender_city]").value = component.long_name
+                        break
+                    } 
+                    case "country":
+                        document.querySelector("[name=sender_country]").value = component.long_name
+                        break
+                    }
+                }
+            } catch(err){
+                alert.innerHTML = 'Try inserting the Address again' 
+                alert.style.display = 'block'
+                setTimeout( ()=>{
+                    alert.style.display = 'none'
+                    }, 1500)
+        }
+            
+		sender_first_field.value = sender_address1
+		sender_postcode_field.value = sender_postcode1
+		sender_address_details.focus()
+        }
+
+
+
+		window.initAutocomplete = initAutocomplete;
+		</script>
+
+		<script async
+    		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&libraries=places,geometry&callback=initAutocomplete">
+		</script>
 	</body>
 </html>

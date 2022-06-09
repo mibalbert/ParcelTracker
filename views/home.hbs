@@ -9,6 +9,7 @@
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link href="/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="main.js" defer></script>
 	</head>
 	<body>
 		<header>
@@ -16,7 +17,7 @@
 			{{#if authorised}}
 				{{#if role.customer}}
 					<p><a href="/send">Send 📦</a></p>
-					<p><a href="/home-customer">Sended</a></p>	
+					<p><a href="/home-customer">Sended</a></p>
 				{{/if}}
 				{{#if role.courier}}
 					<p><a href="/home-courier-p">Packages</a></p>
@@ -29,13 +30,49 @@
 					<p><a href="/logout">Log out</a></p>
 			{{else}}
 				<p><a href="/login">Log in</a></p>
+				<p><a href="/register">Register</a></p>
 			{{/if}}
 		</header>
 	<main>
 		<p>This is the home page.</p>
+
+
+		{{#if authorised}}
+		
+				{{#if role.admin}}
+					<p>Hello {{authorised}}</p>
+
+					<p><strong>STATISTICS:</strong></p> 
+			
+				{{/if}}
+		
+				{{#if role.courier}}
+				
+				<p>Hello {{authorised}}</p>
+					
+					<p><strong>STATISTICS:</strong></p> 
+			
+				{{/if}}
+		
+				{{#if role.customer}}
+					<p>Hello {{authorised}}</p>
+				{{/if}}
+		
+		
+		{{else}}
+				<p>Here is a quick description of all the cool features this website has</p>
+				<p>It rocks..</p>
+				<p></p>
+				<p>That's it.</p> 
+		{{/if}}
+
+
+
 	</main>
 	<footer>
 		<p>This is the footer</p>
 	</footer>
+		
 	</body>	
+
 </html>
