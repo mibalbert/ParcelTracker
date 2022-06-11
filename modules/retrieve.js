@@ -22,31 +22,21 @@ export async function getCourierIndividual(courier){
 //Show on admin's home page 
 export async function getAllParcels(){
     const data = await db.query('SELECT * FROM parcels ORDER BY status DESC, date_time_created DESC')
-    const result = data.map(obj => {
-            return {...obj, date_time_created: obj.date_time_created.toDateString() + " " + obj.date_time_created.toLocaleTimeString()}
-        }) // Changes the displayed date format
-    return result
+    return data
 }
 
 
 // Show on courier's home page 
 export async function getNotDispParcels(){
     const data = await db.query('SELECT * FROM parcels WHERE status="not-dispatched"  ORDER BY date_time_created DESC')
-    const result = data.map(obj => {
-            return {...obj, date_time_created: obj.date_time_created.toDateString() + " " + obj.date_time_created.toLocaleTimeString()}
-        }) // Changes the displayed date format
-    return result
+    return data
 }
 
 // Show on courier's transit page 
 // Retrieve courier's "accepted" parcels
 export async function getParcelsAccepted(courier){
     const data = await db.query('SELECT * FROM parcels WHERE status = "in-transit" AND courier_name = ?',[courier])
-    const result = data.map(obj => {
-            return {...obj, date_time_created: obj.date_time_created.toDateString() + " " + obj.date_time_created.toLocaleTimeString(),
-                            date_time_in_transit: obj.date_time_in_transit.toDateString() + " " + obj.date_time_in_transit.toLocaleTimeString()}
-        }) // Changes the displayed date format
-    return result
+    return data
 }
 
 // Show on 
@@ -63,6 +53,14 @@ export async function getParcelDetails(uuid){
     return data
 }
 
+
+
+
+// Show on courier's home page 
+export async function getParcelsDelivered(){
+    const data = await db.query('SELECT * FROM parcels WHERE status="not-dispatched"  ORDER BY date_time_created DESC')
+    return data
+}
 
 // function pretiDateTime(data){
 //     const result = data.map(obj => {

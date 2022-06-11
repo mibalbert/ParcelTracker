@@ -9,50 +9,29 @@ import { Handlebars } from 'handlebars'
 import { login, register } from 'accounts'
 import { addParcel } from './modules/send.js'
 
+import { handlebarsHelper1, handlebarsHelper2, handlebarsHelper3 } from './modules/handlebarsHelpers.js'
+
 import { getCourierIndividual, 
 		 getAllCouriers, 
 		 getAllParcels, 
 		 getNotDispParcels,  
 		 getParcelsCustomer, 
 		 getParcelsAccepted,
+		 getParcelsDelivered,
 		 getParcelDetails } from './modules/retrieve.js'
 
 import { setParcelStatus, setParcelStatus2, setParcelStatusDelivered } from './modules/update.js'
 
 const handle = new Handlebars({ 
-			defaultLayout: '',	
-			helpers:{
-				lol : function (date_time) {
-					const date_time_nice = date_time
-					const date_time_created = new Date(date_time)
-					const date_time_now = new Date()
+						defaultLayout: '',	
+						helpers:{
+							lol : handlebarsHelper1,
+							lop : handlebarsHelper2,
+							pop : handlebarsHelper3
+						}
+					})
 
-					//Reference: https://www.w3resource.com/javascript-exercises/javascript-date-exercise-45.php
-					// Checks if the parcel was posted longer than 48h
-					function diff_hours(dt2, dt1){
-						let diff =(dt2.getTime() - dt1.getTime()) / 1000;
-						diff /= (60 * 60);
-						return Math.abs(Math.round(diff));	
-					}
-						//Add change null -> -
 
-					const hours = diff_hours(date_time_created, date_time_now)
-					if( hours > 48 ){
-						return '<span style="color:#eb3434;">' + date_time_nice + ' h: ' + hours + '</span>'
-					}else if( hours > 24 ){
-						return '<span style="color:#ebba34;">' + date_time_nice + ' h: ' + hours + '</span>'
-					}else{
-						return date_time_nice
-					}
-				}   ///   Add the thing to change into grey -> create class of all details
-					///  	-> if the parcels.status.innerHTML = 'dispathced'
-					/// 	-> the class style ... 
-
-			}
-
-		})
-
-// const session = new Session();
 const router = new Router()
 
 
@@ -184,7 +163,7 @@ router.post('/home-courier-p/:uuid', async context => {
 	const authorised = await context.cookies.get('authorised')
 	const data = context.params.uuid
 	const result = await setParcelStatus2(data, authorised)
-	console.log(result)
+	// console.log(result)
 	context.response.redirect('/home-courier-transit')
 	}
 )
@@ -236,7 +215,6 @@ router.post('/home-courier-transit/:uuid', async context => {
 )
 
 
-
 // Courier delivered parcel input page 
 router.get('/home-courier-receiver-details/:uuid', async context => {
 	console.log('/GET /home-courier-receiver-details/:uuid')
@@ -261,6 +239,21 @@ router.post('/home-courier-receiver-details/:uuid', async context => {
 	// body = await handle.renderView('home-courier-receiver-details', {uuid, alert })
 	// context.response.body = body
 	context.response.redirect('/home-courier-transit')
+})
+
+
+// Courier home page 
+router.get('/home-courier-delivered', async context => {
+	console.log('/GET /home-courier-p')
+	const authorised = await context.cookies.get('authorised')
+	const permission = await context.cookies.get('permission')
+	const role = permission !== 'courier' && permission !== 'admin'
+	if (authorised == undefined || role) context.response.redirect('/login')
+	const parcels = await getParcelsDelivered()
+	// console.log(parcels)
+	const data = { authorised, parcels }
+	const body = await handle.renderView('home-courier-delivered', data)
+	context.response.body = body
 })
 
 

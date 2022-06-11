@@ -25,8 +25,8 @@
 			<p>Parcel's UUID: {{uuid}}</p>
 
 			<form action="/home-courier-receiver-details/{{uuid}}" method="POST" enctype="multipart/form-data">
-				<label>Recipient's name:<input type="text" name="accepted_by"></label>
-				<label>Recipient's signature:<input type="text" name="signature"></label>
+				<label>Recipient's name:<input type="text" name="handed_to_name"></label>
+				<label>Recipient's signature:<input type="text" name="handed_to_signature"></label>
 				<input type="hidden" id="latitude" name="latitude">
 				<input type="hidden" id="longitude" name="longitude">
 				<input type="hidden" id="precission_off" name="precission_off">

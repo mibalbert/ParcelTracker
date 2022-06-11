@@ -9,11 +9,11 @@
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		<script type="module/javascript" src="util.js"></script>
+		<script type="module" src="customer-parcels.js" defer></script>
 	</head>
 	<body>
 		<header>
-			<h1>Home-Customer (Sent parcels)</h1>
+			<h1>Customer's parcels</h1>
 				<p><a href="/">Home</a></p>
 				<p><a href="/send">Send 📦</a></p>
 				<p><a href="/logout">Log out</a></p>
@@ -37,8 +37,7 @@
 			</thead>
 			<tbody>
 			{{#each parcels}}
-				<tr>
-					<tr class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
+				<tr id="link" class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
 					<td><span class="emoji">📦</span></td>
 					<td>{{this.sender_postcode}}</td>
 					<td>{{this.recipient_postcode}}</td>
@@ -46,13 +45,14 @@
 					<td>{{this.recipient_name}}</td>
 					<td>{{this.full_address}}</td>
 					<td>{{this.sender_username}}</td>
-					<td>{{{lol this.date_time_created}}}</td>
+					<td>{{{ lol this.date_time_created}}}</td>
 					<td>{{this.uuid}}</td>
-					<td>{{this.status}}</td>
+					<td id="status">{{{ this.status}}}</td>
 				</tr>
 			{{/each}}
 			</tbody>
 		</table>
+
 	</main>	
 	<footer>
 		<p>This is the footer</p>

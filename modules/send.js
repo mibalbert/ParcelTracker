@@ -12,11 +12,17 @@ export async function addParcel(data, authorised){
     console.log("THIS IS IN THE SEND JS",parcel)
 
     const sender_username = await authorised
-    // const result = await db.query('INSERT INTO parcels (sender_postcode, recipient_postcode, weight_kg, recipient_name, \
-    //                               full_address, sender_username, uuid, date_time_created) VALUES ( ?, ?, ?, ?, ?, ?, UUID(), ?)',
-    //                               [ parcel.sender_postcode, parcel.recipient_postcode, parcel.slider, parcel.recipient_name, parcel.full_address, sender_username, date_time_created ] )
-    // console.log(result)
-    // return 1
+    const result = await db.query('INSERT INTO parcels (recipient_name, sender_address, sender_address_details, sender_city, \
+                                  sender_postcode, sender_country, recipient_address, recipient_address_details, recipient_city, \
+                                  recipient_postcode, recipient_country, weight_kg, sender_username, date_time_created, uuid) \
+                                  VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, UUID())',
+                                  [ parcel.recipient_name, parcel.sender_address, parcel.sender_address_details, parcel.sender_city, 
+                                  parcel.sender_postcode, parcel.sender_country, parcel.recipient_address, parcel.recipient_address_details,
+                                  parcel.recipient_city, parcel.recipient_postcode, parcel.recipient_country, parcel.weight_kg, sender_username, 
+                                  date_time_created ] )
+    
+    console.log(result)
+    return 1
 }
 
 

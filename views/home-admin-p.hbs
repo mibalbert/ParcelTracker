@@ -17,7 +17,6 @@
 				<p><a href="/home-admin-c">Couriers List</a></p>
 				<p><a href="/">Home</a></p>
 				<p><a href="/logout">Log out</a></p>
-
 		</header>
 	<main>
 		<p>This is the Admin's page displaying parcels.</p>
@@ -38,7 +37,7 @@
 			</thead>
 			<tbody>
 			{{#each parcels}}
-				<tr>
+				<tr id="link" class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
 					<td><span class="emoji">📦</span></td>
 					<td>{{this.sender_postcode}}</td>
 					<td>{{this.recipient_postcode}}</td>

@@ -24,9 +24,14 @@
             <p id="alert" style="display:'none'"></p>
 			<form id="sender_form" name="sender_form" action="/send" method="post" enctype="multipart/form-data" autocomplete="off">
 				
+				<section>
+					<label>Recipient's Name:
+						<input id="recipient_name" name="recipient_name" required />
+					<label>
+				</section>
                 {{!-- Section regarding the sender --}}
                 <section name="sender_address_section">	
-					<label>Pick up address*
+					<label>Pick up address
 						<input  id="sender_address" 
 								name="sender_address" 
 								type="text" 
@@ -37,20 +42,20 @@
 					<label>Apartment, unit, suite, or floor
 						<input id="sender_address_details" name="sender_address_details" />
 					</label>
-					<label>City*
+					<label>City
 						<input id="sender_city" name="sender_city" required />
 					</label>
-					<label>Postal code*
+					<label>Postal code
 						<input id="sender_postcode" name="sender_postcode" required />
 					</label>
-					<label>Country/Region*
+					<label>Country/Region
 						<input id="sender_country" name="sender_country" required />
 					<label>
 				</section>
 
                 {{!-- Section regarding the recipient --}}
 				<section name="recipient_address_section">
-					<label>Deliver to*
+					<label>Deliver t
 						<input  id="recipient_address" 
 								name="recipient_address" 
 								type="text" 
@@ -58,22 +63,22 @@
 								placeholder="Search..."
 								required />
 					</label>
-					<label>Apartment, unit, suite, or floor #
+					<label>Apartment, unit, suite, or floor
 						<input id="recipient_address_details" name="recipient_address_details" />
 					</label>
-					<label>City*
+					<label>City
 						<input id="recipient_city" name="recipient_city" required />
 					</label>
-					<label>Postal code*
+					<label>Postal code
 						<input id="recipient_postcode" name="recipient_postcode" required />
 					</label>
-					<label>Country/Region*
+					<label>Country/Region
 						<input id="recipient_country" name="recipient_country" required />
 					</label>
 				</section>
 				<label>
 					Weight
-					<input type="range" name="weight" min="0" max="20" value="1">
+					<input type="range" name="weight_kg" min="0" max="20" value="1">
 					<output name="weight_value">1</output>
 					Kg
 				</label></br>
@@ -85,7 +90,7 @@
 
 		<script>
 		//Change value displayed when moving slider 
-		const slider = document.querySelector('[name=weight]')
+		const slider = document.querySelector('[name=weight_kg]')
 		slider.addEventListener('input', event => {
 			document.querySelector('[name=weight_value]').value = slider.value
 		})
@@ -94,26 +99,45 @@
         let sender_address
         let sender_address_details
         let sender_postcode
+        let sender_city
+        let sender_country
         let recipient_address
-       
+        let recipient_address_details
+        let recipient_postcode 
+        let recipient_city 
+        let recipient_country       
        
         const alert = document.getElementById('alert') 
 
     	function initAutocomplete() {
-			sender_address = document.querySelector("[name=sender_address]");
-			sender_address_details = document.querySelector("[name=sender_address_details]");
-			sender_postcode = document.querySelector("[name=sender_postcode]");
+			sender_address = document.querySelector("[name=sender_address]")
+			sender_address_details = document.querySelector("[name=sender_address_details]")
+            sender_city = document.querySelector("[name=sender_city]")
+			sender_postcode = document.querySelector("[name=sender_postcode]")
+            sender_country = document.querySelector("[name=sender_country]")
+
+			recipient_address = document.querySelector("[name=recipient_address]")
+            recipient_address_details = document.querySelector("[name=recipient_address_details]")
+			recipient_postcode = document.querySelector("[name=recipient_postcode]")
+			recipient_city = document.querySelector("[name=recipient_city]")
+			recipient_country = document.querySelector("[name=recipient_country]")
 			
 			autocomplete = new google.maps.places.Autocomplete(sender_address, {
-				componentRestrictions: { country: [] }, //no-restrictions, add uk or usa for restrictions
+				componentRestrictions: { country: ["uk"] },
 				fields: ["address_components", "geometry"],
 				types: ["address"],
+			});
+			
+            autocomplete2 = new google.maps.places.Autocomplete(recipient_address, {
+				componentRestrictions: { country: [] }, //no-restrictions, add uk or usa for restrictions
+				fields: ["address_components", "geometry"],
+                types: ["address"],
 			});
 			
 			sender_address.focus()
 			
 			autocomplete.addListener("place_changed", fillInAddressSender)
-            //autocomplete.addListener("place_changed", fillInAddressRecipient)
+            autocomplete2.addListener("place_changed", fillInAddressRecipient)
 		}
 
 		function fillInAddressSender() {
@@ -147,15 +171,15 @@
                         break
                     }
                     case "postal_town":{
-                        document.querySelector("[name=sender_city]").value = component.long_name
+                        sender_city.value = component.long_name
                         break
                     } 
                     case "locality":{
-                        document.querySelector("[name=sender_city]").value = component.long_name
+                        sender_city.value = component.long_name
                         break
-                    } 
+                    }
                     case "country":
-                        document.querySelector("[name=sender_country]").value = component.long_name
+                        sender_country.value = component.long_name
                         break
                     }
                 }
@@ -175,9 +199,9 @@
 
 		function fillInAddressRecipient() {
 		// Get the place details from the autocomplete object.
-			const place = autocomplete.getPlace()
-			let sender_address1 = ""
-			let sender_postcode1 = ""
+			const place = autocomplete2.getPlace()
+			let recipient_address1 = ""
+			let recipient_postcode1 = ""
 
 			try{
                 for (const component of place.address_components) {
@@ -188,34 +212,29 @@
                         //console.log(component)
                         //console.log(component.long_name)
                         //console.log(address1)
-                        sender_address1 = `${component.long_name} ${sender_address1}`
+                        recipient_address1 = `${component.long_name} ${recipient_address1}`
                         break
                     }
 
                     case "route": {
-                        sender_address1 += component.short_name
+                        recipient_address1 += component.short_name
                         break
                     }
                     case "postal_code": {
-                        sender_postcode1 = `${component.long_name}${sender_postcode1}`
-                        console.log("First post code", sender_postcode1)
+                        recipient_postcode1 = `${component.long_name}${recipient_postcode1}`
                         break
                     }
                     case "postal_code_suffix": {
-                        sender_postcode1 = `${sender_postcode1}-${component.long_name}`
-                        console.log(sender_postcode1)
+                        recipient_postcode1 = `${recipient_postcode1}-${component.long_name}`
+                        console.log(recipient_postcode1)
                         break
                     }
                     case "postal_town":{
-                        document.querySelector("[name=sender_city]").value = component.long_name
+                        recipient_city.value = component.long_name
                         break
-                    } 
-                    case "locality":{
-                        document.querySelector("[name=sender_city]").value = component.long_name
-                        break
-                    } 
+                    }
                     case "country":
-                        document.querySelector("[name=sender_country]").value = component.long_name
+                        recipient_country.value = component.long_name
                         break
                     }
                 }
@@ -227,9 +246,9 @@
                     }, 1500)
         }
             
-		sender_first_field.value = sender_address1
-		sender_postcode_field.value = sender_postcode1
-		sender_address_details.focus()
+		recipient_address.value = recipient_address1
+		recipient_postcode.value = recipient_postcode1
+		recipient_address_details.focus()
         }
 
 

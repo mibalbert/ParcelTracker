@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Courier Parcels Stock</title>
-		<meta name="description" content="courier view all parcels stock page">
+		<meta name="description" content="courier view all delivered parcels">
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link href="/style.css" type="text/css" rel="stylesheet" />
@@ -49,11 +49,6 @@
 						<td>{{{lol this.date_time_created}}}</td>
 						<td>{{this.uuid}}</td>
 						<td>{{this.status}}</td>
-						<td>
-							<form action="/home-courier-p/{{this.uuid}}" method="post" enctype="multipart/form-data">
-								<input type="submit" name="submit" value="Add-Transit">
-							</form>
-						</td>
 					</tr>
 			{{/each}}
 			</tbody>

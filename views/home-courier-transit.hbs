@@ -53,6 +53,7 @@
                         <th>Date-Time Accepted</th>
                         <th>Unique ID</th>
                         <th>Status</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,12 +71,12 @@
                         <td>{{{lol this.date_time_in_transit}}}</td>
                         <td>{{this.uuid}}</td>
                         <td>{{this.status}}</td>
-                    </tr>	
-                    <td>
                         <td>
-                            <button name="set_deliver" onclick="location.href='home-courier-receiver-details/{{this.uuid}}'">Set-Deliver</button>
+                            <td>
+                                <button name="set_deliver" onclick="location.href='home-courier-receiver-details/{{this.uuid}}'">Set-Deliver</button>
+                            </td>
                         </td>
-					</td>
+                    </tr>	
                 {{/each}}
                 </tbody>
             </table>

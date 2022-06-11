@@ -42,16 +42,12 @@ export async function setParcelStatus2(data, authorised){
 }
 
 
-
-
-
-
-
 export async function setParcelStatusDelivered(uuid, data){
-    const accepted_by = data.fields.accepted_by
-    const signature = data.fields.signature
-    const result = await db.query('UPDATE parcels SET status = "delivered", date_time_delivered = ?, recip_name = ?, recip_signature = ?  WHERE uuid = ?',
-                                  [ date_time, accepted_by, signature, uuid])
-    return "Recipient's details inserted. Parcel delivered!"
+    const handed_to_name = data.fields.handed_to_name
+    const handed_to_signature = data.fields.handed_to_signature
+    const result = await db.query('UPDATE parcels SET status = "delivered", date_time_delivered = ?, handed_to_name = ?, handed_to_signature = ?  WHERE uuid = ?',
+                                  [ date_time, handed_to_name, handed_to_signature, uuid])
+    console.log(result)
+    // return "Recipient's details inserted. Parcel delivered!"
 }
 
