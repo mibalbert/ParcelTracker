@@ -11,32 +11,29 @@
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		{{!-- <script type="module/javascript" src="util.js" defer></script> --}}
+		<script type="module/javascript" src="indiv-parcel-map.js" defer></script>
 
 
 	</head>
 	<body>
 		<header>
 			<h1>Parcel Details</h1>
-			{{#if authorised}}
-				{{#if role.customer}}
-					<p><a href="/send">Send 📦</a></p>
-					<p><a href="/home-customer">Sended</a></p>	
-				{{/if}}
-				{{#if role.courier}}
-					<p><a href="/home-courier-p">Packages</a></p>
-					<p><a href="/home-courier-transit">Transit</a></p>
-				{{/if}}
-				{{#if role.admin}}
-					<p><a href="/home-admin-c">Couriers List</a></p>
-					<p><a href="/home-admin-p">Parcels List</a></p>	
-				{{/if}}
-					<p><a href="/logout">Log out</a></p>
-			{{else}}
-				<p><a href="/login">Log in</a></p>
+			{{#if role.customer}}
+				<p><a href="/send">Send 📦</a></p>
+				<p><a href="/home-customer">Sended</a></p>	
 			{{/if}}
+			{{#if role.courier}}
+				<p><a href="/home-courier-p">Packages</a></p>
+				<p><a href="/home-courier-transit">Transit</a></p>
+			{{/if}}
+			{{#if role.admin}}
+				<p><a href="/home-admin-c">Couriers List</a></p>
+				<p><a href="/home-admin-p">Parcels List</a></p>	
+			{{/if}}
+				<p><a href="/logout">Log out</a></p>
 		</header>
 	<main>
+		<p>Logged in as <span id="authorised">{{authorised}}</span></p>
 		<div id="wrapper">
 			<div id="left"><strong>Destination</strong></div>
 			<div id="right">
@@ -67,6 +64,7 @@
 				</tr>
 			</thead>
 			<tbody>
+				
 			{{#each parcels}}
 				<tr>
 					<td><span class="emoji">📦</span></td>
@@ -102,7 +100,8 @@
 		<script>
 
 		const status = document.getElementById('status')
-		console.log(status.innerHTML)
+		const authorised = document.getElementById('authorised')
+		//console.log(status.innerHTML)
 		if (status.innerHTML == 'not-dispatched'){
 			document.getElementById('accept').style.display = 'none'	
 		} else if(status.innerHTML == 'in-transit'){
