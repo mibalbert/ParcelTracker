@@ -9,19 +9,103 @@
 
 
 body {
-    font-family: 'Libre Franklin', 'Arial Narrow', Arial, sans-serif;
-    display: block;
+  font-family: 'Libre Franklin', 'Arial Narrow', Arial, sans-serif;
 }
 
-main {
-    height: 70vh;
-    width: 99vw;
+/* header {
+  padding: 1.5em;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 30px;
+} */
+
+
+nav {
+    /* position: fixed;
+    right: 0;
+    top: 0;
+    background: white;
+    z-index: 999; */
+    /* height: 100vh;
+    width: 50%;
+    text-transform: uppercase;
+    transform: translateX(100%);
+    transition: transform .5s ease-in-out; */
 }
+
+/* ul {
+    list-style-type: none;
+    margin: 0; 
+    padding: 0;
+    overflow: hidden;
+}
+
+a {
+    color: black;
+    padding: .75em 2em;
+    display: block;
+    text-decoration: none;
+    font-size: 1.3rem;
+}
+
+a:hover {
+    background: rgb(235, 235, 235);
+} */
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e7e7e7;
+  background-color: #f3f3f3;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+li a.active {
+  color: white;
+  background-color: #04AA6D;
+}
+
+
+.close {
+    float: right;
+    margin: 2em;
+    width: 2.5em;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
 
 h1 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 40px;
+    padding-left: 1em;
 }
+#punct {
+  color: blue;
+}
+
+
 
 footer {
     padding: 10px;
@@ -44,9 +128,7 @@ span.emoji {
 /* Set the size of the div element that contains the map */
 #map {
   height: 400px;
-  /* The height is 400 pixels */
   width: 100%;
-  /* The width is the width of the web page */
 }
 
 

@@ -17,22 +17,27 @@
 	</head>
 	<body>
 		<header>
-			<h1>Parcel Details</h1>
-			{{#if role.customer}}
-				<p><a href="/send">Send 📦</a></p>
-				<p><a href="/home-customer">Sended</a></p>	
-			{{/if}}
-			{{#if role.courier}}
-				<p><a href="/home-courier-p">Packages</a></p>
-				<p><a href="/home-courier-transit">Transit</a></p>
-			{{/if}}
-			{{#if role.admin}}
-				<p><a href="/home-admin-c">Couriers List</a></p>
-				<p><a href="/home-admin-p">Parcels List</a></p>	
-			{{/if}}
-				<p><a href="/logout">Log out</a></p>
+			<h1>Parcelino<span id="punct">.</span></h1>
+			<nav>
+				<ul>
+				{{#if role.customer}}
+					<li><a href="/send">Send 📦</a></li>
+					<li><a href="/home-customer">Sended</a></li>	
+				{{/if}}
+				{{#if role.courier}}
+					<li><a href="/home-courier-p">Packages</a></li>
+					<li><a href="/home-courier-transit">Transit</a></li>
+				{{/if}}
+				{{#if role.admin}}
+					<li><a href="/home-admin-c">Couriers List</a></li>
+					<li><a href="/home-admin-p">Parcels List</a></li>	
+				{{/if}}
+					<li><a href="/logout">Log out</a></li>
+				</ul>
+			</nav>
 		</header>
 	<main>
+		<h2>Parcel Details</h2>
 		<p>Logged in as <span id="authorised">{{authorised}}</span></p>
 		<div id="wrapper">
 			<div id="left"><strong>Destination</strong></div>
@@ -79,14 +84,15 @@
 					<td id="date_time_delivered">{{{lop this.date_time_delivered}}}</td>
 					<td id="uuid">{{this.uuid}}</td>
 					<td id="status">{{this.status}}</td>
-					<td>
+					<td class="button">
 						<td>
 							<form  id="formis" action="/home-courier-p/{{this.uuid}}" method="post" enctype="multipart/form-data">
 								<input type="submit" name="submit" value="Add-Transit">
 							</form>
 						</td>
+						</td>
+						<td id="accept"><button onclick="window.location='/home-courier-receiver-details/{{this.uuid}}'" >Deliver</button>	
 					</td>
-					<td id="accept"><button onclick="window.location='/home-courier-receiver-details/{{this.uuid}}'" >Deliver</button></td>
 				</tr>
 			{{/each}}
 			</tbody>
@@ -101,11 +107,17 @@
 
 		const status = document.getElementById('status')
 		const authorised = document.getElementById('authorised')
-		//console.log(status.innerHTML)
-		if (status.innerHTML == 'not-dispatched'){
+		const courier = document.getElementById('courier')
+		//console.log(courier)
+		if(courier != null){
+			if (status.innerHTML == 'not-dispatched'){
 			document.getElementById('accept').style.display = 'none'	
-		} else if(status.innerHTML == 'in-transit'){
-			document.getElementById('formis').style.display = 'none'
+			} else if(status.innerHTML == 'in-transit'){
+				document.getElementById('formis').style.display = 'none'
+			} else {
+				document.getElementById('formis').style.display = 'none'
+				document.getElementById('accept').style.display = 'none'
+			}
 		} else {
 			document.getElementById('formis').style.display = 'none'
 			document.getElementById('accept').style.display = 'none'
