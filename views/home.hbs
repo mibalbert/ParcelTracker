@@ -37,16 +37,37 @@
 				
 			</ol>
 		</header>
-	<main>
-		{{#if authorised}}
-			<p>Hello {{authorised}}</p>
-			<section>
-				<p>In order to fully experience the totality of this website you need to log-in</p>
-				
-			</section>	
-		{{else}}
-			<p>Hi there!</p>
-			<section>
+		<main>
+			<section class="explicative">	
+				<section class="explicative-text">
+					{{#if authorised}}
+						<p>Hello {{authorised}}</p>
+					{{else}}
+						<p>Hi there!</p>
+					{{/if}}
+					<p>Parcel sending reimagined...</p>
+					<p>Easy, safe, reliable!</p>
+					<button class="btn explore">Explore</button>
+				</section>
+
+				<section class="explicative-image">
+					<img src="img/uk-map.png">
+				</section>
+			</section>
+
+		</main>
+
+		<footer>
+			<p>This is the footer</p>
+		</footer>
+		
+	</body>	
+
+</html>
+
+
+
+			{{!-- <section>
 				<p>In order to fully experience the totality of this website you need to log-in</p>
 				<p>Here are some registered accounts you can access : </br>
 					admin: doej p4455w0rd </br>
@@ -57,14 +78,4 @@
 					Just click register! </br>
 					PS: The account you will create will have the role of customer.
 				</p>
-			</section>
-		{{/if}}
-		<div id="map"></div>
-	</main>
-	<footer>
-		<p>This is the footer</p>
-	</footer>
-		
-	</body>	
-
-</html>
+			</section> --}}

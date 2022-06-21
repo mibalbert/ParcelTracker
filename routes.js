@@ -193,10 +193,11 @@ router.post('/home-courier-transit', async context => {
 	let data = await body.value.read()
 	const result = await setParcelStatus(context, data, authorised)
 	console.log(result)
-	const parcels = await getParcelsAccepted(authorised)
-	data = { alert: result, parcels, authorised }    
-	body = await handle.renderView('home-courier-transit', data)
-	context.response.body = body
+	context.response.body =
+	// const parcels = await getParcelsAccepted(authorised)
+	// data = { alert: result, parcels, authorised }    
+	// body = await handle.renderView('home-courier-transit', data)
+	// context.response.body = body
 	}
 )
 

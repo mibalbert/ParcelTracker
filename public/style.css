@@ -91,16 +91,34 @@ li:hover > a {
 
 main {
   font-family: 'Roboto', sans-serif;
-  margin-top: 5em;
-  display: inline;
-  ;
-}
-
-main p {
-  position: relative;
+  margin-top: 1rem;
   
+}
+
+
+  /* Explicative section */
+
+.explicative {
+  display: flex;
+  justify-content: space-evenly;
+  padding-left: 5rem;
+  padding-right: 5rem;
+    border: 5px solid #555;
 
 }
+
+.explicative-text {
+  width: 30vw;
+    border: 5px solid #555;
+
+}
+
+.explicative-image {
+  width: 30vw;
+  border: 5px solid #555;
+}
+
+
 
   /* Table with Parcels */
 
@@ -151,9 +169,6 @@ span.emoji {
 }
 
 
-
-
-
   /* Map */
 
 /* Set the size of the div element that contains the map */
@@ -162,3 +177,22 @@ span.emoji {
   width: 100%;
 }
 
+
+  /* Log-in page */
+
+.log-in-main {
+  background-color: #f3f3f3;
+  display: flex; 
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+.log-in-section {
+  margin: 0.5rem;
+  padding: 0.25rem;
+}
+
+/* .log-in-section.alternative {
+  background-color: aqua;
+} */
