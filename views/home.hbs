@@ -13,25 +13,29 @@
 	</head>
 	<body>
 		<header>
-			<h1>Parcelino<span id="punct">.</span></h1>
-			{{#if authorised}}
-				{{#if role.customer}}
-					<p><a href="/send">Send 📦</a></p>
-					<p><a href="/home-customer">Sended Parcels</a></p>
+			<h1><a href="/">Parcelino<span id="dot">.</span></a></h1>
+			<ol>
+			
+				{{#if authorised}}
+					{{#if role.customer}}
+						<li><a href="/send">Send</a></li>
+						<l1><a href="/home-customer">Parcels</a></li>
+					{{/if}}
+					{{#if role.courier}}
+						<li><a href="/home-courier-p">Parcels</a></li>
+						<li><a href="/home-courier-transit">Transit</a></li>
+					{{/if}}
+					{{#if role.admin}}
+						<li><a href="/home-admin-c">Couriers</a></li>
+						<li><a href="/home-admin-p">Parcels</a></li>	
+					{{/if}}
+						<li><a href="/logout">Log out</a></li>
+				{{else}}
+					<li><a href="/login">Log in</a></li>
+					<li><a href="/register">Register</a></li>
 				{{/if}}
-				{{#if role.courier}}
-					<p><a href="/home-courier-p">Packages</a></p>
-					<p><a href="/home-courier-transit">Transit</a></p>
-				{{/if}}
-				{{#if role.admin}}
-					<p><a href="/home-admin-c">Couriers List</a></p>
-					<p><a href="/home-admin-p">Parcels List</a></p>	
-				{{/if}}
-					<p><a href="/logout">Log out</a></p>
-			{{else}}
-				<p><a href="/login">Log in</a></p>
-				<p><a href="/register">Register</a></p>
-			{{/if}}
+				
+			</ol>
 		</header>
 	<main>
 		{{#if authorised}}

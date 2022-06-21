@@ -13,12 +13,17 @@
 	</head>
 	<body>
 		<header>
-			<h1>Send parcel 📦</h1>
-			<p><a href="/">Home page</a></p>
-			<p><a href="/logout">Log out</a></p>
+			<h1><a href="/">Parcelino<span id="dot">.</span></a></h1>
+			<ol>
+				<li><a href="/">Home page</a></li>
+				<li><a href="/logout">Log out</a></li>
+			</ol>
 		</header>
 		<main>
+			<h2>Send parcel 📦</h2>
 			<p>Hello <strong>{{authorised}}</strong></p>
+			<p>*Only in the <strong>UK</strong></p>
+			
 			<section name="form">
 
             <p id="alert" style="display:'none'"></p>

@@ -9,17 +9,18 @@
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		<script type="module" src="customer-parcels.js" defer></script>
+		<script type="module" src="util.js" defer></script>
 	</head>
 	<body>
 		<header>
 			<h1>Customer's parcels</h1>
 				<p><a href="/">Home</a></p>
-				<p><a href="/send">Send 📦</a></p>
+				<p><a href="/send">Send</a></p>
 				<p><a href="/logout">Log out</a></p>
 		</header>
 	<main>
-		<p>This is the customer's home page and it displays the sended parcels.</p>
+		<p class="table-description">This is the customer's home page and it displays the sended parcels.</p>
+		<section class="table-section">
 		<table>
 			<thead>
 				<tr>
@@ -29,30 +30,34 @@
 					<th>Weight</th>
 					<th>Recipient Name</th>
 					<th>Full Adress</th>
-					<th>Sender Username</th>
-					<th>Created</th>
+					<th>Date Posted</th>
+					<th>Date Transit</th>
+					<th>Date Delivered</th>
 					<th>Unique ID</th>
 					<th>Status</th>
 				</tr>
 			</thead>
 			<tbody>
 			{{#each parcels}}
+				<div class="parcelo">
 				<tr id="link" class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
 					<td><span class="emoji">📦</span></td>
-					<td>{{this.sender_postcode}}</td>
-					<td>{{this.recipient_postcode}}</td>
-					<td>{{this.weight_kg}}</td>
-					<td>{{this.recipient_name}}</td>
-					<td>{{this.full_address}}</td>
-					<td>{{this.sender_username}}</td>
-					<td>{{{ lol this.date_time_created}}}</td>
-					<td>{{this.uuid}}</td>
-					<td id="status">{{{ this.status}}}</td>
+					<td id="sender_postcode">{{this.sender_postcode}}</td>
+					<td id="recipient_postcode">{{this.recipient_postcode}}</td>
+					<td id="weight_kg">{{this.weight_kg}}</td>
+					<td id="recipient_name">{{this.recipient_name}}</td>
+					<td id="full_address">{{this.full_address}}</td>
+					<td class="date_time_created">{{this.date_time_created}}</td>
+					<td class="date_time_in_transit">{{this.date_time_in_transit}}</td>
+					<td class="date_time_delivered">{{this.date_time_delivered}}</td>
+					<td id="uuid">{{this.uuid}}</td>
+					<td id="status">{{this.status}}</td>
+				</div>
 				</tr>
 			{{/each}}
 			</tbody>
 		</table>
-
+		</section>
 	</main>	
 	<footer>
 		<p>This is the footer</p>

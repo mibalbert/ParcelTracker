@@ -1,10 +1,48 @@
 
 /* util.js */
 
+const date_time_now = new Date()
+
 window.addEventListener('DOMContentLoaded', event => {
 	console.log('DOM CONTENT LOADED')
-    if (document.getElementById('alert')) {alert()}
+    if (document.getElementById('alert')) alert()
 	document.querySelector['name=alert']
+	const created = document.getElementsByClassName('date_time_created')
+	const transit = document.getElementsByClassName('date_time_in_transit')
+	const delivered = document.getElementsByClassName('date_time_delivered')
+	
+	//Add querySelector or Class selector to select all the fileds and shit
+	for(let x=0; x<delivered.length; x++){
+		if (delivered[x].innerHTML === '' ) delivered[x].innerHTML = '-'
+	}
+	for(let x=0; x<transit.length; x++){
+		if (transit[x].innerHTML === '' ) transit[x].innerHTML = '-'
+	}
+
+
+
+    const date_time = new Date(created.innerHTML)
+    const hours = diff_hours(date_time, date_time_now)
+	
+    ///if hours && status != 'delivered'
+
+
+	if( hours > 48 ){
+			created.innerHTML = `${created.innerHTML} h:${hours}`
+        	created.style.color = 'red'}
+    //     }else if( hours > 24 ){
+
+    //     }else{
+
+    //     }
+    // } else{
+    //     //display this if date is null
+    //     return '<span>' + '-' + '</span>'
+    // }
+	
+	console.log(hours)
+
+
 })
 
 function alert(){
@@ -19,36 +57,33 @@ function alert(){
 }
 
 
-
-// <script src="lib/vanilla-toast.min.js"></script>
-
-// vt.success("Success Message");
-// vt.info("Info Message");
-// vt.warn("Warning Message");
-// vt.error("Error Message");
-
-// vt.success("Success Message",{
-//   title: undefined,
-//   position: toastPosition.TopCenter,
-//   duration: 2000,
-//   closable: true,
-//   focusable: true,
-//   callback: undefined
-// });
+function diff_hours(dt2, dt1){
+    let diff =(dt2 - dt1) / 1000;
+    diff /= (60 * 60);
+    return Math.abs(Math.round(diff));	
+}
 
 
-	
-// function geoCode(postcode){
-// 	axios.get("https://maps.googleapis.com/maps/api/geocode/json",{
-// 		params: {
-// 			address : postcode,
-// 			key: "AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU"
-// 		}
-// 	}).then(function(response){
-// 		return response.data.results[0].geometry.location.lat
-// 		// lat.value = response.data.results[0].geometry.location.lat
-// 		// lng.innerHTML = response.data.results[0].geometry.location.lng
-// }).catch(function(errors){
-// 	console.log(errors)
-// })}
+    // // Checks if the parcel was posted longer than 48h
+    // if (date_time != null){
+    //     const date_time_dtf = date_time.toDateString()
+    //     const date_time_tmf = date_time.toLocaleTimeString()
+    //     const hours = diff_hours(date_time, date_time_now)
 
+
+
+//  if (date_time != null){
+//         const date_time_dtf = date_time.toDateString()
+//         const date_time_tmf = date_time.toLocaleTimeString()
+//         const hours = diff_hours(date_time, date_time_now)
+//         if( hours > 48 ){
+//             return '<span>' + date_time_dtf + ' ' + '(' + date_time_tmf + ' - ' +hours + 'h' + ')' + '</span>'
+//         }else if( hours > 24 ){
+//             return '<span>' + date_time_dtf + ' ' + '(' + date_time_tmf + ' - ' + hours + 'h' + ')' + '</span>'
+//         }else{
+//             return '<span>' + date_time_dtf + ' ' + '(' + date_time_tmf + ' - ' + hours + 'h' + ')' + '</span>'
+//         }
+//     } else{
+//         //display this if date is null
+//         return '<span>' + '-' + '</span>'
+//     }
