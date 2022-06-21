@@ -54,22 +54,15 @@ router.get('/', async context => {
 })
 
 
+
+
+/////// Get short date to be displayed for......
+
+
 ///// Get the uuid of the parcel u want to change and 
 ///// then get the 'authorised' inside the post and 
 ///// then change the status and who accepted it 
 ///// based on uuid and authorised
-
-
-router.post('/', async context => {
-	const body = context.request.body({ type: 'json' }); 
-	const parsedBody = await body.value; 
-	console.log(parsedBody)
-	if(parsedBody.a ===  1){
-		context.response.status = 200
-		context.response.body = {msg: 'plm'}
-		// console.log('FUCK YEAH')
-	}
-})
 
 
 // 	context.response.status = Status.ok
@@ -214,34 +207,31 @@ router.get('/home-courier-transit', async context => {
 // Courier POST transit page 
 router.post('/home-courier-transit', async context => {
 	console.log('/POST /home-courier-transit')
-	const authorised = await context.cookies.get('authorised')
-	let body = context.request.body({type: 'form-data'})
-	let data = await body.value.read()
-	const result = await setParcelStatus(context, data, authorised)
-	console.log(result)
-	const parcels = await getParcelsAccepted(authorised)
-	data = { alert: result, parcels, authorised }    
-	body = await handle.renderView('home-courier-transit', data)
-	context.response.body = body
+
+	const body = context.request.body({ type: 'json' })
+	const parsedBody = await body.value
+	console.log(parsedBody.uuid)
+	// if(parsedBody.uuid ===  1){
+	// 	console.log('YEYYY')
+	if (parsedBody.uuid == 123){
+		context.response.status = 200
+		context.response.body = {msg: 'plm'}
+	} else {
+		context.response.status = 400
+		context.response.body = {msg: 'plt'}
+	}
+		
+	// }else{
+	// 	console.log('NoOOO')
+	// }
+
+//	const result = await setParcelStatus(context, data, authorised)
+//	console.log(result)
+//	const parcels = await getParcelsAccepted(authorised)
+
 	}
 )
 
-
-
-// // Courier POST transit page 
-// router.post('/home-courier-transit/:uuid', async context => {
-// 	console.log('/POST /home-courier-transit')
-// 	const authorised = await context.cookies.get('authorised')
-// 	const uuid = context.params.uuid
-// 	const result = await setParcelStatus(uuid, authorised)
-// 	console.log(result)
-// 	// const parcels = await getParcelsAccepted(authorised)
-// 	// data = { alert: result, parcels, authorised }    
-// 	// body = await handle.renderView('home-courier-transit', data)
-// 	// context.response.body = body
-// 	context.response.redirect(`/home-courier-receiver-details/${uuid}`)
-// 	}
-// )
 
 
 // Courier delivered parcel input page 
