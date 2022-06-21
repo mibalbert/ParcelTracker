@@ -25,10 +25,10 @@ window.addEventListener('DOMContentLoaded', event => {
 	
     ///if hours && status != 'delivered'
 
-	if( hours > 48 ){
-			created.innerHTML = `${created.innerHTML} h:${hours}`
-        	created.style.color = 'red'
-	} 
+	// if( hours > 48 ){
+	// 		created.innerHTML = `${created.innerHTML} h:${hours}`
+    //     	created.style.color = 'red'
+	// } 
     //     }else if( hours > 24 ){
 
     //     }else{
@@ -39,7 +39,7 @@ window.addEventListener('DOMContentLoaded', event => {
     //     return '<span>' + '-' + '</span>'
     // }
 	
-	console.log(hours)
+	// console.log(hours)
 
 	// Create the script for the Map
 	var script = document.createElement('script');
@@ -57,67 +57,52 @@ window.addEventListener('DOMContentLoaded', event => {
 	// Append the 'script' element to 'head'
 	document.head.appendChild(script);
 
-
+	// Get uuid to make api call
 	const uuid = document.querySelector('input[name=uuid]')
-
 	uuid.addEventListener('keypress', async event => {
 		if (event.keyCode === 13) { 
       		event.preventDefault();
 			makeCall(uuid.value)
-			
+			uuid.value = ""
 		}
 	})
-
-
 })
-
 
 function diff_hours(dt2, dt1){
     let diff =(dt2 - dt1) / 1000;
     diff /= (60 * 60);
     return Math.abs(Math.round(diff));	
 }
-            
-async function makeCall(uuid) { 
-    // const axiosPostCall = async () => {
-	// 	try {
-	// 	const { data } = await axios.post(window.location.href,  {
-	// 		//Payload
-	// 		uuid: uuid
-	// 	})
-	// 	console.log(`data: `, data.msg)
-	// 	} catch (error) {
-	// 	console.log(`error: `, error)
-	// 	}
-	// }
-	// axiosPostCall()
 
+// Fetch api to post uuid to 'accept' parcel 
+async function makeCall(uuid) { 
 	axios.post(window.location.href, {
 		uuid: uuid,
 	})
 	.then(function (response) {
+		const uu = document.querySelector('input[name=uuid]')
 		let elem = document.getElementById('alert')
 		let code = response.status
 		if ( code === 200 ){
-			console.log("You've added a parcel to deliver")
 			elem.innerHTML = "You've added a parcel to deliver"
-		} else if ( code === 400) {
-			console.log("Sorry you've inputed the wrong uuid!")
 		} 
-
-		
 		setTimeout( function(){
-							elem.remove()
-					} , 2000)
+			elem.innerHTML = ""
+			
+		} , 1500)
 	
 	})
 	.catch(function (error) {
-		console.log(error.response.status);
+		// console.log(error.response.status);
+		const uu = document.querySelector('input[name=uuid]')
+		let elem = document.getElementById('alert')
+		elem.innerHTML = "Sorry you've inputed the wrong uuid!"
+		setTimeout( function(){
+			elem.innerHTML = ""
+		} , 1500)
 	});
-
-
 }
-
+	
 
 
 

@@ -199,6 +199,7 @@ router.get('/home-courier-transit', async context => {
 	if (authorised === undefined || role) context.response.redirect('/login')
 	const parcels = await getParcelsAccepted(authorised)
 	const data = { authorised, parcels }    
+	console.log(parcels)
 	const body = await handle.renderView('home-courier-transit', data)
 	context.response.body = body
 })
@@ -216,14 +217,7 @@ router.post('/home-courier-transit', async context => {
 	if (parsedBody.uuid == 123){
 		context.response.status = 200
 		context.response.body = {msg: 'plm'}
-	} else {
-		context.response.status = 400
-		context.response.body = {msg: 'plt'}
 	}
-		
-	// }else{
-	// 	console.log('NoOOO')
-	// }
 
 //	const result = await setParcelStatus(context, data, authorised)
 //	console.log(result)
