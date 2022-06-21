@@ -53,6 +53,32 @@ router.get('/', async context => {
 	context.response.body = body
 })
 
+
+///// Get the uuid of the parcel u want to change and 
+///// then get the 'authorised' inside the post and 
+///// then change the status and who accepted it 
+///// based on uuid and authorised
+
+
+router.post('/', async context => {
+	const body = context.request.body({ type: 'json' }); 
+	const parsedBody = await body.value; 
+	console.log(parsedBody)
+	if(parsedBody.a ===  1){
+		context.response.status = 200
+		context.response.body = {msg: 'plm'}
+		// console.log('FUCK YEAH')
+	}
+})
+
+
+// 	context.response.status = Status.ok
+// The HTTP Status Code	response.status.	404
+// The HTTP Status Text.	response.statusText.	not found
+
+
+
+
 router.get('/login', async context => {
 	const body = await handle.renderView('login')
 	context.response.body = body
@@ -193,13 +219,14 @@ router.post('/home-courier-transit', async context => {
 	let data = await body.value.read()
 	const result = await setParcelStatus(context, data, authorised)
 	console.log(result)
-	context.response.body =
-	// const parcels = await getParcelsAccepted(authorised)
-	// data = { alert: result, parcels, authorised }    
-	// body = await handle.renderView('home-courier-transit', data)
-	// context.response.body = body
+	const parcels = await getParcelsAccepted(authorised)
+	data = { alert: result, parcels, authorised }    
+	body = await handle.renderView('home-courier-transit', data)
+	context.response.body = body
 	}
 )
+
+
 
 // // Courier POST transit page 
 // router.post('/home-courier-transit/:uuid', async context => {
