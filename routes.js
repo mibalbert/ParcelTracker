@@ -218,6 +218,21 @@ router.post('/home-courier-transit', async context => {
 
 })
 
+// Courier transit page 
+router.get('/home-courier-route', async context => {
+	console.log('/GET /home-courier-transit')
+	const authorised = await context.cookies.get('authorised')
+	const permission = await context.cookies.get('permission')
+	const role = permission !== 'courier'
+	if (authorised === undefined || role) context.response.redirect('/login')
+	const parcels = await getParcelsAccepted(authorised)
+	const data = { authorised, parcels }    
+	// console.log(parcels)
+	const body = await handle.renderView('home-courier-route', data)
+	context.response.body = body
+	
+})
+
 
 
 // Courier delivered parcel input page 

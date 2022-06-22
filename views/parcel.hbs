@@ -21,7 +21,7 @@
 			<nav>
 				<ul>
 				{{#if role.customer}}
-					<li><a href="/send">Send+</a></li>
+					<li><a href="/send">Send<span class="plus-sign">&#8314;</span></a></li>
 					<li><a href="/home-customer">Sended</a></li>	
 				{{/if}}
 				{{#if role.courier}}
@@ -71,7 +71,7 @@
 				
 			{{#each parcels}}
 				<tr>
-					<td><img class="parcel-icon" src="img/package.png"></td>
+					{{!-- <td><img class="parcel-icon" src="../public/img/package.png"></td> --}}
 					<td id="sender_username">{{this.sender_username}}</td>
 					<td id="sender_postcode">{{this.sender_postcode}}</td>
 					<td id="recipient_postcode">{{this.recipient_postcode}}</td>
@@ -120,7 +120,7 @@
 			<tbody>
 			{{#each parcels}}
 				<tr>
-					<td><span class="emoji">📦</span></td>
+					{{!-- <td><img class="parcel-icon" src="img/package.png"></td> --}}
 					<td id="sender_username">{{this.sender_username}}</td>
 					<td id="sender_postcode">{{this.sender_postcode}}</td>
 					<td id="recipient_postcode">{{this.recipient_postcode}}</td>
@@ -170,7 +170,7 @@
 				
 			{{#each parcels}}
 				<tr>
-					<td><span class="emoji">📦</span></td>
+					<td><img class="parcel-icon" src="img/package.png"></td>
 					<td id="sender_username">{{this.sender_username}}</td>
 					<td id="sender_postcode">{{this.sender_postcode}}</td>
 					<td id="recipient_postcode">{{this.recipient_postcode}}</td>

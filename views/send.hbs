@@ -4,7 +4,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Send Parcel Page</title>
+		<title>Parcelino. | Send+</title>
 		<meta name="description" content="form to add new parcel">
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
@@ -15,81 +15,85 @@
 		<header>
 			<h1><a href="/">Parcelino<span id="dot">.</span></a></h1>
 			<ol>
-				<li><a href="/">Home page</a></li>
+				<li><a href="/">Home</a></li>
 				<li><a href="/logout">Log out</a></li>
 			</ol>
 		</header>
 		<main>
-			<h2>Send parcel 📦</h2>
+			<h2>Send </h2>
 			<p>Hello <strong>{{authorised}}</strong></p>
-			<p>*Only in the <strong>UK</strong></p>
-			
-			<section name="form">
 
             <p id="alert" style="display:'none'"></p>
-			<form id="sender_form" name="sender_form" action="/send" method="post" enctype="multipart/form-data" autocomplete="off">
-				
-				<section>
-					<label>Recipient's Name:
-						<input id="recipient_name" name="recipient_name" required />
-					<label>
-				</section>
-                {{!-- Section regarding the sender --}}
-                <section name="sender_address_section">	
-					<label>Pick up address
-						<input  id="sender_address" 
-								name="sender_address" 
-								type="text" 
-								autocomplete="off" 
-								placeholder="Search..."
-								required />
-					</label>
-					<label>Apartment, unit, suite, or floor
-						<input id="sender_address_details" name="sender_address_details" />
-					</label>
-					<label>City
-						<input id="sender_city" name="sender_city" required />
-					</label>
-					<label>Postal code
-						<input id="sender_postcode" name="sender_postcode" required />
-					</label>
-					<label>Country/Region
-						<input id="sender_country" name="sender_country" required />
-					<label>
-				</section>
+			
+			<section class="send-parcel-form-main">
+				<form class="address-form" action="/send" method="post" enctype="multipart/form-data" autocomplete="off">
+					
+						<p><strong>UK</strong> only*</p>
 
-                {{!-- Section regarding the recipient --}}
-				<section name="recipient_address_section">
-					<label>Deliver t
-						<input  id="recipient_address" 
-								name="recipient_address" 
-								type="text" 
-								autocomplete="off" 
-								placeholder="Search..."
-								required />
-					</label>
-					<label>Apartment, unit, suite, or floor
-						<input id="recipient_address_details" name="recipient_address_details" />
-					</label>
-					<label>City
-						<input id="recipient_city" name="recipient_city" required />
-					</label>
-					<label>Postal code
-						<input id="recipient_postcode" name="recipient_postcode" required />
-					</label>
-					<label>Country/Region
-						<input id="recipient_country" name="recipient_country" required />
-					</label>
-				</section>
-				<label>
-					Weight
-					<input type="range" name="weight_kg" min="0" max="20" value="1">
-					<output name="weight_value">1</output>
-					Kg
-				</label></br>
+						<label>Recipient's Name:
+							<input id="recipient_name" name="recipient_name" required />
+						</label>
+					
+						<label>Pick up address:
+							<input  id="sender_address" 
+									name="sender_address" 
+									type="text" 
+									autocomplete="off" 
+									placeholder="Search..."
+									required />
+						</label>
+					
+						<label>Apartment, unit, suite, or floor
+							<input id="sender_address_details" name="sender_address_details" />
+						</label>
+					
+						<label>City
+							<input id="sender_city" name="sender_city" required />
+						</label>
+					
+						<label>Postal code
+							<input id="sender_postcode" name="sender_postcode" required />
+						</label>
+					
+						<label>Country/Region
+							<input id="sender_country" name="sender_country" required />
+						</label>
+							
+						<label>Drop-off address:
+							<input  id="recipient_address" 
+									name="recipient_address" 
+									type="text" 
+									autocomplete="off" 
+									placeholder="Search..."
+									required />
+						</label>
+					
+						<label>Apartment, unit, suite, or floor
+							<input id="recipient_address_details" name="recipient_address_details" />
+						</label>
+					
+						<label>City
+							<input id="recipient_city" name="recipient_city" required />
+						</label>
+					
+						<label>Postal code
+							<input id="recipient_postcode" name="recipient_postcode" required />
+						</label>
+					
+						<label>Country/Region
+							<input id="recipient_country" name="recipient_country" required />
+						</label>
+					
+						<label>
+							Weight
+							<input type="range" name="weight_kg" min="0" max="20" value="1">
+							<output name="weight_value">1</output>
+							Kg
+						</label>
 
-				<input type="submit" value="Submit" >
-			</form>
+						<input type="submit" value="Submit" >
+
+				</form>
 			</section>
 		</main>
 
@@ -198,7 +202,7 @@
             
 		sender_address.value = sender_address1
 		sender_postcode.value = sender_postcode1
-		sender_address_details.focus()
+		recipient_address.focus()
         }
         
 
@@ -253,7 +257,7 @@
             
 		recipient_address.value = recipient_address1
 		recipient_postcode.value = recipient_postcode1
-		recipient_address_details.focus()
+		//recipient_address_details.focus()
         }
 
 
