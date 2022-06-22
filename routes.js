@@ -9,9 +9,7 @@ import { Handlebars } from 'handlebars'
 import { login, register } from 'accounts'
 import { addParcel } from './modules/send.js'
 
-import { handlebarsHelper1, 
-		 handlebarsHelper2, 
-		 handlebarsHelper3 } from './modules/handlebarsHelpers.js'
+import { handlebarsHelper1 } from './modules/handlebarsHelpers.js'
 
 import { getCourierIndividual, 
 		 getAllCouriers, 
@@ -199,32 +197,26 @@ router.get('/home-courier-transit', async context => {
 	if (authorised === undefined || role) context.response.redirect('/login')
 	const parcels = await getParcelsAccepted(authorised)
 	const data = { authorised, parcels }    
-	console.log(parcels)
+	// console.log(parcels)
 	const body = await handle.renderView('home-courier-transit', data)
 	context.response.body = body
+	
 })
 
 
 // Courier POST transit page 
 router.post('/home-courier-transit', async context => {
 	console.log('/POST /home-courier-transit')
-
+	const authorised = await context.cookies.get('authorised')
 	const body = context.request.body({ type: 'json' })
 	const parsedBody = await body.value
-	console.log(parsedBody.uuid)
-	// if(parsedBody.uuid ===  1){
-	// 	console.log('YEYYY')
-	if (parsedBody.uuid == 123){
-		context.response.status = 200
-		context.response.body = {msg: 'plm'}
-	}
+	console.log(parsedBody)
+	const result = await setParcelStatus(authorised, parsedBody.uuid)
+	console.log(result)
+	context.response.status = result.status
+	context.response.body = {msg: result.message}
 
-//	const result = await setParcelStatus(context, data, authorised)
-//	console.log(result)
-//	const parcels = await getParcelsAccepted(authorised)
-
-	}
-)
+})
 
 
 
@@ -278,6 +270,7 @@ router.get('/home-customer', async context => {
 	if (authorised === undefined || permission !== 'customer') context.response.redirect('/login')
 	const parcels = await getParcelsCustomer(authorised)
 	const data = { authorised, parcels }
+	// console.log(parcels)
 	const body = await handle.renderView('home-customer', data)
 	context.response.body = body
 })
@@ -301,7 +294,7 @@ router.post('/send', async context =>{
 	const result = await addParcel(data, authorised)
 	const bodys = await handle.renderView('send')
 	context.response.body = bodys
-	// context.response.redirect('/home-customer')
+	context.response.redirect('/home-customer')
 })
 
 

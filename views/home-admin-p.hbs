@@ -38,7 +38,7 @@
 			<tbody>
 			{{#each parcels}}
 				<tr id="link" class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
-					<td><span class="emoji">📦</span></td>
+					<td><img class="parcel-icon" src="img/package.png"></td>
 					<td>{{this.sender_postcode}}</td>
 					<td>{{this.recipient_postcode}}</td>
 					<td>{{this.weight_kg}}</td>

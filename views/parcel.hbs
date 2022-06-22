@@ -17,11 +17,11 @@
 	</head>
 	<body>
 		<header>
-			<h1>Parcelino<span id="punct">.</span></h1>
+			<h1>Parcelino<span id="dot">.</span></h1>
 			<nav>
 				<ul>
 				{{#if role.customer}}
-					<li><a href="/send">Send 📦</a></li>
+					<li><a href="/send">Send+</a></li>
 					<li><a href="/home-customer">Sended</a></li>	
 				{{/if}}
 				{{#if role.courier}}
@@ -39,18 +39,115 @@
 		</header>
 	<main>
 		<h2>Parcel Details</h2>
-		<p>Logged in as <span id="authorised">{{authorised}}</span></p>
-		<div id="wrapper">
-			<div id="left"><strong>Destination</strong></div>
-			<div id="right">
-				{{#each parcels}}
-					<span><strong>{{this.status}}</strong></span>
-				{{/each}}
-			</div>
-		</div>
-		{{!-- Where the map will be displayed --}}
-		<div id="map"></div>
-		<p>Parcel details</p>
+		<p>Logged in as <span id="authorised"><strong>{{authorised}}</strong></span></p>
+
+		<section class="map-wrapper">
+			{{!-- Where the map will be displayed --}}
+			<div id="map-one-parcel"></div>
+		</section>
+		
+		
+		<section class="parcels">
+		{{#if role.admin}}
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Sender Username</th>
+					<th>Sender PostCode</th>
+					<th>Recipient PostCode</th>
+					<th>Weight</th>
+					<th>Recipient Name</th>
+					<th>Full Adress</th>
+					<th>Date Posted</th>
+					<th>Date Transit</th>
+					<th>Date Delivered</th>
+					<th>Unique ID</th>
+					<th>Status</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			{{#each parcels}}
+				<tr>
+					<td><img class="parcel-icon" src="img/package.png"></td>
+					<td id="sender_username">{{this.sender_username}}</td>
+					<td id="sender_postcode">{{this.sender_postcode}}</td>
+					<td id="recipient_postcode">{{this.recipient_postcode}}</td>
+					<td id="weight_kg">{{this.weight_kg}}</td>
+					<td id="recipient_name">{{this.recipient_name}}</td>
+					<td id="full_address">{{this.full_address}}</td>
+					<td id="date_time_created">{{{lol this.date_time_created}}}</td>
+					<td id="date_time_in_transit">{{{lol this.date_time_in_transit}}}</td>
+					<td id="date_time_delivered">{{{lol this.date_time_delivered}}}</td>
+					<td id="uuid">{{this.uuid}}</td>
+					<td id="status">{{this.status}}</td>	
+					<td class="button">
+						<td>
+							<form  id="formis" action="/home-courier-p/{{this.uuid}}" method="post" enctype="multipart/form-data">
+								<input type="submit" name="submit" value="Add-Transit">
+							</form>
+						</td>
+						</td>
+						<td id="accept"><button onclick="window.location='/home-courier-receiver-details/{{this.uuid}}'" >Deliver</button>	
+					</td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
+		{{/if}}
+
+		{{#if role.courier}}
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Sender Username</th>
+					<th>Sender PostCode</th>
+					<th>Recipient PostCode</th>
+					<th>Weight</th>
+					<th>Recipient Name</th>
+					<th>Full Adress</th>
+					<th>Date Posted</th>
+					<th>Date Transit</th>
+					<th>Date Delivered</th>
+					<th>Unique ID</th>
+					<th>Status</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			{{#each parcels}}
+				<tr>
+					<td><span class="emoji">📦</span></td>
+					<td id="sender_username">{{this.sender_username}}</td>
+					<td id="sender_postcode">{{this.sender_postcode}}</td>
+					<td id="recipient_postcode">{{this.recipient_postcode}}</td>
+					<td id="weight_kg">{{this.weight_kg}}</td>
+					<td id="recipient_name">{{this.recipient_name}}</td>
+					<td id="full_address">{{this.full_address}}</td>
+					<td id="date_time_created">{{{lol this.date_time_created}}}</td>
+					<td id="date_time_in_transit">{{{lol this.date_time_in_transit}}}</td>
+					<td id="date_time_delivered">{{{lol this.date_time_delivered}}}</td>
+					<td id="uuid">{{this.uuid}}</td>
+					<td id="status">{{this.status}}</td>
+					<td class="button">
+						<td>
+							<form  id="formis" action="/home-courier-p/{{this.uuid}}" method="post" enctype="multipart/form-data">
+								<input type="submit" name="submit" value="Add-Transit">
+							</form>
+						</td>
+						</td>
+						<td id="accept"><button onclick="window.location='/home-courier-receiver-details/{{this.uuid}}'" >Deliver</button>	
+					</td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
+		{{/if}}
+
+		{{#if role.customer}}
 		<table>
 			<thead>
 				<tr>
@@ -85,43 +182,22 @@
 					<td id="date_time_delivered">{{{lol this.date_time_delivered}}}</td>
 					<td id="uuid">{{this.uuid}}</td>
 					<td id="status">{{this.status}}</td>
-					<td class="button">
-						<td>
-							<form  id="formis" action="/home-courier-p/{{this.uuid}}" method="post" enctype="multipart/form-data">
-								<input type="submit" name="submit" value="Add-Transit">
-							</form>
-						</td>
-						</td>
-						<td id="accept"><button onclick="window.location='/home-courier-receiver-details/{{this.uuid}}'" >Deliver</button>	
-					</td>
+					
 				</tr>
 			{{/each}}
 			</tbody>
-			
 		</table>
+		{{/if}}
+
+		</section>
+
 	</main>
 	<footer>
 		<p>This is the footer</p>
 	</footer>
 		<script>
 
-		const status = document.getElementById('status')
-		const authorised = document.getElementById('authorised')
-		const courier = document.getElementById('courier')
-		//console.log(courier)
-		if(courier != null){
-			if (status.innerHTML == 'not-dispatched'){
-			document.getElementById('accept').style.display = 'none'	
-			} else if(status.innerHTML == 'in-transit'){
-				document.getElementById('formis').style.display = 'none'
-			} else {
-				document.getElementById('formis').style.display = 'none'
-				document.getElementById('accept').style.display = 'none'
-			}
-		} else {
-			document.getElementById('formis').style.display = 'none'
-			document.getElementById('accept').style.display = 'none'
-		}
+		
 
 		let lat = document.getElementById('sender_postcode')	
 		let lng = document.getElementById('recipient_postcode')
@@ -133,7 +209,9 @@
 			const directionsRenderer = new google.maps.DirectionsRenderer()
 			const directionsService = new google.maps.DirectionsService()
 			//create the map
-			map = new google.maps.Map(document.getElementById('map'))
+			map = new google.maps.Map(document.getElementById('map-one-parcel'), {
+				disableDefaultUI: true,
+			})
 			directionsRenderer.setMap(map)
 			calculateAndDisplayRoute(directionsService, directionsRenderer)
 		}

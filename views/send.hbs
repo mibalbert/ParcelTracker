@@ -134,7 +134,7 @@
 			});
 			
             autocomplete2 = new google.maps.places.Autocomplete(recipient_address, {
-				componentRestrictions: { country: [] }, //no-restrictions, add uk or usa for restrictions
+				componentRestrictions: { country: ["uk"] }, //no-restrictions, add uk or usa for restrictions
 				fields: ["address_components", "geometry"],
                 types: ["address"],
 			});

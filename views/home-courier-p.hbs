@@ -9,17 +9,20 @@
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		<script type="module/javascript" src="util.js"></script>
-	</head>
+		<script type="module" src="main.js" defer></script>
+		</head>
 	<body>
 		<header>
-			<h1>All Parcels Stock</h1>
-				<p><a href="/home-courier-transit">Transit</a></p>
-				<p><a href="/">Home</a></p>
-				<p><a href="/logout">Log out</a></p>
+			<h1><a href="/">Parcelino<span id="dot">.</span></a></h1>
+			<ol>
+                <li><a href="/home-courier-transit">Transit</a></li>
+                <li><a href="/">Home</a></p>
+                <li><a href="/logout">Log out</a></li>
+			</ol>
 		</header>
 	<main>
 		<p>This is the couriere's home page.</p>
+		<section class="parcels">
 		<table>
 			<thead>
 				<tr>
@@ -34,12 +37,13 @@
 					<th>Unique ID</th>
 					<th>Status</th>
 					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 			{{#each parcels}}
-					<tr class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
-						<td><span class="emoji">📦</span></td>
+					<tr class="parcel-link">
+						<td><img class="parcel-icon" src="img/package.png"></td>
 						<td>{{this.sender_postcode}}</td>
 						<td>{{this.recipient_postcode}}</td>
 						<td>{{this.weight_kg}}</td>
@@ -49,19 +53,22 @@
 						<td>{{{lol this.date_time_created}}}</td>
 						<td>{{this.uuid}}</td>
 						<td>{{this.status}}</td>
-						<td>
-							<form action="/home-courier-p/{{this.uuid}}" method="post" enctype="multipart/form-data">
+						<td><button onclick="window.location='/parcel/{{this.uuid}}'">View</button></td>
+						<td><button class="button-add-transit" value="{{this.uuid}}">Add-Transit</button>
+							{{!-- <form action="/home-courier-p/{{this.uuid}}" method="post" enctype="multipart/form-data">
 								<input type="submit" name="submit" value="Add-Transit">
-							</form>
+							</form> --}}
 						</td>
 					</tr>
 			{{/each}}
 			</tbody>
 		</table>
+		</section>
 	</main>
 	<footer>
 		<p>This is the footer</p>
 	</footer>
+
 	</body>
 	
 </html>

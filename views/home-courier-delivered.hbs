@@ -20,6 +20,7 @@
 		</header>
 	<main>
 		<p>This is the couriere's home page.</p>
+		<section class="parcels">
 		<table>
 			<thead>
 				<tr>
@@ -39,7 +40,7 @@
 			<tbody>
 			{{#each parcels}}
 					<tr class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
-						<td><span class="emoji">📦</span></td>
+						<td><img class="parcel-icon" src="img/package.png"></td>
 						<td>{{this.sender_postcode}}</td>
 						<td>{{this.recipient_postcode}}</td>
 						<td>{{this.weight_kg}}</td>
@@ -53,6 +54,7 @@
 			{{/each}}
 			</tbody>
 		</table>
+		</section>
 	</main>
 	<footer>
 		<p>This is the footer</p>

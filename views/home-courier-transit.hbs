@@ -16,31 +16,39 @@
     </head>
 	<body>
 		<header>
-			<h1>Transit page</h1>
-			<h2>Hi {{authorised}}</h2>
-            <p><a href="/home-courier-p">Packages</a></p>
-            <p><a href="/logout">Log out</a></p>
-            <p><a href="/">Home</a></p>
-		</header>
+            <h1><a href="/">Parcelino<span id="dot">.</span></a></h1>
+			<ol>
+                <li><a href="/home-courier-p">Parcels</a></li>
+                <li><a href="/">Home</a></p>
+                <li><a href="/logout">Log-out</a></li>
+			</ol>
+        </header>
         <main>
+            {{!-- <div class="get-started">If you want to learn more and get started with this project see the Docs section!</div> --}}
             
-            <p><strong>MAP:</strong></p> 
-		    <div id="map"></div>
-            
-            <p></p>
-            
-            <label>Set to delivered by entering the UUID:</label>
-            {{!-- <form action="/home-courier-transit" method="post" enctype="multipart/form-data">
-                <input type="search" name="search" id="search" >
-                <input type="submit" name="submit">
-            </form> --}}
-            
+
+            <section class="breadcrumbs-section">
+                <ul class="breadcrumbs-ul">
+                    <li class="breadcrumbs_item">
+                        <a class="breadcrumbs-link" href="/">Home</a>
+                    </li>
+                    <li class="breadcrumbs_item">
+                        <a class="breadcrumbs-link" href="/home-courier-p">Parcels</a>
+                        </li>
+                    <li class="breadcrumbs_item">
+                        <a class="breadcrumbs-link breadcrumbs-link-active" href="/home-courier-transit">Transit</a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="map">
+		        <img class="fake-map" src="img/styling.jpg">            
+            </section>
+
+            <label>Deliver parcel by entering the UUID:</label>
             <p><input type="text" name="uuid"></input></p>
-
             <p id="alert"></p>
-            
-
-
+            <section class="parcels"> 
             <table>
                 <thead>
                     <tr>
@@ -62,7 +70,7 @@
                 {{#each parcels}}
                     <tr>
                         <tr class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
-                        <td><span class="emoji">📦</span></td>
+                        <td><img class="parcel-icon" src="img/package.png"></td>
                         <td>{{this.sender_postcode}}</td>
                         <td class="recipient_postcode">{{this.recipient_postcode}}</td>
                         <td>{{this.weight_kg}}</td>
@@ -73,22 +81,20 @@
                         <td>{{{lol this.date_time_in_transit}}}</td>
                         <td>{{this.uuid}}</td>
                         <td>{{this.status}}</td>
-                        <td>
-                            <td>
-                                <button name="set_deliver" onclick="location.href='home-courier-receiver-details/{{this.uuid}}'">Deliver</button>
-                            </td>
-                        </td>
+                        <td><button name="set_deliver">Deliver</button></td>
                     </tr>	
                 {{/each}}
                 </tbody>
             </table>
+            </section>
         </main>        
-
-
         <footer>
             <p>This is the footer</p>
         </footer>
-
 	</body>	
 </html>
 
+            {{!-- <form action="/home-courier-transit" method="post" enctype="multipart/form-data">
+                <input type="search" name="search" id="search" >
+                <input type="submit" name="submit">
+            </form> --}}

@@ -112,3 +112,75 @@ function update() {
 }
 
 window.initMap = initMap; --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const status = document.getElementById('status')
+		const authorised = document.getElementById('authorised')
+		const courier = document.getElementById('courier')
+		//console.log(courier)
+		if(courier != null){
+			if (status.innerHTML == 'not-dispatched'){
+			document.getElementById('accept').style.display = 'none'	
+			} else if(status.innerHTML == 'in-transit'){
+				document.getElementById('formis').style.display = 'none'
+			} else {
+				document.getElementById('formis').style.display = 'none'
+				document.getElementById('accept').style.display = 'none'
+			}
+		} else {
+			document.getElementById('formis').style.display = 'none'
+			document.getElementById('accept').style.display = 'none'
+		}
+
+const status = document.getElementById('status')
+		const authorised = document.getElementById('authorised')
+		const courier = document.getElementById('courier')
+		//console.log(courier)
+		if(courier != null){
+			if (status.innerHTML == 'not-dispatched'){
+			document.getElementById('accept').style.display = 'none'	
+			} else if(status.innerHTML == 'in-transit'){
+				document.getElementById('formis').style.display = 'none'
+			} else {
+				document.getElementById('formis').style.display = 'none'
+				document.getElementById('accept').style.display = 'none'
+			}
+		} else {
+			document.getElementById('formis').style.display = 'none'
+			document.getElementById('accept').style.display = 'none'
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

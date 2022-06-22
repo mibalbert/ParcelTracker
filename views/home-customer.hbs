@@ -13,10 +13,12 @@
 	</head>
 	<body>
 		<header>
-			<h1>Customer's parcels</h1>
-				<p><a href="/">Home</a></p>
-				<p><a href="/send">Send</a></p>
-				<p><a href="/logout">Log out</a></p>
+			<h1><a href="/">Parcelino<span id="dot">.</span></a></h1>
+			<ol>
+                <li><a href="/send">Send</a></li>
+                <li><a href="/">Home</a></p>
+                <li><a href="/logout">Log out</a></li>
+			</ol>
 		</header>
 	<main>
 		<p class="table-description">This is the customer's home page and it displays the sended parcels.</p>
@@ -25,15 +27,15 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th>Sender PostCode</th>
+					{{!-- <th>Sender PostCode</th> --}}
 					<th>Recipient PostCode</th>
-					<th>Weight</th>
-					<th>Recipient Name</th>
-					<th>Full Adress</th>
+					{{!-- <th>Weight</th> --}}
+					{{!-- <th>Recipient Name</th> --}}
+					<th>Recipient Adress</th>
 					<th>Date Posted</th>
-					<th>Date Transit</th>
-					<th>Date Delivered</th>
-					<th>Unique ID</th>
+					{{!-- <th>Date Transit</th> --}}
+					{{!-- <th>Date Delivered</th> --}}
+					{{!-- <th>Unique ID</th> --}}
 					<th>Status</th>
 				</tr>
 			</thead>
@@ -41,16 +43,16 @@
 			{{#each parcels}}
 				<div class="parcelo">
 				<tr id="link" class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
-					<td><span class="emoji">📦</span></td>
-					<td id="sender_postcode">{{this.sender_postcode}}</td>
+					<td><img class="parcel-icon" src="img/package.png"></td>
+					{{!-- <td id="sender_postcode">{{this.sender_postcode}}</td> --}}
 					<td id="recipient_postcode">{{this.recipient_postcode}}</td>
-					<td id="weight_kg">{{this.weight_kg}}</td>
-					<td id="recipient_name">{{this.recipient_name}}</td>
-					<td id="full_address">{{this.full_address}}</td>
+					{{!-- <td id="weight_kg">{{this.weight_kg}}</td> --}}
+					{{!-- <td id="recipient_name">{{this.recipient_name}}</td> --}}
+					<td id="full_address">{{this.recipient_address}}, {{this.recipient_city}}</td>
 					<td class="date_time_created">{{this.date_time_created}}</td>
-					<td class="date_time_in_transit">{{this.date_time_in_transit}}</td>
-					<td class="date_time_delivered">{{this.date_time_delivered}}</td>
-					<td id="uuid">{{this.uuid}}</td>
+					{{!-- <td class="date_time_in_transit">{{this.date_time_in_transit}}</td> --}}
+					{{!-- <td class="date_time_delivered">{{this.date_time_delivered}}</td> --}}
+					{{!-- <td id="uuid">{{this.uuid}}</td> --}}
 					<td id="status">{{this.status}}</td>
 				</div>
 				</tr>
