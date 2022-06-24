@@ -31,7 +31,16 @@ window.addEventListener('DOMContentLoaded', event =>{
     // })    
 
 
-
+// <ul>
+// 						<li>Sender PostCode</li>
+// 						<li>Recipient PostCode</li>
+// 						<li>Weight</li>
+// 						<li>Recipient Name</li>
+// 						<li>Sender Username</li>
+// 						<li>Date Posted</li>
+// 						<li>Unique ID</li>
+// 						<li>Status</li>
+// 					<ul>
 
 
 

@@ -10,7 +10,7 @@
         const date_time_dtf = date_time.toDateString()
         const date_time_tmf = date_time.toLocaleTimeString()
         const hours = diff_hours(date_time, date_time_now)
-        const new_date = '<span>' + date_time_dtf +  ' - ' + date_time_tmf + ' ' + '(' + hours + 'h ago ' + ')' + '</span>'
+        const new_date = '<span>' + date_time_dtf +  ' - ' + date_time_tmf + ' ' + '(' + hours + 'h ago' + ')' + '</span>'
         if( hours > 48 ){
             return new_date
         }else if( hours > 24 ){

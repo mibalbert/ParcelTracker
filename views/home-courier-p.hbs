@@ -4,7 +4,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Courier Parcels Stock</title>
+		<title>Parcelino. | Parcels</title>
 		<meta name="description" content="courier view all parcels stock page">
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
@@ -21,7 +21,7 @@
                 <li><a href="/logout">Log out</a></li>
 			</ol>
 		</header>
-	<main>
+	<main class="parcels-main">
 		<p>This is the couriere's home page.</p>
 		<section class="parcels">
 		<table>
@@ -43,28 +43,38 @@
 			</thead>
 			<tbody>
 			{{#each parcels}}
-					<tr class="parcel-link">
-						<td><img class="parcel-icon" src="img/package.png"></td>
-						<td>{{this.sender_postcode}}</td>
-						<td>{{this.recipient_postcode}}</td>
-						<td>{{this.weight_kg}}</td>
-						<td>{{this.recipient_name}}</td>
-						<td>{{this.full_address}}</td>
-						<td>{{this.sender_username}}</td>
-						<td>{{{lol this.date_time_created}}}</td>
-						<td>{{this.uuid}}</td>
-						<td>{{this.status}}</td>
-						<td><button onclick="window.location='/parcel/{{this.uuid}}'">View</button></td>
-						<td><button class="button-add-transit" value="{{this.uuid}}">Add-Transit</button>
-							{{!-- <form action="/home-courier-p/{{this.uuid}}" method="post" enctype="multipart/form-data">
-								<input type="submit" name="submit" value="Add-Transit">
-							</form> --}}
-						</td>
+						
+					<tr class="parcels-link">
+						
+						<td ><img class="parcel-icon" src="img/package.png"></td>
+						<td >{{this.sender_postcode}}</td>
+						<td >{{this.recipient_postcode}}</td>
+						<td >{{this.weight_kg}}</td>
+						<td >{{this.recipient_name}}</td>
+						<td >{{this.full_address}}</td>
+						<td >{{this.sender_username}}</td>
+						<td >{{{lol this.date_time_created}}}</td>
+						<td >{{this.uuid}}</td>
+						<td >{{this.status}}</td>
+						
+						<td class="button-transit"><button class="button-add-transit" value="{{this.uuid}}">Accept</button></td>
+					
 					</tr>
+					
+					
 			{{/each}}
+
+
+
+
 			</tbody>
 		</table>
 		</section>
+
+
+
+
+
 	</main>
 	<footer>
 		<p>This is the footer</p>
@@ -73,3 +83,8 @@
 	</body>
 	
 </html>
+
+
+	{{!-- <form action="/home-courier-p/{{this.uuid}}" method="post" enctype="multipart/form-data">
+								<input type="submit" name="submit" value="Add-Transit">
+							</form> --}}

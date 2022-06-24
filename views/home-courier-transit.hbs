@@ -43,12 +43,16 @@
             </section>
 
             <section class="map">
-		        <img class="fake-map" src="img/styling.jpg">            
+		        <img class="dark-map-link" src="img/darkmap.PNG">            
+            </section>
+            
+            <section class="uuid"> 
+                <label>Deliver parcel by entering the UUID:</label>
+                <input type="text" name="uuid"></input>
+                <button >Deliver</button>
+                <p id="alert"></p>
             </section>
 
-            <label>Deliver parcel by entering the UUID:</label>
-            <p><input type="text" name="uuid"></input></p>
-            <p id="alert"></p>
             <section class="parcels"> 
             <table>
                 <thead>
@@ -82,7 +86,7 @@
                         <td>{{{lol this.date_time_in_transit}}}</td>
                         <td>{{this.uuid}}</td>
                         <td>{{this.status}}</td>
-                        <td><button name="set_deliver">Deliver</button></td>
+                        <td class="button-transit" ><button class="button-add-transit" name="set_deliver">Deliver</button></td>
                     </tr>	
                 {{/each}}
                 </tbody>

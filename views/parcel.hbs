@@ -43,7 +43,12 @@
 
 		<section class="map-wrapper">
 			{{!-- Where the map will be displayed --}}
+		
 			<div id="map-one-parcel"></div>
+		
+			<div style="display:none;" id="error-map-one-parcel"></div>
+		
+		
 		</section>
 		
 		
@@ -225,9 +230,28 @@
 				(response, status) => {
 					directionsRenderer.setDirections(response);
 					console.log(status);
+					if(status != 'OK'){
+						display(status)
+					}
 				}
 			)
 		}
+		
+		function display(status){
+			let map_error = document.getElementById('error-map-one-parcel')
+			let map = document.getElementById('map-one-parcel')
+			map.style.display = 'none'
+			map_error.innerHTML = `The route could not be accessed status code: <strong>${status}</strong> <br>
+									Probbably the postcode is faulty.`
+
+			map_error.style.display = 'block'
+		}
+
+
+
+
+
+
 		window.initMap = initMap;
 		</script>
 	  {{!-- Has to be loaded last --}}

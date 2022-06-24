@@ -153,10 +153,20 @@ li:hover > a{
 
   /* Utils */
 
+section.uuid{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 25%;
+  padding-top: 1rem;
+
+}
+
 input[name=uuid]{
   height: 50px;
-  width: 600px;
-  margin-left: 4rem;
+  /* padding-top: 1rem; */
+  width: 65%;
 }
 
 button {
@@ -225,6 +235,7 @@ main {
   /* filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%); */
  }
 
+
   /* Table with Parcels */
 
 section.table-section {
@@ -234,39 +245,23 @@ section.table-section {
   
 }
 
-.parcel-link:not(:last-child):after {
-  cursor: pointer;
-  background-color: ;
-}
-
-
 table {
   border-collapse: separate;
   border-spacing: 0 15px;
 }
 
-th {
-  /* background-color: #4287f5; */
-  /* color: white; */
-  
-}
-
 td {
   width: 150px;
   text-align: center;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;  
   padding: 5px;
 }
 
-td:first-of-type {
-  border-left: 1px solid black;
-}
-
-
 td:last-of-type {
-  border-right: 1px solid black;
+  width: 5%;
 }
+
+
+
 
 .parcel-icon {
   height: 50%;
@@ -278,6 +273,7 @@ td:last-of-type {
   width: 50%;
 }
 
+ 
   /* Map */
 
 
@@ -313,6 +309,14 @@ section.map-wrapper {
   border-radius: 20px 20px 20px 20px;
 
 }
+
+.dark-map-link {
+  width: 50%;
+  height: 16rem;
+  border-radius: 20px;
+}
+
+
 
 
 /* Maps displaying courier route */
@@ -427,3 +431,40 @@ form label {
 
 
 
+
+.parcel-link {
+  cursor: help;
+  box-shadow: 1px 1px 10px -3px rgb(138, 137, 137, 0.8);
+  border-radius: 20px ;
+  /* padding-right: 0; */
+}
+
+.button-transit {
+  margin: 0;
+  padding: 0;
+  
+}
+
+
+.button-add-transit {
+   background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 0;
+  margin: 0;
+  height: 100px;
+  width: 100px;
+
+  text-align: center;
+  text-decoration: none;
+  /* display: flex; */
+  font-size: 16px;
+  border-radius: 0 20px 20px 0;
+  box-shadow: 1px 1px 10px -3px rgb(138, 137, 137, 0.8);
+  
+
+}
+
+.parcels-ind {
+  background-color: red;
+}

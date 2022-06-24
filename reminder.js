@@ -148,7 +148,7 @@ const status = document.getElementById('status')
 			document.getElementById('formis').style.display = 'none'
 			document.getElementById('accept').style.display = 'none'
 		}
-
+// argappeals.reg@coventrey.ac.uk
 const status = document.getElementById('status')
 		const authorised = document.getElementById('authorised')
 		const courier = document.getElementById('courier')
@@ -184,3 +184,86 @@ const status = document.getElementById('status')
 
 
 
+
+section.parcels {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 0;
+}
+
+
+.parcels-ind {
+  display: flex;
+  margin: 20px;
+  width: 50%;
+  padding: 1.15rem;
+  box-shadow: 1px 1px 10px -3px rgb(138, 137, 137, 0.8);
+}
+
+
+.parcel-link {
+  cursor: help; 
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+.parcel-link div {
+  min-width: 10%;
+  max-width: 11%;
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+		<section class="parcels">
+				<section class="parcel-head">
+						{{!-- <div></div> --}}
+				</section>
+			{{#each parcels}}
+				
+				<section class="parcels-ind">
+					<section id="link" class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
+
+						{{!-- <span>Sender PostCode</span>
+						<div>Recipient PostCode</div>
+						<div>Weight</div>
+						<div>Recipient Name</div>
+						<div>Sender Username</div>
+						<div>Date Posted</div>
+						<div>Unique ID</div>
+						<div>Status</div> --}}
+
+						<div><img class="parcel-icon" src="img/package.png"></div>
+						<div>{{this.sender_postcode}}</div>
+						<div>{{this.recipient_postcode}}</div>
+						<div>{{this.weight_kg}}</div>
+						<div>{{this.recipient_name}}</div>
+						{{!-- <div>{{this.full_address}}</div> --}}
+						<div>{{this.sender_username}}</div>
+						<div>{{{lol this.date_time_created}}}</div>
+						<div>{{this.uuid}}</div>
+						<div>{{this.status}}</div>
+					
+					
+					</section>
+
+					<section>
+						<div><button class="button-add-transit" value="{{this.uuid}}">Accept</button></div>
+					
+					</section>
+				</section>
+			{{/each}}
+		</section>
