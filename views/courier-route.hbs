@@ -1,0 +1,76 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Parcelino | Route</title>
+		<meta name="description" content="courier view all parcels stock page">
+		<meta name="author" content="Alberto Paros">
+		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />        	    
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+        <link href="/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="routes.js" ></script>
+		</head>
+	<body>
+		<header>
+			<h1><a href="/">Parcelino<span id="dot">.</span></a></h1>
+			<ul>
+                <li class="logout"><a href="/logout"><span class="material-symbols-outlined">logout</span><span>Log-out</span></a></li>
+			</ul>
+		</header>
+	<main>
+		<section class="main-left">
+            <nav class="side-nav">
+				<ol class="side-nav-bunch">
+					<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
+					<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+					<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
+					<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
+					<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Invoices</span></a></li>			
+	
+				</ol>
+            </nav>
+        </section>
+
+        <section class="main-right">
+
+
+
+            <p>asdasdasdasdasd asdas dasd adasdasdasda sdasd asd asd as dasdad as das dasd a </p>
+
+
+            <section class="courier-route-map">
+
+                <div class="routes-map" id="routes-map"></div>
+            
+            </section>
+        
+            <table class="routes-table">
+                <tbody>
+                {{#each parcels}}
+                    <tr class="routes-table-row">
+                        <td>{{this.sender_postcode}}</td>
+                        <td>{{this.recipient_postcode}}</td>
+                        <td>{{this.weight_kg}}</td>
+                        <td>{{this.recipient_name}}</td>
+                        <td>{{this.recipient_address}}</td>
+                        <td>{{this.sender_username}}</td>
+                        <td>{{{lol this.date_time_created}}}</td>
+                        <td>{{{lol this.date_time_in_transit}}}</td>
+                        <td>{{this.uuid}}</td>
+                        <td>{{this.status}}</td>
+                    </tr>	
+                {{/each}}
+                </tbody>
+            </table>
+        </section>
+
+	</main>
+	<footer>
+		<p>This is the footer</p>
+	</footer>
+	</body>
+	
+</html>

@@ -2,48 +2,54 @@
  /* main.js */
 
 
-
 window.addEventListener('DOMContentLoaded', event =>{
     console.log('DOMContentLoaded')
 
-    // var elements = document.getElementsByClassName("button-add-transit");   
-
-    Array.from(document.getElementsByClassName('button-add-transit')).forEach(function (elm) { 
-        elm.addEventListener('click', myHandler)
-        
+    // const alert = document.getElementById('uuid-alert-red')
+    //Handle the 'accept' buttons (individually)
+    document.querySelectorAll('.td-transit').forEach(item => {
+    item.addEventListener('click', event => {
+        console.log(item.getAttribute('value'))
+        const uuid = item.getAttribute('value')
+        makeCall(uuid)
+        })  
     })
-
-
-    function myHandler() {
-        console.log('asdasd')
-    }
-    // for(var i = 0, len = elements.length; i < len; i++) {   
-    //     // console.log("Button: ", elements[i].value);
-    //     elements[i].addEventListener('click', ()=> {
-    //         console.log('Clicked button', i)
-    //     })
-    // }
-
-
-    // console.log(i)
-    // elements[i].addEventListener('click', ()=>{
-    //     console.log(elements[i].value)
-    // })    
-
-
-// <ul>
-// 						<li>Sender PostCode</li>
-// 						<li>Recipient PostCode</li>
-// 						<li>Weight</li>
-// 						<li>Recipient Name</li>
-// 						<li>Sender Username</li>
-// 						<li>Date Posted</li>
-// 						<li>Unique ID</li>
-// 						<li>Status</li>
-// 					<ul>
-
-
-
-
   
+    function makeCall(uuid) { 
+        axios.post(window.location.href, {
+            uuid: uuid,
+        })
+        .then(function (response) {
+            // const uu = document.querySelector('input[name=uuid]')
+            let elem = document.getElementById('uuid-alert-green')
+            let code = response.status
+            if ( code === 200 ){
+                console.log(response.data)
+                elem.innerHTML = "It fucking worked"
+                // sessionStorage.reloadAfterPageLoad = true
+                setTimeout( function(){
+                    location.reload()
+                    elem.innerHTML = ""
+                } , 1500)
+                // elem.innerHTML = response.data.msg
+            } 
+        
+        })
+        .catch(function (error) {
+            // console.log(error.response.status);
+            // console.log(error.response);
+            
+            // const uu = document.querySelector('input[name=uuid]')
+            // let elem = document.getElementById('uuid-alert-red')
+
+            // elem.innerHTML = error.response.status
+            // setTimeout( function(){
+                // elem.innerHTML = ""
+            // } , 1500)
+	    });
+    }
 })
+
+
+
+

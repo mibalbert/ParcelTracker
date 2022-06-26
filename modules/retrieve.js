@@ -35,17 +35,30 @@ export async function getNotDispParcels(){
 // Show on courier's transit page 
 // Retrieve courier's "accepted" parcels
 export async function getParcelsAccepted(courier){
-    const data = await db.query('SELECT * FROM parcels WHERE status = "in-transit" AND courier_name = ?',[courier])
+    const data = await db.query('SELECT * FROM parcels WHERE status="in-transit" AND courier_name = ? ORDER BY date_time_in_transit ASC',[courier])
     return data
 }
 
 // Show on 
 // Retrieve customer sent parcels
 export async function getParcelsCustomer(authorised){
-    const result = await db.query('SELECT * FROM parcels WHERE sender_username = ? ORDER BY status DESC, date_time_created DESC',[authorised])
+    const result = await db.query('SELECT * FROM parcels WHERE status="delivered" AND sender_username = ? ORDER BY status DESC, date_time_created DESC',[authorised])
     // const result = await pretiDateTime(data)
     return result
 }
+
+// Retrieve customer current parcels
+export async function getCurrentParcelsCustomer(authorised){
+    const result = await db.query('SELECT * FROM parcels WHERE status != "delivered" AND sender_username = ? ORDER BY status DESC, date_time_created DESC',[authorised])
+    // const result = await pretiDateTime(data)
+    return result
+}
+
+
+
+
+
+
 
 // Retrieve individual parcel details 
 export async function getParcelDetails(uuid){
@@ -57,8 +70,8 @@ export async function getParcelDetails(uuid){
 
 
 // Show on courier's home page 
-export async function getParcelsDelivered(){
-    const data = await db.query('SELECT * FROM parcels WHERE status="not-dispatched"  ORDER BY date_time_created DESC')
+export async function getParcelsDelivered(authorised){
+    const data = await db.query('SELECT * FROM parcels WHERE status="delivered" AND courier_name=? ORDER BY date_time_delivered DESC', [authorised])
     return data
 }
 

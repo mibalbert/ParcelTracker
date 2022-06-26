@@ -10,7 +10,8 @@ window.addEventListener('DOMContentLoaded', event => {
 	const transit = document.getElementsByClassName('date_time_in_transit')
 	const delivered = document.getElementsByClassName('date_time_delivered')
 	
-	document.querySelector('button[name=set_deliver]').addEventListener('click', makeCall)
+	const button = document.getElementById('insert-uuid-button')
+	button.addEventListener('click', makeCall)
 
 	//Add querySelector or Class selector to select all the fileds and shit
 	for(let x=0; x<delivered.length; x++){
@@ -24,46 +25,7 @@ window.addEventListener('DOMContentLoaded', event => {
     const hours = diff_hours(date_time, date_time_now)
 	
 
-	
-    // Checks if the parcel was posted longer than 48h
-    // if (date_time != null){
-    //     const date_time_dtf = date_time.toDateString()
-    //     const date_time_tmf = date_time.toLocaleTimeString()
-    //     const hours = diff_hours(date_time, date_time_now)
 
-    ///if hours && status != 'delivered'
-
-	// if( hours > 48 ){
-	// 		created.innerHTML = `${created.innerHTML} h:${hours}`
-    //     	created.style.color = 'red'
-	// } 
-    //     }else if( hours > 24 ){
-
-    //     }else{
-
-    //     }
-    // } else{
-    //     //display this if date is null
-    //     return '<span>' + '-' + '</span>'
-    // }
-	
-	// console.log(hours)
-
-	// Create the script for the Map
-	var script = document.createElement('script');
-	script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&callback=initMap';
-	script.async = true;
-
-	let map
-	// Attach your callback function to the `window` object
-	window.initMap = function() {
-		map = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: -34.397, lng: 150.644},
-			zoom: 8
-		});
-	};
-	// Append the 'script' element to 'head'
-	document.head.appendChild(script);
 
 	// Get uuid to make api call
 	const uuid = document.querySelector('input[name=uuid]')
@@ -89,24 +51,24 @@ async function makeCall(uuid) {
 	})
 	.then(function (response) {
 		const uu = document.querySelector('input[name=uuid]')
-		let elem = document.getElementById('alert')
+		let elem = document.getElementById('uuid-alert-green')
 		let code = response.status
-		// if ( code === 200 ){
+		if ( code === 200 ){
 			// console.log(response.data.msg)
 			elem.innerHTML = response.data.msg
-		// } 
+		} 
 		setTimeout( function(){
-			elem.innerHTML = ""
 			location.reload()
+			elem.innerHTML = ""
 		} , 1500)
 	
 	})
 	.catch(function (error) {
-		console.log(error.response.status);
-		console.log(error.response);
+		// console.log(error.response.status);
+		// console.log(error.response);
 		
 		const uu = document.querySelector('input[name=uuid]')
-		let elem = document.getElementById('alert')
+		let elem = document.getElementById('uuid-alert-red')
 
 		elem.innerHTML = error.response.status
 		setTimeout( function(){
@@ -118,6 +80,29 @@ async function makeCall(uuid) {
 
 
 
+    // Checks if the parcel was posted longer than 48h
+    // if (date_time != null){
+    //     const date_time_dtf = date_time.toDateString()
+    //     const date_time_tmf = date_time.toLocaleTimeString()
+    //     const hours = diff_hours(date_time, date_time_now)
+
+    ///if hours && status != 'delivered'
+
+	// if( hours > 48 ){
+	// 		created.innerHTML = `${created.innerHTML} h:${hours}`
+    //     	created.style.color = 'red'
+	// } 
+    //     }else if( hours > 24 ){
+
+    //     }else{
+
+    //     }
+    // } else{
+    //     //display this if date is null
+    //     return '<span>' + '-' + '</span>'
+    // }
+	
+	// console.log(hours)
 
 
 
@@ -133,6 +118,21 @@ async function makeCall(uuid) {
 
 
 
+	// Create the script for the Map
+	// var script = document.createElement('script');
+	// script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&callback=initMap';
+	// script.async = true;
+
+	// let map
+	// // Attach your callback function to the `window` object
+	// window.initMap = function() {
+	// 	map = new google.maps.Map(document.getElementById('map'), {
+	// 		center: {lat: -34.397, lng: 150.644},
+	// 		zoom: 8
+	// 	});
+	// };
+	// // Append the 'script' element to 'head'
+	// document.head.appendChild(script);
 
 
 

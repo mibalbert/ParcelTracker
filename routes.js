@@ -14,7 +14,8 @@ import { handlebarsHelper1 } from './modules/handlebarsHelpers.js'
 import { getCourierIndividual, 
 		 getAllCouriers, 
 		 getAllParcels, 
-		 getNotDispParcels,  
+		 getNotDispParcels,
+		 getCurrentParcelsCustomer,  
 		 getParcelsCustomer, 
 		 getParcelsAccepted,
 		 getParcelsDelivered,
@@ -116,7 +117,7 @@ router.post('/login', async context => {
 
 
 // Admin route to see all couriers page 
-router.get('/home-admin-c', async context => {
+router.get('/admin-couriers', async context => {
 	console.log('/GET /home-admin-c')
 	const authorised = await context.cookies.get('authorised')
 	const permission = await context.cookies.get('permission')
@@ -125,13 +126,13 @@ router.get('/home-admin-c', async context => {
 	const couriers = await getAllCouriers()
 	// console.log(parcels)
 	const data = { authorised, couriers }
-	const body = await handle.renderView('home-admin-c', data)
+	const body = await handle.renderView('admin-couriers', data)
 	context.response.body = body
 })
 
 
 // Admin route to see individual courier page
-router.get('/home-admin-c-indiv/:courier', async context => {
+router.get('/admin-couriers-indiv/:courier', async context => {
 	console.log('/GET /home-admin-c')
 	const courier = context.params.courier
 	const authorised = await context.cookies.get('authorised')
@@ -141,13 +142,13 @@ router.get('/home-admin-c-indiv/:courier', async context => {
 	const result = await getCourierIndividual(courier)
 	// console.log(parcels)
 	const data = { authorised, result, courier }
-	const body = await handle.renderView('home-admin-c-indiv', data)
+	const body = await handle.renderView('admin-couriers-indiv', data)
 	context.response.body = body
 })
 
 
 // Admin route to see all parcels page
-router.get('/home-admin-p', async context => {
+router.get('/admin-parcels', async context => {
 	console.log('/GET /home-admin-p')
 	const authorised = await context.cookies.get('authorised')
 	const permission = await context.cookies.get('permission')
@@ -156,40 +157,13 @@ router.get('/home-admin-p', async context => {
 	const parcels = await getAllParcels()
 	// console.log(parcels)
 	const data = { authorised, parcels }
-	const body = await handle.renderView('home-admin-p', data)
+	const body = await handle.renderView('admin-parcels', data)
 	context.response.body = body
 })
-
-
-// Courier home page 
-router.get('/home-courier-p', async context => {
-	console.log('/GET /home-courier-p')
-	const authorised = await context.cookies.get('authorised')
-	const permission = await context.cookies.get('permission')
-	const role = permission !== 'courier' && permission !== 'admin'
-	if (authorised === undefined || role) context.response.redirect('/login')
-	const parcels = await getNotDispParcels()
-	// console.log(parcels)
-	const data = { authorised, parcels }
-	const body = await handle.renderView('home-courier-p', data)
-	context.response.body = body
-})
-
-
-// Courier POST transit page 
-router.post('/home-courier-p/:uuid', async context => {
-	console.log('/POST /home-courier-p')
-	const authorised = await context.cookies.get('authorised')
-	const data = context.params.uuid
-	await setParcelStatus2(data, authorised)
-	context.response.redirect('/home-courier-transit')
-	}
-)
-
 
 
 // Courier transit page 
-router.get('/home-courier-transit', async context => {
+router.get('/courier-transit', async context => {
 	console.log('/GET /home-courier-transit')
 	const authorised = await context.cookies.get('authorised')
 	const permission = await context.cookies.get('permission')
@@ -198,14 +172,14 @@ router.get('/home-courier-transit', async context => {
 	const parcels = await getParcelsAccepted(authorised)
 	const data = { authorised, parcels }    
 	// console.log(parcels)
-	const body = await handle.renderView('home-courier-transit', data)
+	const body = await handle.renderView('courier-transit', data)
 	context.response.body = body
 	
 })
 
 
 // Courier POST transit page 
-router.post('/home-courier-transit', async context => {
+router.post('/courier-transit', async context => {
 	console.log('/POST /home-courier-transit')
 	const authorised = await context.cookies.get('authorised')
 	const body = context.request.body({ type: 'json' })
@@ -218,8 +192,44 @@ router.post('/home-courier-transit', async context => {
 
 })
 
-// Courier transit page 
-router.get('/home-courier-route', async context => {
+
+// Courier parcels to be accepted page 
+router.get('/courier-parcels', async context => {
+	console.log('/GET /home-courier-p')
+	const authorised = await context.cookies.get('authorised')
+	const permission = await context.cookies.get('permission')
+	const role = permission !== 'courier' && permission !== 'admin'
+	if (authorised === undefined || role) context.response.redirect('/login')
+	const parcels = await getNotDispParcels()
+	// console.log(parcels)
+	const data = { authorised, parcels }
+	const body = await handle.renderView('courier-parcels', data)
+	context.response.body = body
+})
+
+
+// Courier accept parcels page 
+router.post('/courier-parcels', async context => {
+	console.log('/POST /home-courier-p')
+	const authorised = await context.cookies.get('authorised')
+	const body = context.request.body({ type: 'json' })
+	const value = await body.value
+	// const obj = Object.fromEntries(value)
+	console.log(value.uuid)
+
+	// const data = context.params.uuid
+	
+	const result = await setParcelStatus(value, authorised)
+	context.response.status = result.status
+	context.response.body = result.message
+	
+	// context.response.redirect('/courier-transit')
+	}
+)
+
+
+// Courier display route to follow 
+router.get('/courier-route', async context => {
 	console.log('/GET /home-courier-transit')
 	const authorised = await context.cookies.get('authorised')
 	const permission = await context.cookies.get('permission')
@@ -228,27 +238,24 @@ router.get('/home-courier-route', async context => {
 	const parcels = await getParcelsAccepted(authorised)
 	const data = { authorised, parcels }    
 	// console.log(parcels)
-	const body = await handle.renderView('home-courier-route', data)
+	const body = await handle.renderView('courier-route', data)
 	context.response.body = body
 	
 })
 
 
-
-// Courier delivered parcel input page 
-router.get('/home-courier-receiver-details/:uuid', async context => {
+router.get('/courier-recipient-details/:uuid', async context => {
 	console.log('/GET /home-courier-receiver-details/:uuid')
 	const authorised = await context.cookies.get('authorised')
 	const permission = await context.cookies.get('permission')
 	if (authorised === undefined || permission !== 'courier') context.response.redirect('/login')
 	const uuid = context.params.uuid
-	const body = await handle.renderView('home-courier-receiver-details', {uuid, authorised})
+	const body = await handle.renderView('courier-recipient-details', {uuid, authorised})
 	context.response.body = body
 })
 
 
-// // Courier POST transit page 
-router.post('/home-courier-receiver-details/:uuid', async context => {
+router.post('/courier-recipient-details/:uuid', async context => {
 	console.log('/POST /home-courier-receiver-details')
 	const uuid = context.params.uuid
 	let body = context.request.body({type: 'form-data'})
@@ -258,27 +265,26 @@ router.post('/home-courier-receiver-details/:uuid', async context => {
 	await setParcelStatusDelivered(uuid, data)
 	// body = await handle.renderView('home-courier-receiver-details', {uuid, alert })
 	// context.response.body = body
-	context.response.redirect('/home-courier-transit')
+	context.response.redirect('/courier-transit')
 })
 
 
-// Courier home page 
-router.get('/home-courier-delivered', async context => {
+router.get('/courier-delivered', async context => {
 	console.log('/GET /home-courier-p')
 	const authorised = await context.cookies.get('authorised')
 	const permission = await context.cookies.get('permission')
 	const role = permission !== 'courier' && permission !== 'admin'
 	if (authorised === undefined || role) context.response.redirect('/login')
-	const parcels = await getParcelsDelivered()
-	// console.log(parcels)
+	const parcels = await getParcelsDelivered(authorised)
+	console.log(parcels)
 	const data = { authorised, parcels }
-	const body = await handle.renderView('home-courier-delivered', data)
+	const body = await handle.renderView('courier-delivered', data)
 	context.response.body = body
 })
 
 
 // Customer home page
-router.get('/home-customer', async context => {
+router.get('/customer', async context => {
 	console.log('GET /home-customer')	
 	const authorised = await context.cookies.get('authorised')
 	const permission = await context.cookies.get('permission')
@@ -286,9 +292,25 @@ router.get('/home-customer', async context => {
 	const parcels = await getParcelsCustomer(authorised)
 	const data = { authorised, parcels }
 	// console.log(parcels)
-	const body = await handle.renderView('home-customer', data)
+	const body = await handle.renderView('customer', data)
 	context.response.body = body
 })
+
+/// Customer current parcels active page
+router.get('/current', async context => {
+	console.log('GET /current')	
+	const authorised = await context.cookies.get('authorised')
+	const permission = await context.cookies.get('permission')
+	if (authorised === undefined || permission !== 'customer') context.response.redirect('/login')
+	const parcels = await getCurrentParcelsCustomer(authorised)
+	const data = { authorised, parcels }
+	// console.log(parcels)
+	const body = await handle.renderView('current', data)
+	context.response.body = body
+})
+
+
+
 
 // Customer send parcel page
 router.get('/send', async context => {
@@ -309,7 +331,7 @@ router.post('/send', async context =>{
 	const result = await addParcel(data, authorised)
 	const bodys = await handle.renderView('send')
 	context.response.body = bodys
-	context.response.redirect('/home-customer')
+	context.response.redirect('/customer')
 })
 
 
@@ -324,7 +346,7 @@ router.get('/parcel/:uuid', async context => {
 				  courier : permission === 'courier',
 				  admin : permission === 'admin'}
 	const parcels = await getParcelDetails(uuid)
-	// console.log(parcels)
+	console.log(parcels)
 	const data = { authorised, role, parcels }
 	const body = await handle.renderView('parcel', data)
 	context.response.body = body

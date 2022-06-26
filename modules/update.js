@@ -9,23 +9,45 @@ const date_time = format(new Date(), "yyyy-MM-dd HH:mm:ss")
 
 
 // Set parcel status to 'in-transit'
-export async function setParcelStatus(context, authorised, uuid){
+export async function setParcelStatus(obj, authorised){
+    const uuid = obj.uuid
     let result = await db.query('SELECT * FROM parcels WHERE uuid = ?',[uuid])
-    if (result[0] !== undefined){
-        if (result[0].status === 'not-dispatched'){
-            //Change the status to in-transit
-            result = await db.query('UPDATE parcels SET status = "in-transit", date_time_in_transit = ?, courier_name = ? WHERE uuid = ?',[ date_time, authorised, uuid ])
-                return {status: 200, message: "You've added a parcel to deliver!"}
-        } else if(result[0].status === 'in-transit'){
-            //Change the status to delivered -> and redirect user to 'recipient-details' page
-            return {status: 200, message: "Parcel already in transit!"}
-        } else {
-            return {status: 200, message: "The parcel is already delivered!"}
-        }      
-    } else {
-        return {status: 200, message: "The uuid you inputed is wrong!"}
+    if (result[0].status === 'not-dispatched'){
+        //Change the status to in-transit
+        result = await db.query('UPDATE parcels SET status = "in-transit", date_time_in_transit = ?, courier_name = ? WHERE uuid = ?',[ date_time, authorised, uuid ])
+        return {status: 200, message: "You've added a parcel to deliver!"}
     }
 }
+
+
+
+
+// let result = await db.query('SELECT * FROM parcels WHERE uuid = ?',[uuid])
+//     if (result[0] !== undefined){
+//         if (result[0].status === 'not-dispatched'){
+//             //Change the status to in-transit
+//             result = await db.query('UPDATE parcels SET status = "in-transit", date_time_in_transit = ?, courier_name = ? WHERE uuid = ?',[ date_time, authorised, uuid ])
+//                 return {status: 200, message: "You've added a parcel to deliver!"}
+//         } else if(result[0].status === 'in-transit'){
+//             //Change the status to delivered -> and redirect user to 'recipient-details' page
+//             return {status: 403, message: "Parcel already in transit!"}
+//         } else {
+//             return {status: 405, message: "The parcel is already delivered!"}
+//         }      
+//     } else {
+//         return {status: 404, message: "The uuid you inputed is wrong!"}
+//     }
+
+
+
+
+
+
+
+
+
+
+
 
 
         //         return {status: 201, message: "The parcel is already in transit!"}

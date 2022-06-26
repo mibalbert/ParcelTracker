@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS parcels (
   uuid VARCHAR(255) NOT NULL,
   -- Change Later
   handed_to_name VARCHAR(255),
-  handed_to_signature VARCHAR(255),
+  handed_to_signature BLOB,
   acc_lat DECIMAL(11,7),
   acc_lng DECIMAL(11,7)
 );
