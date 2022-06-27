@@ -11,7 +11,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />        
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		<script type="module/javascript" src="geo-maps.js" defer></script>
+		<script type="module/javascript" src="indiv-parcel.js" defer></script>
 	</head>
 	<body>
 		<header>
@@ -36,68 +36,51 @@
 			
 			<section class="main-right">
 			
+			<section class="recipient-details-section">
 				<p>Details of recipient:</p>
 				
 				<p>Parcel's UUID: {{uuid}}</p>
 
-				<form action="/courier-recipient-details/{{uuid}}" method="POST" enctype="multipart/form-data">
-					<label>Recipient's name:<input type="text" name="handed_to_name"></label>
+				<form class="recipient-details-form" action="/courier-recipient-details/{{uuid}}" method="POST" enctype="multipart/form-data">
+					<label>Recipient's name:<input type="text" name="handed_to_name" required></label>
 					<label>Recipient's signature:
 						<canvas class="signature-pad"></canvas>
+						<div id="signature-pad-clear">Clear</div>
 					</label>
-					<input type="hidden" name="handed_to_signature">
-					<input type="submit" name="Submit">
+						<input type="hidden" name="handed_to_signature">
+					<label>
+						<input type="submit" name="Submit">
+					</label>
 				</form>
 
-				<script>
-					const submit_button = document.querySelector('input[name=Submit]')
-					const signature = document.querySelector('input[name=handed_to_signature]')
-					const canvas = document.querySelector("canvas");
 
-					const signaturePad = new SignaturePad(canvas);
-
-					signature.addEventListener('click', event => {
-						const data = signaturePad.toDataURL()
-						signature.value = data
-					})
-
-					//console.log(signaturePad.toDataURL())
-
-
-
-
-					//const latitude = document.getElementById("latitude");
-					//const longitude = document.getElementById("longitude");
-					//const precission_off = document.getElementById("precission_off");
-					//var options = {
-					//enableHighAccuracy: true,
-					//timeout: 5000,
-					//maximumAge: 0
-					//};
-
-					//function success(pos) {
-					//var crd = pos.coords;
-					//latitude.value = crd.latitude
-					//longitude.value = crd.longitude
-					//precission_off.value = crd.accuracy
-
-					//console.log('Your current position is:');
-					//console.log(`Latitude : ${crd.latitude}`);
-					//console.log(`Longitude: ${crd.longitude}`);
-					//console.log(`More or less ${crd.accuracy} meters.`);
-					//}
-
-					//function error(err) {
-					//console.warn(`ERROR(${err.code}): ${err.message}`);
-					//}
-
-					//navigator.geolocation.getCurrentPosition(success, error, options);
-
-				</script>
 			</section>
 		</main>
 		<footer>
 			<p>This is the footer</p>
 		</footer>
+
+		<script>
+			const submit_button = document.querySelector('input[name=Submit]')
+			const signature = document.querySelector('input[name=handed_to_signature]')
+			const canvas = document.querySelector("canvas");
+			
+			
+
+			const signaturePad = new SignaturePad(canvas);
+
+			signature.addEventListener('click', event => {
+				const data = signaturePad.toDataURL()
+				signature.value = data
+			})
+
+			document.getElementById("signature-pad-clear").addEventListener('click', event =>{
+				signaturePad.clear()
+			})
+
+
+		</script>
+
+
 	</body>
 </html>

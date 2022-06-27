@@ -38,29 +38,33 @@
 
 
 
-            <p>asdasdasdasdasd asdas dasd adasdasdasda sdasd asd asd as dasdad as das dasd a </p>
+            <p>Courier Route:</p>
 
 
             <section class="courier-route-map">
 
                 <div class="routes-map" id="routes-map"></div>
-            
+	
             </section>
         
+			<section class="directions-info">
+
+				<div id="directions-route"></div>
+
+			</section>
+
             <table class="routes-table">
                 <tbody>
                 {{#each parcels}}
                     <tr class="routes-table-row">
                         <td>{{this.sender_postcode}}</td>
-                        <td>{{this.recipient_postcode}}</td>
-                        <td>{{this.weight_kg}}</td>
-                        <td>{{this.recipient_name}}</td>
-                        <td>{{this.recipient_address}}</td>
-                        <td>{{this.sender_username}}</td>
-                        <td>{{{lol this.date_time_created}}}</td>
+                        <td>{{this.sender_address}}</td>
+                        
+                        <td class="asd" value="{{this.recipient_postcode}}"></td>
+                        {{!-- <td class="asd" value="{{this.recipient_address}}"></td> --}}
+                        
+                        {{!-- <td>{{{lol this.date_time_created}}}</td> --}}
                         <td>{{{lol this.date_time_in_transit}}}</td>
-                        <td>{{this.uuid}}</td>
-                        <td>{{this.status}}</td>
                     </tr>	
                 {{/each}}
                 </tbody>

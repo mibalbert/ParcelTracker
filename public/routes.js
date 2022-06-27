@@ -12,94 +12,70 @@ window.addEventListener('DOMContentLoaded', () => {
     script.async = true;
         
 
-    var directionDisplay;
-    var directionsService = new google.maps.DirectionsService();
-    var map;
+
+       
+    
+
 
     
     window.initMap = function() {
         
-        directionsDisplay = new google.maps.DirectionsRenderer({
-            suppressMarkers: true
-        });
-
-        var myOptions = {
-            zoom: 3,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            const map = new google.maps.Map(document.getElementById("routes-map"), {
+                zoom: 8,
+                center: { lat: 51.5287718, lng: -0.2416802 },
+                disableDefaultUI: true,
+            });
+            
+            directionsRenderer.setMap(map);
+            calculateDisplayRoutes(directionsService, directionsRenderer);
+       
         }
 
-        map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-        directionsDisplay.setMap(map);
-        calcRoute();
+        ///Add logic to take the shortest path + display time elapsed sice added to transit
+    
+        async function calculateDisplayRoutes(directionsService, directionsRenderer) {
+            const waypts = [];
         
-    }
+            document.querySelectorAll('.asd').forEach(item => {
+                let wayPointId = item.getAttribute('value')    
+                waypts.push({
+                    location: wayPointId,
+                    stopover: true,
+                })
+            })
+            
+            directionsService.route({
+                origin: waypts[0].location,
+                destination: waypts.at(-1).location,
+                waypoints: waypts,
+                optimizeWaypoints: true,
+                travelMode: google.maps.TravelMode.DRIVING,
+            },(response, status) => {
+                if (status === "OK" && response) {
+                    directionsRenderer.setDirections(response);
+                    const route = response.routes[0];
+                    const summaryPanel = document.getElementById("directions-route");
+                    summaryPanel.innerHTML = "";
 
-    function calcRoute() {
-
-        var waypts = [];
-
-        stop = new google.maps.LatLng(51.943571, 6.463856)
-        waypts.push({
-            location: stop,
-            stopover: true
-        });
-        stop = new google.maps.LatLng(51.945032, 6.465776)
-        waypts.push({
-            location: stop,
-            stopover: true
-        });
-        stop = new google.maps.LatLng(51.945538, 6.469413)
-        waypts.push({
-            location: stop,
-            stopover: true
-        });
-        stop = new google.maps.LatLng(51.947462, 6.467941)
-        waypts.push({
-            location: stop,
-            stopover: true
-        });
-        stop = new google.maps.LatLng(51.945409, 6.465562)
-        waypts.push({
-            location: stop,
-            stopover: true
-        });
-        stop = new google.maps.LatLng(51.943700, 6.462096)
-        waypts.push({
-            location: stop,
-            stopover: true
-        });
-
-        start = new google.maps.LatLng(51.943382, 6.463116);
-        end = new google.maps.LatLng(51.943382, 6.463116);
-        
-        createMarker(start);
-        
-        var request = {
-            origin: start,
-            destination: end,
-            waypoints: waypts,
-            optimizeWaypoints: true,
-            travelMode: google.maps.DirectionsTravelMode.WALKING
-        };
-
-        directionsService.route(request, function (response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                directionsDisplay.setDirections(response);
-                var route = response.routes[0];
+                    // For each route, display summary information.
+                    for (let i = 0; i < route.legs.length; i++) {
+                        const routeSegment = i + 1;
+                        summaryPanel.innerHTML +=
+                        "<b>Route Segment: " + routeSegment + "</b><br>";
+                        summaryPanel.innerHTML += route.legs[i].start_address;
+                        summaryPanel.innerHTML += "<br><span><strong>to</strong></span>"
+                        summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
+                        summaryPanel.innerHTML +=
+                        route.legs[i].distance.text + "<br><br>";
+                    }
+                } else {
+                    window.alert("Directions request failed due to " + status);
+                }
             }
-        });
+        );
     }
-
-    function createMarker(latlng) {
-        
-        var marker = new google.maps.Marker({
-            position: latlng,
-            map: map
-        });
-    }
-
-
-
 	document.head.appendChild(script);
         
 

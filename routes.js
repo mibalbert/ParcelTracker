@@ -237,7 +237,7 @@ router.get('/courier-route', async context => {
 	if (authorised === undefined || role) context.response.redirect('/login')
 	const parcels = await getParcelsAccepted(authorised)
 	const data = { authorised, parcels }    
-	// console.log(parcels)
+	console.log(parcels)
 	const body = await handle.renderView('courier-route', data)
 	context.response.body = body
 	
