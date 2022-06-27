@@ -65,13 +65,12 @@
 			const signature = document.querySelector('input[name=handed_to_signature]')
 			const canvas = document.querySelector("canvas");
 			
-			
-
 			const signaturePad = new SignaturePad(canvas);
 
-			signature.addEventListener('click', event => {
+			submit_button.addEventListener('click', event => {
 				const data = signaturePad.toDataURL()
 				signature.value = data
+				console.log(signature.value)
 			})
 
 			document.getElementById("signature-pad-clear").addEventListener('click', event =>{

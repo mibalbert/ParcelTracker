@@ -1,6 +1,6 @@
 # Reference
 
-This project is based on a given template ( basic MVC + 2 routes & login + register system ) 
+This project is based on a given template ( basic MVC + 2 routes & login + register system )
 
 # Getting Started
 

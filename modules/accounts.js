@@ -1,14 +1,14 @@
-
 /* accounts.js */
 
-import { compare, genSalt, hash } from 'bcrypt'
-import { create, verify, decode } from 'https://deno.land/x/djwt@v2.1/mod.ts'
+import { compare, genSalt, hash } from 'bcrypt';
+// import { create, verify, decode } from 'https://deno.land/x/djwt@v2.1/mod.ts'
 
-import { db } from 'db'
+import { db } from 'db';
 
-const saltRounds = 10
-const salt = await genSalt(saltRounds)
-const key = 'secrete-key'
+const saltRounds = 10;
+const salt = await genSalt(saltRounds);
+
+// const key = 'secrete-key'
 
 /**
  * Checks user credentials.
@@ -17,21 +17,26 @@ const key = 'secrete-key'
  * @returns {string} the username for the valid account
  */
 export async function login(data) {
-	console.log(data)
-	let sql = `SELECT count(id) AS count FROM accounts WHERE user="${data.username}";`
-	let records = await db.query(sql)
-	if(!records[0].count) throw new Error(`username "${data.username}" not found`)
-	sql = `SELECT pass FROM accounts WHERE user = "${data.username}";`
-	records = await db.query(sql)
-	const valid = await compare(data.password, records[0].pass)
-	if(valid === false) throw new Error(`invalid password for account "${data.username}"`)
-	sql = `SELECT role FROM accounts WHERE user = "${data.username}"`
-	records = await db.query(sql)
+	console.log(data);
+	let sql =
+		`SELECT count(id) AS count FROM accounts WHERE user="${data.username}";`;
+	let records = await db.query(sql);
+	if (!records[0].count) {
+		throw new Error(`username "${data.username}" not found`);
+	}
+	sql = `SELECT pass FROM accounts WHERE user = "${data.username}";`;
+	records = await db.query(sql);
+	const valid = await compare(data.password, records[0].pass);
+	if (valid === false) {
+		throw new Error(`invalid password for account "${data.username}"`);
+	}
+	sql = `SELECT role FROM accounts WHERE user = "${data.username}"`;
+	records = await db.query(sql);
 	// const role = records[0].role
 	// data.role = await encodeRole(role)
-	data.role = records[0].role
-	console.log(data.role)
-	return { username: data.username, role: data.role }
+	data.role = records[0].role;
+	console.log(data.role);
+	return { username: data.username, role: data.role };
 }
 
 /**
@@ -41,13 +46,13 @@ export async function login(data) {
  * @returns {number} Sum of x and y
  */
 export async function register(data) {
-	const password = await hash(data.password, salt)
-	const sql = `INSERT INTO accounts(user, pass) VALUES("${data.username}", "${password}")`
-	console.log(sql)
-	await db.query(sql)
-	return true
+	const password = await hash(data.password, salt);
+	const sql =
+		`INSERT INTO accounts(user, pass) VALUES("${data.username}", "${password}")`;
+	console.log(sql);
+	await db.query(sql);
+	return true;
 }
-
 
 // /**
 //  * Creates JWT Token for user permissions.
@@ -60,7 +65,6 @@ export async function register(data) {
 // 	return jwt
 // }
 
-
 // /**
 //  * Decodes the user role.
 //  * @param {string} jwt
@@ -71,17 +75,3 @@ export async function register(data) {
 // 	const veri = await verify(jwt, key, 'HS512')
 // 	console.log(veri)
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
