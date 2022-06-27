@@ -20,37 +20,43 @@
 			</ul>
 		</header>
 	<main>
-		
-		<section class="main-left">
-            <nav class="side-nav">
-				<ol class="side-nav-bunch">
-					<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
-					<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-					<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
-					<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-					
-				</ol>
-            </nav>
-        </section>
+		<section class="hero-ill">
+			<div class="hero-block">Parcel sending made easy!</div>
+		</section>
 
-		<section class="main-right">
-			<table>
-				<thead>
-						<th></th>
-						<th>Courier</th>
-						<th>Parcels</th>
-					</tr>
-				</thead>
-				<tbody>
-				{{#each couriers}}
-					<tr>
-						<td><img class="user-icon" src="img/user.png"></td>
-						<td><a href="admin-couriers-indiv/{{this.courier_name}}">{{this.courier_name}}</a></td>
-						<td>{{this.parcels}}</td>
-					</tr>	
-				{{/each}}
-				</tbody>
-			</table>
+		<section class="main-sides">
+
+			<section class="main-left">
+				<nav class="side-nav">
+					<ol class="side-nav-bunch">
+						<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
+						<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+						<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
+						<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
+						
+					</ol>
+				</nav>
+			</section>
+
+			<section class="main-right">
+				<table>
+					<thead>
+							<th></th>
+							<th>Courier</th>
+							<th>Parcels</th>
+						</tr>
+					</thead>
+					<tbody>
+					{{#each couriers}}
+						<tr>
+							<td><img class="user-icon" src="img/user.png"></td>
+							<td><a href="admin-couriers-indiv/{{this.courier_name}}">{{this.courier_name}}</a></td>
+							<td>{{this.parcels}}</td>
+						</tr>	
+					{{/each}}
+					</tbody>
+				</table>
+			</section>
 		</section>
 	</main>
 	<footer>

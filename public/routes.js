@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		const map = new google.maps.Map(document.getElementById('routes-map'), {
 			// zoom: 8,
 			// center: { lat: 51.5287718, lng: -0.2416802 },
-			disableDefaultUI: true,
+			// disableDefaultUI: true,
 		});
 
 		directionsRenderer.setMap(map);

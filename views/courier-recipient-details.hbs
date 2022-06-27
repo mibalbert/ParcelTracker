@@ -21,39 +21,45 @@
 			</ul>
 		</header>
 		<main>
-			
-			<section class="main-left">
-				<nav class="side-nav">
-					<ol class="side-nav-bunch">
-						<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
-						<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-						<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
-						<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-						<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Invoices</span></a></li>			
-					</ol>
-				</nav>
-        	</section>
-			
-			<section class="main-right">
-			
-			<section class="recipient-details-section">
-				<p>Details of recipient:</p>
+			<section class="hero-ill">
+				<div class="hero-block">Parcel sending made easy!</div>
+			</section>
+
+			<section class="main-sides">
+		
+				<section class="main-left">
+					<nav class="side-nav">
+						<ol class="side-nav-bunch">
+							<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
+							<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+							<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
+							<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
+							<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Invoices</span></a></li>			
+						</ol>
+					</nav>
+				</section>
 				
-				<p>Parcel's UUID: {{uuid}}</p>
+				<section class="main-right">
+				
+				<section class="recipient-details-section">
+					<p>Details of recipient:</p>
+					
+					<p>Parcel's UUID: {{uuid}}</p>
 
-				<form class="recipient-details-form" action="/courier-recipient-details/{{uuid}}" method="POST" enctype="multipart/form-data">
-					<label>Recipient's name:<input type="text" name="handed_to_name" required></label>
-					<label>Recipient's signature:
-						<canvas class="signature-pad"></canvas>
-						<div id="signature-pad-clear">Clear</div>
-					</label>
-						<input type="hidden" name="handed_to_signature">
-					<label>
-						<input type="submit" name="Submit">
-					</label>
-				</form>
+					<form class="recipient-details-form" action="/courier-recipient-details/{{uuid}}" method="POST" enctype="multipart/form-data">
+						<label>Recipient's name:<input type="text" name="handed_to_name" required></label>
+						<label>Recipient's signature:
+							<canvas class="signature-pad"></canvas>
+							<div id="signature-pad-clear">Clear</div>
+						</label>
+							<input type="hidden" name="handed_to_signature">
+						<label>
+							<input type="submit" name="Submit">
+						</label>
+					</form>
 
 
+				</section>
 			</section>
 		</main>
 		<footer>

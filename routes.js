@@ -20,6 +20,10 @@ import {
 	getParcelsAccepted,
 	getParcelsCustomer,
 	getParcelsDelivered,
+	getCourierParcels,
+	getAdminParcels,
+	getAdminCouriers,
+	getCustomerParcels
 } from './modules/retrieve.js';
 
 import { setParcelStatus, setParcelStatusDelivered } from './modules/update.js';
@@ -44,9 +48,14 @@ router.get('/', async (context) => {
 		admin: permission === 'admin',
 	};
 
-	const parcels = await getAllParcels();
+	const courierParcels = await getCourierParcels(authorised);
+	console.log(courierParcels)
+	const adminParcels = await getAdminParcels(authorised);
+	const adminCouriers = await getAdminCouriers(authorised);
+	const customerParcels = await getCustomerParcels(authorised);
+
 	// console.log(parcels)
-	const data = { authorised, role, parcels };
+	const data = { authorised, role, courierParcels, adminParcels, adminCouriers, customerParcels };
 	const body = await handle.renderView('home', data);
 	context.response.body = body;
 });
@@ -242,7 +251,7 @@ router.get('/courier-delivered', async (context) => {
 	const role = permission !== 'courier' && permission !== 'admin';
 	if (authorised === undefined || role) context.response.redirect('/login');
 	const parcels = await getParcelsDelivered(authorised);
-	console.log(parcels);
+	// console.log(parcels);
 	const data = { authorised, parcels };
 	const body = await handle.renderView('courier-delivered', data);
 	context.response.body = body;
