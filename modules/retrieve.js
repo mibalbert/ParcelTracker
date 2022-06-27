@@ -74,7 +74,13 @@ export async function getParcelDetails(uuid) {
 	return data;
 }
 
-// Show on courier's home page
+/**
+ * Retrieves data from db containing delivered parcels details.
+ * @async
+ * @function getParcelsDelivered
+ * @param {string} authorised Username of current user
+ * @returns {object} data Parcel's details
+ */
 export async function getParcelsDelivered(authorised) {
 	const data = await db.query(
 		'SELECT * FROM parcels WHERE status="delivered" AND courier_name=? ORDER BY date_time_delivered DESC',
@@ -83,22 +89,38 @@ export async function getParcelsDelivered(authorised) {
 	return data;
 }
 
-// function pretiDateTime(data){
-//     const result = data.map(obj => {
-//         if (obj!=null){
-//             return {...obj, date_time_created: obj.date_time_created.toDateString() + " " + obj.date_time_created.toLocaleTimeString(),
-//                                     date_time_in_transit: obj.date_time_in_transit.toDateString() + " " + obj.date_time_in_transit.toLocaleTimeString(),
-//                                     date_time_delivered: obj.date_time_delivered.toDateString() + " " + obj.date_time_delivered.toLocaleTimeString()
-//                 }
-//         })
-//     return result
-// }
 
-// const result = data.map(obj => {
-//             return {...obj,
-//                         // if(obj.date_time_created != null) { return date_time_created: obj.date_time_created.toDateString() + " " + obj.date_time_created.toLocaleTimeString()},
-//                         // else{ date_time_created: null },
-//                         // if(obj.date_time_in_transit != null) { return date_time_in_transit: obj.date_time_in_transit.toDateString() + " " + obj.date_time_in_transit.toLocaleTimeString()},
-//                         if( date_time_delivered == null) { return date_time_in_transit: obj.date_time_delivered.toDateString() + " " + obj.date_time_delivered.toLocaleTimeString()}
-//                         }
-//         })
+// For the Home page 
+
+export async function getCourierParcels(authorised) {
+	// const data = []
+	let instore = await db.query(
+		'SELECT COUNT(status) AS parcels_instore FROM parcels WHERE status="not-dispatched"');
+	let accepted = await db.query(
+		'SELECT COUNT(status) AS parcels_accepted FROM parcels WHERE status="in-transit" AND courier_name=?',[authorised]);
+	let delivered = await db.query(
+		'SELECT COUNT(status) AS parcels_delivered FROM parcels WHERE status="delivered" AND courier_name=?',[authorised]);
+	// data.push(instore)
+	// data.push(accepted)
+	// data.push(delivered)
+	
+	instore = instore[0].parcels_instore 
+	accepted = accepted[0].parcels_accepted
+	delivered = delivered[0].parcels_delivered
+
+	// console.log(instore, accepted, delivered)
+	return {instore, accepted, delivered};
+}
+
+export async function getAdminParcels() {
+	return 1
+}
+
+export async function getAdminCouriers() {
+	return 1
+}
+
+export async function getCustomerParcels() {
+	return 1
+}
+	

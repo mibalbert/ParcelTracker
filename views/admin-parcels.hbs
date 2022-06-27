@@ -20,52 +20,58 @@
 			</ul>
 		</header>
 	<main>
+		<section class="hero-ill">
+			<div class="hero-block">Parcel sending made easy!</div>
+		</section>
 
-		<section class="main-left">
-            <nav class="side-nav">
-				<ol class="side-nav-bunch">
-					<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
-					<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-					<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
-					<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-					
-				</ol>
-            </nav>
-        </section>
+		<section class="main-sides">
 
-		<section class="main-left">
-			<table>
-				<thead>
-					<tr>
-						<th></th>
-						<th>Sender PostCode</th>
-						<th>Recipient PostCode</th>
-						<th>Weight</th>
-						<th>Recipient Name</th>
-						<th>Full Adress</th>
-						<th>Sender Username</th>
-						<th>Date Posted</th>
-						<th>Unique ID</th>
-						<th>Status</th>
-					</tr>
-				</thead>
-				<tbody>
-				{{#each parcels}}
-					<tr id="link" class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
-						<td><img class="parcel-icon" src="img/package.png"></td>
-						<td>{{this.sender_postcode}}</td>
-						<td>{{this.recipient_postcode}}</td>
-						<td>{{this.weight_kg}}</td>
-						<td>{{this.recipient_name}}</td>
-						<td>{{this.full_address}}</td>
-						<td>{{this.sender_username}}</td>
-						<td>{{{lol this.date_time_created}}}</td>
-						<td>{{this.uuid}}</td>
-						<td>{{this.status}}</td>
-					</tr>		
-				{{/each}}
-				</tbody>
-			</table>
+			<section class="main-left">
+				<nav class="side-nav">
+					<ol class="side-nav-bunch">
+						<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
+						<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+						<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
+						<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
+						
+					</ol>
+				</nav>
+			</section>
+
+			<section class="main-left">
+				<table>
+					<thead>
+						<tr>
+							<th></th>
+							<th>Sender PostCode</th>
+							<th>Recipient PostCode</th>
+							<th>Weight</th>
+							<th>Recipient Name</th>
+							<th>Full Adress</th>
+							<th>Sender Username</th>
+							<th>Date Posted</th>
+							<th>Unique ID</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+					{{#each parcels}}
+						<tr id="link" class="parcel-link" onclick="window.location='/parcel/{{this.uuid}}'">
+							<td><img class="parcel-icon" src="img/package.png"></td>
+							<td>{{this.sender_postcode}}</td>
+							<td>{{this.recipient_postcode}}</td>
+							<td>{{this.weight_kg}}</td>
+							<td>{{this.recipient_name}}</td>
+							<td>{{this.full_address}}</td>
+							<td>{{this.sender_username}}</td>
+							<td>{{{lol this.date_time_created}}}</td>
+							<td>{{this.uuid}}</td>
+							<td>{{this.status}}</td>
+						</tr>		
+					{{/each}}
+					</tbody>
+				</table>
+			</section>
 		</section>
 	</main>
 	<footer>

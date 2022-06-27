@@ -8,9 +8,10 @@
 		<meta name="description" content="form to add new books">
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		<script type="module" src="main.js" defer></script>
+		<script type="module" src="charts.js" defer></script>
 	</head>
 	<body>
 		<header>
@@ -25,84 +26,154 @@
 				{{/if}}
 			</ul>
 		</header>
-			
-		{{#if authorised}}
-		<main>
-			
-			<section class="main-left">
-				<nav class="side-nav">
-					<ol class="side-nav-bunch">
-						{{#if role.admin}}
-							<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
-							<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-							<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
-							<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-						{{/if}}
-						
-						{{#if role.courier}}
-							<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
-							<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-							<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
-							<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
+		
+		
+		<main>	
+			{{#if authorised}}
+		
+			<section class="hero-ill">
+				<div class="hero-block">Parcel sending made easy!</div>
+			</section>
+
+			<section class="main-sides">
+					<section class="main-left">
+
+						<nav class="side-nav">
+							<ol class="side-nav-bunch">
+								{{#if role.admin}}
+									<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
+									<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+									<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
+									<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
+								{{/if}}
+								
+								{{#if role.courier}}
+									<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
+									<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+									<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
+									<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
+									<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Delivered</span></a></li>
+									
+								{{/if}}
+								
+								{{#if role.customer}}
+									<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
+									<li><a href="/send"><span id="side-nav-icon" class="material-symbols-outlined">add_box</span><span>Send</span></a></li>
+									<li><a href="/current"><span id="side-nav-icon" class="material-symbols-outlined">schedule</span><span>Current</span></a></li>
+									<li><a href="/customer"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>History</span></a></li>
+									{{!-- <li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li> --}}
+								{{/if}}
+							</ol>
+						</nav>
+					</section>
+
+					<section class="main-right"> 	
+
+							<section class="info-space">
+								
+								{{#if role.admin}}
+									
+									<div class="pie-chart">
+										<canvas id="myChartAdmin"></canvas>
+									</div>
+								
+								{{/if}}
+
+								{{#if role.courier}}
+								<section class="info-bundle2">
+									<div class="pie-chart">
+										<canvas id="myChartCourier"></canvas>
+									</div>
+									<div class="delivered-info">
+										<p>Parcels ready for delivery:</p>
+										<div class="numbers-and-icon">
+											<p class="courier-delivered-numbers">{{courierParcels.instore}}</p>
+											<span id="side-nav-icon-bolt" class="material-symbols-outlined">bolt</span>
+										</div>
+										<p>Accepted parcels:</p>
+										<div class="numbers-and-icon">
+											<p class="courier-delivered-numbers">{{courierParcels.accepted}}</p>
+											<span id="side-nav-icon-sparkel" class="material-symbols-outlined">temp_preferences_custom</span>
+										</div>
+										<p>Wow! So far you've delivered:</p>
+										<div class="numbers-and-icon">
+											<p class="courier-delivered-numbers">{{courierParcels.delivered}}</p>
+											{{!-- <img class="home-parcel-icon" src="img/package.png" alt="parcel-icon-alt"> --}}
+											<span id="side-nav-icon-handshake" class="material-symbols-outlined">handshake</span>
+										</div>
+									</div>
+								</section>
+								<section class="parcels" style="display:none">
+										<div id="instore">{{courierParcels.instore}}</div>
+										<div id="accepted">{{courierParcels.accepted}}</div>
+										<div id="delivered">{{courierParcels.delivered}}</div>	
+								</section>
+								{{/if}}
+								
+								{{#if role.customer}}
+									<div class="pie-chart">
+										<canvas id="myChartCustomer"></canvas>
+									</div>
+								{{/if}}
 							
-						{{/if}}
-						
-						{{#if role.customer}}
-							<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
-							<li><a href="/send"><span id="side-nav-icon" class="material-symbols-outlined">add_box</span><span>Send</span></a></li>
-							<li><a href="/current"><span id="side-nav-icon" class="material-symbols-outlined">schedule</span><span>Current</span></a></li>
-							<li><a href="/customer"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>History</span></a></li>
-							{{!-- <li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li> --}}
-						{{/if}}
-					</ol>
-				</nav>
+							</section>
+							
+					</section>
+					
 			</section>
+		
+		
+					{{else}}
+			
+					{{!-- <main class="hero"> --}}
+						<section class="explicative-hero">	
+							<section class="explicative-hero-text">
+								<p>Parcel sending reimagined...</p>
+								<p>Easy, safe, reliable!</p>
+								<button class="btn explore">Explore</button>
+								
+								<section>
+									<p>In order to fully experience the totality of this website you need to log-in</p>
+									<p>Here are some registered accounts you can access : </br>
+										admin: doej p4455w0rd </br>
+										courier: courier1/courier2 p4455w0rd </br>
+										customer: customer1/customer2 p4455w0rd </br>
+									</p>
+									<p>Or you can create your own account :) </br>
+										Just click register! </br>
+										PS: The account you will create will have the role of customer.
+									</p>
 
-			<section class="main-right"> 
+								</section>
 
-					<p>jdsakdsjkbajbkdajkasdbkj</p>
+							</section>
 
-			</section>
-
-		</main>
-		{{else}}
-		<main class="hero">
-				<section class="explicative-hero">	
-					<section class="explicative-hero-text">
-						<p>Parcel sending reimagined...</p>
-						<p>Easy, safe, reliable!</p>
-						<button class="btn explore">Explore</button>
-						
-						<section>
-							<p>In order to fully experience the totality of this website you need to log-in</p>
-							<p>Here are some registered accounts you can access : </br>
-								admin: doej p4455w0rd </br>
-								courier: courier1/courier2 p4455w0rd </br>
-								customer: customer1/customer2 p4455w0rd </br>
-							</p>
-							<p>Or you can create your own account :) </br>
-								Just click register! </br>
-								PS: The account you will create will have the role of customer.
-							</p>
-
+							<section class="explicative-hero-image">
+								<img src="img/uk-map.png">
+							</section>
 						</section>
-
-					</section>
-
-					<section class="explicative-hero-image">
-						<img src="img/uk-map.png">
-					</section>
-				</section>
-			{{/if}}
+					{{!-- </main>	 --}}
+					{{/if}}
+			
 		</main>
 		
 		<footer>
 			<p>This is the footer</p>
 		</footer>
-		
+
 	</body>	
 
 </html>
+
+
+
+
+
+			{{!-- When Admin logged in -> Show pie chart with how manny parcels online and how many of them in transit and how manny 
+			Display number with how manny couriers + how manny customers 
+			Display  --}}
+
+
 
 
 

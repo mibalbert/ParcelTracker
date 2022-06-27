@@ -1,3 +1,5 @@
+
+
 /* main.js */
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -44,5 +46,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				// elem.innerHTML = ""
 				// } , 1500)
 			});
-	}
+		}
+
+
+
+
+
+
 });

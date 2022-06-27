@@ -20,61 +20,67 @@
 			</ul>
 		</header>
 	<main>
+		<section class="hero-ill">
+			<div class="hero-block">Parcel sending made easy!</div>
+		</section>
 
-		<section class="main-left">
-            <nav class="side-nav">
-				<ol class="side-nav-bunch">
-					<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
-					<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-					<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
-					<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-					<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Invoices</span></a></li>			
-				</ol>
-            </nav>
-        </section>
+		<section class="main-sides">
 
-		<section class="main-right">
-			<section class="parcels">
-			<table>	
-				<thead>
-					<tr>
-						<th></th>
-						{{!-- <th>Sender Username</th> --}}
-						{{!-- <th>Sender PostCode</th> --}}
-						<th>Sender Full Adress</th>
-						{{!-- <th>Recipient Name</th> --}}
-						{{!-- <th>Recipient PostCode</th> --}}
-						<th>Recipient Full Adress</th>
-						<th>Weight</th>
-						<th>Date Posted</th>
-						<th>Date In-transit</th>
-						<th>Date Delivered</th>
-						<th>Unique ID</th>
-						<th>Status</th>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-				{{#each parcels}}
-						<tr class="parcel-link delivered" onclick="window.location='/parcel/{{this.uuid}}'">
-							<td><img class="parcel-icon" src="img/package.png"></td>
-							{{!-- <td>{{this.sender_username}}</td> --}}
-							{{!-- <td>{{this.sender_postcode}}</td> --}}
-							<td>{{this.sender_address}} {{this.sender_city}}</td>
-							{{!-- <td>{{this.recipient_name}}</td> --}}
-							{{!-- <td>{{this.recipient_postcode}}</td> --}}
-							<td>{{this.recipient_address}} {{this.recipient_city}}</td>
-							<td>{{this.weight_kg}}</td>
-							<td>{{{lol this.date_time_created}}}</td>
-							<td>{{{lol this.date_time_in_transit}}}</td>
-							<td>{{{lol this.date_time_delivered}}}</td>
-							<td>{{this.uuid}}</td>
-							<td>{{this.status}}</td>
+			<section class="main-left">
+				<nav class="side-nav">
+					<ol class="side-nav-bunch">
+						<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
+						<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+						<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
+						<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
+						<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Delivered</span></a></li>			
+					</ol>
+				</nav>
+			</section>
+
+			<section class="main-right">
+				<section class="parcels">
+				<table>	
+					<thead>
+						<tr>
+							<th></th>
+							{{!-- <th>Sender Username</th> --}}
+							{{!-- <th>Sender PostCode</th> --}}
+							<th>Sender Full Adress</th>
+							{{!-- <th>Recipient Name</th> --}}
+							{{!-- <th>Recipient PostCode</th> --}}
+							<th>Recipient Full Adress</th>
+							<th>Weight</th>
+							<th>Date Posted</th>
+							<th>Date In-transit</th>
+							<th>Date Delivered</th>
+							<th>Unique ID</th>
+							<th>Status</th>
+							<th></th>
+							<th></th>
 						</tr>
-				{{/each}}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+					{{#each parcels}}
+							<tr class="parcel-link delivered" onclick="window.location='/parcel/{{this.uuid}}'">
+								<td><img class="parcel-icon" src="img/package.png"></td>
+								{{!-- <td>{{this.sender_username}}</td> --}}
+								{{!-- <td>{{this.sender_postcode}}</td> --}}
+								<td>{{this.sender_address}} {{this.sender_city}}</td>
+								{{!-- <td>{{this.recipient_name}}</td> --}}
+								{{!-- <td>{{this.recipient_postcode}}</td> --}}
+								<td>{{this.recipient_address}} {{this.recipient_city}}</td>
+								<td>{{this.weight_kg}}</td>
+								<td>{{{lol this.date_time_created}}}</td>
+								<td>{{{lol this.date_time_in_transit}}}</td>
+								<td>{{{lol this.date_time_delivered}}}</td>
+								<td>{{this.uuid}}</td>
+								<td>{{this.status}}</td>
+							</tr>
+					{{/each}}
+					</tbody>
+				</table>
+				</section>
 			</section>
 		</section>
 	</main>

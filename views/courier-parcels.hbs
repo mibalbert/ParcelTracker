@@ -21,76 +21,81 @@
 			</ul>
 		</header>
 	<main>
-
-        <section class="main-left">
-            <nav class="side-nav">
-				<ol class="side-nav-bunch">
-					<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
-					<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-					<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
-					<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-					<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Invoices</span></a></li>			
-				</ol>
-            </nav>
-        </section>
-        
-        <section class="main-right">
-
-			
-            <section class="insert-uuid"> 
-                {{!-- <label>Accept parcel by entering the Unique ID:</label>
-                <div class="input-field">
-                    <input type="text" name="uuid"></input>
-                    <button class="insert-uuid-button-accept" id="insert-uuid-button-accept" ><span class="material-symbols-outlined">archive</span></button>
-                </div>
-                <p id="uuid-alert-green"></p> --}}
-
-				{{!-- <form action="/courier-parcels" method="post" >
-					<input type="text" name="uuid">
-					<input type="submit" name="Submit">
-				</form> --}}
-
-				<p id="uuid-alert-green"></p>
-                
-            </section>
-
-
-
-			<section class="parcels">
-			<table>
-				<thead>
-					<tr>
-						<th></th>
-						<th>Sender Postode</th>
-						<th>Sender Full Adress</th>
-						<th>Recipient Postcode</th>
-						<th>Recipient Full Adress</th>
-						<th>Weight</th>
-						<th>Date Posted</th>
-						<th>Status</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-				{{#each parcels}}	
-					<tr class="parcel-link">						
-						<td onclick="window.location='/parcel/{{this.uuid}}'" ><img class="parcel-icon" src="img/package.png"></td>
-						<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.sender_postcode}}</td>
-						<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.sender_address}} {{this.sender_city}}</td>
-						<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.recipient_postcode}}</td>
-						<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.recipient_address}} {{this.recipient_city}}</td>
-						<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.weight_kg}}</td>
-						<td onclick="window.location='/parcel/{{this.uuid}}'" >{{{lol this.date_time_created}}}</td>
-						<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.status}}</td>
-						<td class="td-transit" value="{{this.uuid}}"><span class="material-symbols-outlined">archive</span><span>Accept</span></td>
-					</tr>
-				{{/each}}
-
-				</tbody>
-			</table>
-			</section>
+		<section class="hero-ill">
+			<div class="hero-block">Parcel sending made easy!</div>
 		</section>
 
+		<section class="main-sides">
+
+			<section class="main-left">
+				<nav class="side-nav">
+					<ol class="side-nav-bunch">
+						<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
+						<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+						<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
+						<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
+						<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Invoices</span></a></li>			
+					</ol>
+				</nav>
+			</section>
+			
+			<section class="main-right">
+
+				
+				<section class="insert-uuid"> 
+					{{!-- <label>Accept parcel by entering the Unique ID:</label>
+					<div class="input-field">
+						<input type="text" name="uuid"></input>
+						<button class="insert-uuid-button-accept" id="insert-uuid-button-accept" ><span class="material-symbols-outlined">archive</span></button>
+					</div>
+					<p id="uuid-alert-green"></p> --}}
+
+					{{!-- <form action="/courier-parcels" method="post" >
+						<input type="text" name="uuid">
+						<input type="submit" name="Submit">
+					</form> --}}
+
+					<p id="uuid-alert-green"></p>
+					
+				</section>
+
+
+
+				<section class="parcels">
+				<table>
+					<thead>
+						<tr>
+							<th></th>
+							<th>Sender Postode</th>
+							<th>Sender Full Adress</th>
+							<th>Recipient Postcode</th>
+							<th>Recipient Full Adress</th>
+							<th>Weight</th>
+							<th>Date Posted</th>
+							<th>Status</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+					{{#each parcels}}	
+						<tr class="parcel-link">						
+							<td onclick="window.location='/parcel/{{this.uuid}}'" ><img class="parcel-icon" src="img/package.png"></td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.sender_postcode}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.sender_address}} {{this.sender_city}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.recipient_postcode}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.recipient_address}} {{this.recipient_city}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.weight_kg}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{{lol this.date_time_created}}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.status}}</td>
+							<td class="td-transit" value="{{this.uuid}}"><span class="material-symbols-outlined">archive</span><span>Accept</span></td>
+						</tr>
+					{{/each}}
+
+					</tbody>
+				</table>
+				</section>
+			</section>
+		</section>
 	</main>
 	<footer>
 		<p>This is the footer</p>
