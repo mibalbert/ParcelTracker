@@ -56,11 +56,10 @@ window.addEventListener('DOMContentLoaded', () => {
 					const routeSegment = i + 1;
 
 					
-					summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-						'</b><br>';
-					summaryPanel.innerHTML += route.legs[i].start_address;
+					summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment + '</b><br>';
+					summaryPanel.innerHTML += route.legs[i].start_address + `(Package ${i})`;
 					summaryPanel.innerHTML += '<br><span><strong>to</strong></span>';
-					summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+					summaryPanel.innerHTML += route.legs[i].end_address + `(Package ${i+1})` + '<br>';
 					summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
 				}
 			} else {
