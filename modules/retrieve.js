@@ -61,7 +61,7 @@ export async function getParcelsCustomer(authorised) {
 // Retrieve customer current parcels
 export async function getCurrentParcelsCustomer(authorised) {
 	const result = await db.query(
-		'SELECT * FROM parcels WHERE status != "delivered" AND sender_username = ? ORDER BY status DESC, date_time_created ASC',[authorised]);
+		'SELECT * FROM parcels WHERE status != "delivered" AND sender_username = ? ORDER BY status DESC, date_time_in_transit ASC',[authorised]);
 	// const result = await pretiDateTime(data)
 	return result;
 }

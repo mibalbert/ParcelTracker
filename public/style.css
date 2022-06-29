@@ -55,6 +55,7 @@ main {
   justify-content: center;
   align-items: center;
   padding: 8rem;
+  padding-top: 0;
 }
 
 .explicative-hero-text {
@@ -89,9 +90,12 @@ main {
   background-color: #1c81e0;
   border-radius: 5px;
   margin-top: 1rem;
+  transition-duration: 0.1s;
 }
-.explicative-hero-text a {
-
+.explicative-hero-text a:hover {
+  transform: scale(1.1);
+  transform-origin: center;
+  opacity: 0.8;
 }
 
 #home-sparkels {
@@ -101,6 +105,16 @@ main {
   color: #1c81e0;
   font-weight: 600;
 } */
+
+.hero-background {
+  position: absolute;
+  width: 70%;
+  height: 80%;
+  /* transform: scale(0.90); */
+  bottom: -30%;
+  /* right: 0; */
+  z-index: -99;
+  }
 
 
 /* Home Logged in */
