@@ -34,7 +34,7 @@
 						<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
 						<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
 						<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-						<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Invoices</span></a></li>			
+						<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Delivered</span></a></li>			
 		
 					</ol>
 				</nav>
@@ -46,7 +46,7 @@
 
 
 				<section class="courier-route-map">
-					<p>Delivery route for <strong>{{authorised}}</strong> --- Sorted based on hours elapsed since created</p>
+					<p>Drop-off route for <strong>{{authorised}}</strong> --- Sorted based on hours elapsed since the parcels were accepted</p>
 
 					<div class="routes-map" id="routes-map"></div>
 		
@@ -69,7 +69,7 @@
 							{{!-- <td class="asd" value="{{this.recipient_address}}"></td> --}}
 							
 							{{!-- <td>{{{lol this.date_time_created}}}</td> --}}
-							<td>{{{lol this.date_time_in_transit}}}</td>
+							<td>{{{this.date_time_in_transit}}}</td>
 						</tr>	
 					{{/each}}
 					</tbody>

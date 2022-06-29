@@ -1,9 +1,9 @@
 /* send.js */
 
 import { db } from 'db';
-import { format } from 'https://deno.land/std@0.91.0/datetime/mod.ts';
+// import { format } from 'https://deno.land/std@0.91.0/datetime/mod.ts';
 
-const dateTimeCreated = format(new Date(), 'yyyy-mm-dd hh:mm:ss');
+const dateTimeCreated = new Date();
 
 
 /**

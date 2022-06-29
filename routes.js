@@ -8,7 +8,7 @@ import { Handlebars } from 'handlebars';
 import { login, register } from 'accounts';
 import { addParcel } from './modules/send.js';
 
-import { handlebarsHelper1 } from './modules/handlebarsHelpers.js';
+import { handlebarsHelper1, handlebarsHelper2, handlebarsHelper3 } from './modules/handlebarsHelpers.js';
 
 import {
 	getAllCouriers,
@@ -21,8 +21,7 @@ import {
 	getParcelsCustomer,
 	getParcelsDelivered,
 	getCourierParcels,
-	getAdminParcels,
-	getAdminCouriers,
+	getAdminParcelsCouriers,
 	getCustomerParcels
 } from './modules/retrieve.js';
 
@@ -31,7 +30,9 @@ import { setParcelStatus, setParcelStatusDelivered } from './modules/update.js';
 const handle = new Handlebars({
 	defaultLayout: '',
 	helpers: {
-		lol: handlebarsHelper1,
+		formated: handlebarsHelper1,
+		formatedColored: handlebarsHelper2,
+		isOrNot: handlebarsHelper3
 	},
 });
 
@@ -49,13 +50,12 @@ router.get('/', async (context) => {
 	};
 
 	const courierParcels = await getCourierParcels(authorised);
-	console.log(courierParcels)
-	const adminParcels = await getAdminParcels(authorised);
-	const adminCouriers = await getAdminCouriers(authorised);
+	const adminParcelsCouriers = await getAdminParcelsCouriers();
 	const customerParcels = await getCustomerParcels(authorised);
 
-	// console.log(parcels)
-	const data = { authorised, role, courierParcels, adminParcels, adminCouriers, customerParcels };
+	// console.log(adminParcelsCouriers)
+	const data = { authorised, role, courierParcels, adminParcelsCouriers, customerParcels };
+	// console.log(data)
 	const body = await handle.renderView('home', data);
 	context.response.body = body;
 });
@@ -248,7 +248,7 @@ router.get('/courier-delivered', async (context) => {
 	console.log('/GET /home-courier-p');
 	const authorised = await context.cookies.get('authorised');
 	const permission = await context.cookies.get('permission');
-	const role = permission !== 'courier' && permission !== 'admin';
+	const role = permission !== 'courier';
 	if (authorised === undefined || role) context.response.redirect('/login');
 	const parcels = await getParcelsDelivered(authorised);
 	// console.log(parcels);
@@ -272,7 +272,7 @@ router.get('/customer', async (context) => {
 	context.response.body = body;
 });
 
-/// Customer current parcels active page
+/// Customer current parcels in-transit and not-dispatced page
 router.get('/current', async (context) => {
 	console.log('GET /current');
 	const authorised = await context.cookies.get('authorised');

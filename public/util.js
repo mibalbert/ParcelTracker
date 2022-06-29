@@ -72,29 +72,6 @@ async function makeCall(uuid) {
 		});
 }
 
-// Checks if the parcel was posted longer than 48h
-// if (date_time != null){
-//     const date_time_dtf = date_time.toDateString()
-//     const date_time_tmf = date_time.toLocaleTimeString()
-//     const hours = diff_hours(date_time, date_time_now)
-
-///if hours && status != 'delivered'
-
-// if( hours > 48 ){
-// 		created.innerHTML = `${created.innerHTML} h:${hours}`
-//     	created.style.color = 'red'
-// }
-//     }else if( hours > 24 ){
-
-//     }else{
-
-//     }
-// } else{
-//     //display this if date is null
-//     return '<span>' + '-' + '</span>'
-// }
-
-// console.log(hours)
 
 ///////////// CRAETE Map that shows the starting point (the parcel with the highest ammount of time spent in wearhouse),
 /////////////	   the destination (The most recently added parcel), and the waypoints

@@ -15,10 +15,9 @@
 	<body>
 		<header>
 			<h1><a href="/">Parcelino<span id="dot">.</span></a></h1>
-			<ol>
-				<li><a href="/">Home</a></li>
-				<li><a href="/logout">Log out</a></li>
-			</ol>
+			<ul>
+                <li class="logout"><a href="/logout"><span class="material-symbols-outlined">logout</span><span>Log-out</span></a></li>
+			</ul>
 		</header>
 		<main>
 			{{!-- <section class="hero-ill">
@@ -40,10 +39,9 @@
 								
 
 
-				<section class="main-right"
-					<h2>Send </h2>
-					<p>Hello <strong>{{authorised}}</strong></p>
-
+				<section class="main-right">
+					
+					
 					<p id="alert" style="display:'none'"></p>
 					
 					<section class="send-parcel-form-main">
@@ -112,7 +110,7 @@
 									Kg
 								</label>
 
-								<input type="submit" value="Submit" >
+								<input class="submit-button" type="submit" value="Submit" >
 
 						</form>
 					</section>

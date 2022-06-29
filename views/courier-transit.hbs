@@ -42,7 +42,7 @@
                         <li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
                         <li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
                         <li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-                        <li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Invoices</span></a></li>			
+                        <li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Delivered</span></a></li>			
                     </ol>
                     </nav>
                 </section>
@@ -89,7 +89,7 @@
                                 <td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.recipient_name}}</td>
                                 <td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.recipient_address}}</td>
                                 <td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.weight_kg}}</td>
-                                <td onclick="window.location='/parcel/{{this.uuid}}'" >{{{lol this.date_time_in_transit}}}</td>
+                                <td onclick="window.location='/parcel/{{this.uuid}}'" >{{{formatedColored this.date_time_in_transit}}}</td>
                                 <td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.uuid}}</td>
                                 <td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.status}}</td>
                                 {{!-- <td class="button-deliver" ><button class="button-td-deliver" name="set_deliver" onclick="window.location='/home-courier-receiver-details/{{this.uuid}}'"><span class="material-symbols-outlined">handshake</span><span>Deliver</span></button></td> --}}

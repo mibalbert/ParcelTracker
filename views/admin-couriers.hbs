@@ -29,16 +29,16 @@
 			<section class="main-left">
 				<nav class="side-nav">
 					<ol class="side-nav-bunch">
-						<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
-						<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-						<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
-						<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-						
+						<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
+						<li><a href="/admin-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+						<li><a href="/admin-couriers"><span id="side-nav-icon" class="material-symbols-outlined">local_shipping</span><span>Couriers</span></a></li>
+									
 					</ol>
 				</nav>
 			</section>
 
 			<section class="main-right">
+				<section class="couriers"> 
 				<table>
 					<thead>
 							<th></th>
@@ -50,12 +50,14 @@
 					{{#each couriers}}
 						<tr>
 							<td><img class="user-icon" src="img/user.png"></td>
-							<td><a href="admin-couriers-indiv/{{this.courier_name}}">{{this.courier_name}}</a></td>
+							{{!-- <td><a href="admin-couriers-indiv/{{this.courier_name}}">{{this.courier_name}}</a></td> --}}
+							<td>{{this.courier_name}}</td>
 							<td>{{this.parcels}}</td>
 						</tr>	
 					{{/each}}
 					</tbody>
 				</table>
+				</section>
 			</section>
 		{{!-- </section> --}}
 	</main>

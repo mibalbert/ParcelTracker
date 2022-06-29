@@ -6,7 +6,7 @@ import {
 	assertNotEquals,
 } from 'https://deno.land/std@0.79.0/testing/asserts.ts';
 
-const url = 'https://finlandbridge-pulseaudio-8080.codio-box.uk';
+const url = 'https://julietgarage-secondpackage-8080.codio-box.uk/';
 
 // FEATURE user can log in
 // checks that the login screen can be accessed and that only valid

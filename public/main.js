@@ -3,15 +3,15 @@
 /* main.js */
 
 window.addEventListener('DOMContentLoaded', (event) => {
-	console.log('DOMContentLoaded');
+	console.log('DOMContentLoaded')
 
 	// const alert = document.getElementById('uuid-alert-red')
 	//Handle the 'accept' buttons (individually)
 	document.querySelectorAll('.td-transit').forEach((item) => {
 		item.addEventListener('click', (event) => {
-			console.log(item.getAttribute('value'));
-			const uuid = item.getAttribute('value');
-			makeCall(uuid);
+			console.log(item.getAttribute('value'))
+			const uuid = item.getAttribute('value')
+			makeCall(uuid)
 		});
 	});
 
@@ -21,16 +21,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		})
 			.then(function (response) {
 				// const uu = document.querySelector('input[name=uuid]')
-				let elem = document.getElementById('uuid-alert-green');
-				let code = response.status;
+				let elem = document.getElementById('uuid-alert-green')
+				let code = response.status
 				if (code === 200) {
-					console.log(response.data);
-					elem.innerHTML = 'It fucking worked';
+					console.log(response.data)
+					// elem.innerHTML = 'Congratulation! You have accepted a new parcel.';
+					elem.style.display = block
 					// sessionStorage.reloadAfterPageLoad = true
 					setTimeout(function () {
-						location.reload();
-						elem.innerHTML = '';
-					}, 1500);
+						location.reload()
+						elem.innerHTML = ''
+					}, 1500)
 					// elem.innerHTML = response.data.msg
 				}
 			})
