@@ -23,6 +23,7 @@
 
 		</header>
 	<main>
+	
 		{{!-- <section class="hero-ill">
 			<div class="hero-block">Parcel sending made easy!</div>
 		</section> --}}
@@ -33,9 +34,9 @@
 				<nav class="side-nav">
 					<ol class="side-nav-bunch">
 						<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
-						<li><a href="/send"><span id="side-nav-icon" class="material-symbols-outlined">add_box</span><span>Send</span></a></li>
-						<li><a href="/current"><span id="side-nav-icon" class="material-symbols-outlined">schedule</span><span>Current</span></a></li>
-						<li><a href="/customer"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>History</span></a></li>
+						<li><a href="/customer-send"><span id="side-nav-icon" class="material-symbols-outlined">add_box</span><span>Send</span></a></li>
+						<li><a href="/customer-current"><span id="side-nav-icon" class="material-symbols-outlined">schedule</span><span>Current</span></a></li>
+						<li><a href="/customer-history"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>History</span></a></li>
 					</ol>
 				</nav>
 			</section>
@@ -55,7 +56,7 @@
 							<th>Weight</th>
 							<th>Date Posted</th>
 							<th>Date In-transit</th>
-							{{!-- <th>Date Delivered</th> --}}
+							<th>Date Delivered</th>
 							<th>Unique ID</th>
 							<th>Status</th>
 							<th></th>
@@ -73,9 +74,9 @@
 								{{!-- <td>{{this.recipient_postcode}}</td> --}}
 								<td>{{this.recipient_address}} {{this.recipient_city}}</td>
 								<td>{{this.weight_kg}}</td>
-								<td>{{{formatedColored this.date_time_created}}}</td>
-								<td>{{{formatedColored this.date_time_in_transit}}}</td>
-								{{!-- <td>{{{formated this.date_time_delivered}}}</td> --}}
+								<td>{{{formated this.date_time_created}}}</td>
+								<td>{{{formated this.date_time_in_transit}}}</td>
+								<td>{{{formated this.date_time_delivered}}}</td>
 								<td>{{this.uuid}}</td>
 								<td>{{this.status}}</td>
 							</tr>

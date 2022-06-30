@@ -620,8 +620,16 @@ form input.submit-button {
   border-style: none;
   border-radius: 5px;
   /* padding: 0 10rem; */
-
+  transition-duration: 0.1s;
 }
+
+form input.submit-button:hover {
+  transform: scale(1.05);
+  transform-origin: center;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
 section.recipient-details-section {
   display: flex;
   flex-direction: column;
@@ -639,7 +647,7 @@ form.recipient-details-form {
   padding: 3rem 0;
   width: 60%;
   box-shadow: 1px 1px 5px -1px rgba(137, 137, 138, 0.8);
-    border-radius: 20px;
+  border-radius: 20px;
 
 }
 
@@ -654,6 +662,7 @@ form.recipient-details-form label,
 form.recipient-details-form canvas {
   width: 100%;
 }
+
 form.recipient-details-form label:first-of-type input{
 
   border-style: 2px solid rgb(99, 99, 99);
@@ -682,12 +691,12 @@ form.recipient-details-form label:last-of-type input:hover{
 }
 
 
+
 .signature-pad {
-  heigth: 400px; 
-  width: 400px; 
-  border-radius: 20px;
+   
+  /* border-radius: 20px; */
   border: 1px solid black;
-  /* border-style: 4px solid red; */ */
+  /* bo/rder-style: 4px solid red; */ */
 
 }
 
@@ -790,7 +799,7 @@ section.couriers td  {
   /* Individual Parcel */
 
 .title-parcel-details {
-  padding-left: 7rem;
+  padding-left: 2rem;
   color: #5c5c5c;
 }
 

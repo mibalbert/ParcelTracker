@@ -237,11 +237,9 @@ router.post('/courier-recipient-details/:uuid', async (context) => {
 	const body = context.request.body({ type: 'form-data' });
 	const data = await body.value.read();
 	console.log('THE DATA FROM POST IS:', data.fields.handed_to_signature);
-	// const alert =
-	// await setParcelStatusDelivered(uuid, data);
-	// body = await handle.renderView('home-courier-receiver-details', {uuid, alert })
-	// context.response.body = body
-	// context.response.redirect('/courier-transit');
+	await setParcelStatusDelivered(uuid, data);
+	context.response.body = body
+	context.response.redirect('/courier-transit');
 });
 
 router.get('/courier-delivered', async (context) => {
@@ -258,7 +256,7 @@ router.get('/courier-delivered', async (context) => {
 });
 
 // Customer home page
-router.get('/customer', async (context) => {
+router.get('/customer-history', async (context) => {
 	console.log('GET /home-customer');
 	const authorised = await context.cookies.get('authorised');
 	const permission = await context.cookies.get('permission');
@@ -268,12 +266,12 @@ router.get('/customer', async (context) => {
 	const parcels = await getParcelsCustomer(authorised);
 	const data = { authorised, parcels };
 	// console.log(parcels)
-	const body = await handle.renderView('customer', data);
+	const body = await handle.renderView('customer-history', data);
 	context.response.body = body;
 });
 
 /// Customer current parcels in-transit and not-dispatced page
-router.get('/current', async (context) => {
+router.get('/customer-current', async (context) => {
 	console.log('GET /current');
 	const authorised = await context.cookies.get('authorised');
 	const permission = await context.cookies.get('permission');
@@ -283,32 +281,32 @@ router.get('/current', async (context) => {
 	const parcels = await getCurrentParcelsCustomer(authorised);
 	const data = { authorised, parcels };
 	// console.log(parcels)
-	const body = await handle.renderView('current', data);
+	const body = await handle.renderView('customer-current', data);
 	context.response.body = body;
 });
 
 // Customer send parcel page
-router.get('/send', async (context) => {
-	console.log('GET /send');
+router.get('/customer-send', async (context) => {
+	console.log('GET /customer-send');
 	const authorised = await context.cookies.get('authorised');
 	const permission = await context.cookies.get('permission');
 	if (authorised === undefined || permission !== 'customer') {
 		context.response.redirect('/login');
 	}
 	const data = { authorised };
-	const body = await handle.renderView('send', data);
+	const body = await handle.renderView('customer-send', data);
 	context.response.body = body;
 });
 
-router.post('/send', async (context) => {
-	console.log('/POST /send');
+router.post('/customer-send', async (context) => {
+	console.log('/POST /customer-send');
 	const body = context.request.body({ type: 'form-data' });
 	const data = await body.value.read();
 	const authorised = context.cookies.get('authorised');
 	await addParcel(data, authorised);
 	// const bodys = await handle.renderView('send')
 	// context.response.body = bodys
-	context.response.redirect('/customer');
+	context.response.redirect('/customer-current');
 });
 
 // Individual Parcel page
