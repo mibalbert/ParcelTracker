@@ -458,7 +458,7 @@ button.insert-uuid-button-accept {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 50px;
   width: 60px;
   background-color: #1c81e0;
   border-radius: 0 10px 10px 0;
@@ -466,9 +466,11 @@ button.insert-uuid-button-accept {
   color: #fff;
 }
 
+
 button.insert-uuid-button:hover,
 button.insert-uuid-button-accept:hover {
   opacity: 0.8;
+  cursor: pointer;
 }
 
 button.insert-uuid-button-accept {
@@ -796,6 +798,17 @@ section.couriers td  {
 }
 
 
+/* If list of parcels empty */
+
+.empty {
+  display: none;
+  margin: 10rem 0 0 26rem;
+  font-size: 18px;
+}
+
+
+
+
   /* Individual Parcel */
 
 .title-parcel-details {
@@ -1079,7 +1092,7 @@ section.couriers td  {
 
 
 
-.uuid-alert-green {
+.uuid-alert-green-success {
   display: none;
   padding: 1rem;
   border: 2px solid rgb(104, 216, 70);
@@ -1088,7 +1101,8 @@ section.couriers td  {
   background-color: rgb(104, 216, 70, 0.2);
 }
 
-.uuid-alert-yellow {
+.uuid-alert-yellow-transit,
+.uuid-alert-yellow-delivered {
   display: none;
   padding: 1rem;
   border: 2px solid rgb(250, 216, 64);
@@ -1097,7 +1111,7 @@ section.couriers td  {
   background-color: rgba(248, 217, 78, 0.2);
 }
 
-.uuid-alert-red {
+.uuid-alert-red-not-found {
   display: none;
   padding: 1rem;
   border: 2px solid rgb(240, 76, 76);

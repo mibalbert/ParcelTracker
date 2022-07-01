@@ -50,16 +50,18 @@ window.addEventListener('DOMContentLoaded', () => {
 				const route = response.routes[0];
 				const summaryPanel = document.getElementById('directions-route');
 				summaryPanel.innerHTML = '';
-				console.log(route)
+				console.log(route);
 				// For each route, display summary information.
 				for (let i = 0; i < route.legs.length; i++) {
 					const routeSegment = i + 1;
 
-					
-					summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment + '</b><br>';
-					summaryPanel.innerHTML += route.legs[i].start_address + ` (Package ${i})`;
+					summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+						'</b><br>';
+					summaryPanel.innerHTML += route.legs[i].start_address +
+						` (Package ${i})`;
 					summaryPanel.innerHTML += '<br><span><strong>to</strong></span>';
-					summaryPanel.innerHTML += route.legs[i].end_address + ` (Package ${i+1})` + '<br>';
+					summaryPanel.innerHTML += route.legs[i].end_address +
+						` (Package ${i + 1})` + '<br>';
 					summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
 				}
 			} else {
