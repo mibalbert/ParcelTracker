@@ -21,12 +21,6 @@
 			</ul>
 		</header>
 	<main>
-		{{!-- <section class="hero-ill">
-			<div class="hero-block">Parcel sending made easy!</div>
-		</section> --}}
-
-		{{!-- <section class="main-sides"> --}}
-
 			<section class="main-left">
 				<nav class="side-nav">
 					<ol class="side-nav-bunch">
@@ -38,31 +32,28 @@
 					</ol>
 				</nav>
 			</section>
-			
 			<section class="main-right">
-
-				
 				<section class="insert-uuid"> 
-					{{!-- <label>Accept parcel by entering the Unique ID:</label>
-					<div class="input-field">
-						<input type="text" name="uuid"></input>
-						<button class="insert-uuid-button-accept" id="insert-uuid-button-accept" ><span class="material-symbols-outlined">archive</span></button>
-					</div>
+					{{!-- 
 					<p id="uuid-alert-green"></p> --}}
 
 					{{!-- <form action="/courier-parcels" method="post" >
 						<input type="text" name="uuid">
 						<input type="submit" name="Submit">
 					</form> --}}
-
-					<p id="uuid-alert-green" class="uuid-alert-green">Congratulation! You have accepted a new parcel.</p>
-					<p id="uuid-alert-yellow" class="uuid-alert-yellow">Congratulation! You have accepted a new parcel.</p>
-					<p id="uuid-alert-red" class="uuid-alert-red">Congratulation! You have accepted a new parcel.</p>
+					<label>Accept parcel by entering the Unique ID:</label>
+					<div class="input-field">
+						
+						<input type="text" name="uuid"></input>
+						<button class="insert-uuid-button-accept" id="insert-uuid-button-accept"><span class="material-symbols-outlined">archive</span></button>
+					</div>
 					
+					<p id="uuid-alert-green" class="uuid-alert-green-success">Congratulation! You have accepted a new parcel.</p>
+					<p id="uuid-alert-yellow" class="uuid-alert-yellow-transit">Conflict! Parcel already in transit!</p>
+					<p id="uuid-alert-yellow" class="uuid-alert-yellow-delivered">Conflict! Parcel already delivered!</p>
+					<p id="uuid-alert-red" class="uuid-alert-red-not-found">Not Found! The uuid is incorrect!</p>
 				</section>
-
-
-
+				<p class="empty">There are no parcels to be delivered!</p>
 				<section class="parcels">
 				<table>
 					<thead>
@@ -82,13 +73,13 @@
 					{{#each parcels}}	
 						<tr class="parcel-link">						
 							<td onclick="window.location='/parcel/{{this.uuid}}'" ><img class="parcel-icon" src="img/package.png"></td>
-							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.sender_postcode}}</td>
-							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.sender_address}} {{this.sender_city}}</td>
-							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.recipient_postcode}}</td>
-							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.recipient_address}} {{this.recipient_city}}</td>
-							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.weight_kg}}</td>
-							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{{formatedColored this.date_time_created}}}</td>
-							<td onclick="window.location='/parcel/{{this.uuid}}'" >{{this.status}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" class="parcel-td">{{this.sender_postcode}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" class="parcel-td">{{this.sender_address}} {{this.sender_city}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" class="parcel-td">{{this.recipient_postcode}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" class="parcel-td">{{this.recipient_address}} {{this.recipient_city}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" class="parcel-td">{{this.weight_kg}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" class="parcel-td">{{{formatedColored this.date_time_created}}}</td>
+							<td onclick="window.location='/parcel/{{this.uuid}}'" class="parcel-td">{{this.status}}</td>
 							<td class="td-transit" value="{{this.uuid}}"><span class="material-symbols-outlined">archive</span><span>Accept</span></td>
 						</tr>
 					{{/each}}
@@ -97,14 +88,8 @@
 				</table>
 				</section>
 			</section>
-		{{!-- </section> --}}
 	</main>
-	{{!-- <footer>
-		<p>This is the footer</p>
-	</footer> --}}
-
-	</body>
-	
+	</body>	
 </html>
 
 

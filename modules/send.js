@@ -1,23 +1,17 @@
-
 /* send.js */
 
 import { db } from 'db';
 
 const dateTimeCreated = new Date();
 
-
-/**
- * 
- * 
- * 
- */
+/** */
 export async function addParcel(data, authorised) {
 	const parcel = data.fields;
 	console.log('THIS IS IN THE SEND JS', parcel);
 
 	const senderUsername = await authorised;
 	const result = await db.query(
-		'INSERT INTO parcels (recipient_name, sender_address, sender_address_details, sender_city, \
+'INSERT INTO parcels (recipient_name, sender_address, sender_address_details, sender_city, \
         sender_postcode, sender_country, recipient_address, recipient_address_details, recipient_city, \
         recipient_postcode, recipient_country, weight_kg, sender_username, date_time_created, uuid) \
         VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, UUID())',

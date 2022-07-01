@@ -145,18 +145,22 @@
 								{{/if}}
 								
 								{{#if role.customer}}
-									<section class="info-bundle2 customer">
-						
+									<section class="info-bundle2 customer">	
 										<p>Current in transit parcels:</p>
 										<div class="numbers-and-icon">
 											<p class="courier-delivered-numbers">{{customerParcels.totalTransit}}</p>
 											<span id="side-nav-icon-sparkel" class="material-symbols-outlined">temp_preferences_custom</span>
 										</div>
-										<p>Wow! So far you've sent:</p>
+										<p>Succesfully delivered parcles:</p>
 										<div class="numbers-and-icon">
 											<p class="courier-delivered-numbers">{{customerParcels.totalDelivered}}</p>
 											{{!-- <img class="home-parcel-icon" src="img/package.png" alt="parcel-icon-alt"> --}}
 											<span id="side-nav-icon-handshake" class="material-symbols-outlined">handshake</span>
+										</div>
+										<p>Total of parcels (Not-dispatched, In-transit, Delivered):</p>
+										<div class="numbers-and-icon">
+											<p class="courier-delivered-numbers">{{customerParcels.totalPlaced}}</p>
+											<span id="side-nav-icon-sparkel" class="material-symbols-outlined">rocket_launch</span>
 										</div>
 									</section>
 								</section>
