@@ -1,1 +1,1 @@
-web: deno run --allow-all --unstable index.js
+web: deno task run
