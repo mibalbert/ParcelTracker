@@ -8,27 +8,34 @@ const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
 // Set parcel status to 'in-transit'
 export async function setParcelStatus(obj, authorised) {
 	const uuid = obj.uuid;
-	let result = await db.query('SELECT * FROM parcels WHERE uuid = ?', [uuid]);
-	if (result[0].status === 'not-dispatched') {
-		//Change the status to in-transit
-		result = await db.query(
-			'UPDATE parcels SET status = "in-transit", date_time_in_transit = ?, courier_name = ? WHERE uuid = ?',
-			[dateTime, authorised, uuid],
-		);
-		return {
-			status: 200,
-			message: 'You have accepted a new parcel to deliver!',
-		};
-	} else if (result[0].status === 'in-transit') {
-		return { status: 409, message: 'Conflict! Parcel already in-transit!' };
-	} else if (result[0].status === 'delivered') {
-		return { status: 403, message: 'Forbiden! Parcel already delivered!' };
-	} else {
-		return {
-			status: 404,
-			message: 'Not Found! Cannot find the uuid in the database!',
-		};
+	try{	
+		let result = await db.query('SELECT * FROM parcels WHERE uuid = ?', [uuid]);
+		// if (result[0].status === undefined ) throw new Error ('Wrong uuid inputed')
+		if (result[0].status === 'not-dispatched') {
+			//Change the status to in-transit
+			result = await db.query(
+				'UPDATE parcels SET status = "in-transit", date_time_in_transit = ?, courier_name = ? WHERE uuid = ?',
+				[dateTime, authorised, uuid],
+			);
+			return {
+				status: 200,
+				message: 'You have accepted a new parcel to deliver!',
+			};
+		} else if (result[0].status === 'in-transit') {
+			return { status: 409, message: 'Conflict! Parcel already in-transit!' };
+		} else if (result[0].status === 'delivered') {
+			return { status: 403, message: 'Forbiden! Parcel already delivered!' };
+		} else {
+			return {
+				status: 404,
+				message: 'Not Found! Cannot find the uuid in the database!',
+			};
+		}
+	} catch(err) {
+		console.log(err)
 	}
+	
+	
 }
 
 export async function setParcelStatusDelivered(uuid, data) {
