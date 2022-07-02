@@ -1,7 +1,7 @@
 {
 	"importMap": "import_map.json",
-	"tasks": {
-		"web": "deno run --allow-all --unstable index.js --port=${PORT}"
+	"task": {
+		"run": "deno run --allow-all --unstable index.js --port=${PORT}"
 	},
 	"lint": {
 		"files": {
