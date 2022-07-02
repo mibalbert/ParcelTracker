@@ -26,47 +26,34 @@
 		</header>
 		<main class="log-in-main">
 
-			<section class="log-in-example1">
-				<div class="item1"></div>
-			</section>
-
-			<section class="log-in-section">
-				<form action="/login" method="post">
-					<p>
-						<label for="user">Username</label><br />
-						<input type="text" name="username" placeholder="your username" value="{{body.user}}" autofocus>
-					</p>
-					<p>
-						<label for="pass">Password</label><br />
-						<input type="password" name="password" placeholder="your password" value="{{body.pass}}">
-					</p>
-					<p><input type="submit" value="Log in"></p>
-				</form>
-			</section>
-			
-			<p>Or</p>
-			
-			<section class="log-in-section alternative"> 
-				<form action="/login" method="post">
-						<input type="hidden" name="username" value="doej">
-						<input type="hidden" name="password" value="p455w0rd">
-					<p><input type="submit" value="Log in as Admin"></p>
-				</form>
-				<form action="/login" method="post">
-						<input type="hidden" name="username" value="courier1">
-						<input type="hidden" name="password" value="p455w0rd">
-					<p><input type="submit" value="Log in as courier1"></p>
-				</form>
-				<form action="/login" method="post">
-						<input type="hidden" name="username" value="customer1">
-						<input type="hidden" name="password" value="p455w0rd">
-					<p><input type="submit" value="Log in as customer1"></p>
-				</form>	
-			</section>
-
-
-			<section class="log-in-example2">
-				<div class="item2"></div>
+			<section class="log-in-container">
+				<section class="log-in-section">
+					<form action="/login" method="post">
+						<h3>Login</h3>
+						<input type="text" name="username" placeholder="Username" value="{{body.user}}" autofocus required>
+						<input type="password" name="password" placeholder="Password" value="{{body.pass}}" required>
+						<input type="submit" value="Log in">
+					</form>
+				</section>
+				
+				<section class="log-in-section-quick"> 
+					{{!-- <p>Or</p> --}}
+					<form action="/login" method="post">
+							<input type="hidden" name="username" value="doej">
+							<input type="hidden" name="password" value="p455w0rd">
+						<input type="submit" value="Log in as admin">
+					</form>
+					<form action="/login" method="post">
+							<input type="hidden" name="username" value="courier1">
+							<input type="hidden" name="password" value="p455w0rd">
+						<input type="submit" value="Log in as courier1">
+					</form>
+					<form action="/login" method="post">
+							<input type="hidden" name="username" value="customer1">
+							<input type="hidden" name="password" value="p455w0rd">
+						<input type="submit" value="Log in as customer1">
+					</form>	
+				</section>
 			</section>
 
 

@@ -21,8 +21,8 @@ Deno.test('access login page from home page     ', async () => {
 	// WHEN I click on the login button
 	await page.click('a[href="/login"]', { waitUntil: 'networkidle0' });
 	// THEN I should see the page heading "Log In"
-	const heading = await page.$eval('h1', (node) => node.innerText);
-	await assertEquals(heading, 'Log In', 'log in screen not found');
+	const heading = await page.$eval('h3', (node) => node.innerText);
+	await assertEquals(heading, 'Login', 'log in screen not found');
 	// AND the "username" input field should be visible
 	const usernameField = await page.$eval(
 		'input[name="username"]',

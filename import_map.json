@@ -12,6 +12,10 @@
 		"statusCodes": "https://deno.land/std@0.133.0/http/http_status.ts",
 		"accounts": "./modules/accounts.js",
 		"routes": "./routes.js",
-		"db": "./modules/db.js"
+		"db": "./modules/db.js",
+		"retrieve": "./modules/retrieve.js",
+		"send": "./modules/send.js",
+		"update": "./modules/update.js",
+		"handlebarsHelpers": "./modules/handlebarsHelpers.js"
 	}
 }

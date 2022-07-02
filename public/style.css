@@ -561,18 +561,159 @@ div#directions-route {
 
   /* Log-in page */
 
-.log-in-main {
-  background-color: #f3f3f3;
+
+
+.log-in-main,
+.main-auth {
   display: flex; 
+  justify-content: center;
   align-items: center;
-  flex-direction: column;  
+  flex-direction: column;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+  
 }
 
-.log-in-section {
-  margin: 0.5rem;
-  padding: 0.25rem;
+.log-in-container,
+.auth-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+    box-shadow: 0px 3px 7px 2px rgb(138, 137, 137, 0.35);
+  width: 20%;
+  height: 500px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-radius: 20px;
 }
 
+.log-in-section,
+.log-in-section-quick {
+  width: 100%;
+  height: auto;
+}
+
+.log-in-section form,
+.auth-section form {
+  font-size: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+}
+.log-in-section form input,
+.auth-section form input {
+  width: 60%;
+  height: 30px;
+  font-size: 16px;
+  color: #5c5c5c;
+}
+
+.log-in-section form input[type=submit],
+.auth-section form input[type=submit] {
+  background-color: #4CAF50;
+  border-style: none;
+  border-radius: 5px;
+  color: #ffff;
+  transition-duration: 0.1s;
+  height: 35px;
+}
+
+.log-in-section form input[type=submit]:hover,
+.auth-section form input[type=submit]:hover {
+  transform: scale(1.05);
+  transform-origin: center;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.log-in-section-quick form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.log-in-section-quick form input[type=submit] {
+  width: 60%;
+  height: 35px;
+  font-size: 16px;
+  background-color: #1c81e0;
+  border-style: none;
+  border-radius: 5px;
+  color: #ffff;
+  transition-duration: 0.1s;
+}
+
+
+.log-in-section-quick form input[type=submit]:hover {
+  transform: scale(1.05);
+  transform-origin: center;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+
+
+.auth-section {
+  width: 20%;
+  height: 400px;
+  align-items: center;
+  padding: 0;
+}
+.auth-section form {
+  width: 90%;
+  /* height: 90%; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+  /* Register */
+
+/* .main-auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(95, 219, 167);
+  height: 100vh;
+}
+
+section.auth-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+    box-shadow: 0px 3px 7px 2px rgb(138, 137, 137, 0.35);
+  width: 20%;
+  height: 500px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-radius: 20px;
+  }
+
+
+section.auth-section form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: coral;
+  font-size: 26px;
+  gap: 2rem;
+
+}
+
+section.auth-section form input {
+  width: 60%;
+  height: 30px;
+  font-size: 16px;
+  color: #5c5c5c;
+} */
 
 
 

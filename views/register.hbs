@@ -25,25 +25,17 @@
 				{{/if}}
 			</ul>
 		</header>
-		<main>
+		<main class="main-auth">
 
-		<section class="main-auth"></section>
-			<form action="/register" method="post">
-				<p>
-					<label for="user">Username</label><br />
-					<input type="text" name="username" placeholder="your preferred username" value="{{body.user}}">
-				</p>
-				<p>
-					<label for="pass">Password</label><br />
-					<input type="password" name="password" placeholder="your chosen password">
-				</p>
-				<p>
-					<label for="pass2">Password (again)</label><br />
-					<input type="password" name="password2" placeholder="your chosen password">
-				</p>
-				<p><input type="submit" value="Create"></p>
-			</form>
-		</main>
+			<section class="auth-section">
+				<form action="/register" method="post">
+					<p>Register</p>
+					<input type="text" name="username" placeholder="Preferred username" value="{{body.user}}">
+					<input type="password" name="password" placeholder="Chosen password">
+					<input type="password" name="password2" placeholder="Repeat chosen password">
+					<input type="submit" value="Create">
+				</form>
+			</section>
 		</main>
 	</body>
 </html>

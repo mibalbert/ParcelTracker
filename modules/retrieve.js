@@ -74,7 +74,6 @@ export async function getCurrentParcelsCustomer(authorised) {
 	return result;
 }
 
-
 ///////	Individual Parcel
 
 export async function getParcelDetails(uuid) {
@@ -149,7 +148,7 @@ export async function getCustomerParcels(authorised) {
 	);
 	totalTransit = totalTransit[0].parcels_in_transit;
 	totalDelivered = totalDelivered[0].parcels_delivered;
-	totalPlaced = totalPlaced[0].parcels_placed
+	totalPlaced = totalPlaced[0].parcels_placed;
 	// console.log(totalTransit, totalDelivered, totalPlaced)
 	return { totalTransit, totalDelivered, totalPlaced };
 }

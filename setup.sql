@@ -71,32 +71,5 @@ INSERT INTO parcels(sender_address, sender_city, sender_postcode, sender_country
           ("128 High St", "Slough", "SL1 1JF",  "United Kingdom", "442-444 Roman Rd", "Bow, London", "E3 5LU", "United Kingdom",
            "10", "customer1", "John Doe", "courier1", "2022-06-06 00:51:51", "2022-06-06 00:51:51", null, "in-transit", UUID());
         
-        
--- 1.   S Audley St, London , W1J 7TD
--- 2.   Great Russell St, London, WC1B 3DG
--- 3.   10 Downing St, London, SW1A 2AA
--- 4.   70 Rosebery Ave, London EC1R 4RR
--- 5.   63 New Bond St, London W1S 1RQ
--- 6.   Office 410, 7 Whitechapel Rd, London E1 1DU
--- 7.   Cambridge St, Pimlico, London SW1V 4EQ
--- 8.   20 Wigmore St, London W1U 2RQ
--- 9.   75 Roupell St, London SE1 8SS
-
-
-
-  -- snd_lat DECIMAL(11,7),  --sender's postcode in latitude 
-  -- snd_lng DECIMAL(11,7),  --and longitude
-  -- rcv_lat DECIMAL(11,7),  --recipient's/receiver's postcode in latitude
-  -- rcv_lng DECIMAL(11,7),  --and longitude
-  -- acc_lat DECIMAL(11,7),  --actual latitude and
-  -- acc_lng DECIMAL(11,7)   --longitude of the parcel when status changed to 'delivered'
-  -- handed_to_name, handed_to_signature,
-
-
-  -- snd_lat DECIMAL(11,7),
-  -- snd_lng DECIMAL(11,7),
-  -- rcv_lat DECIMAL(11,7),
-  -- rcv_lng DECIMAL(11,7),
-
 
 

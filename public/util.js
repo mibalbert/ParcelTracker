@@ -2,48 +2,37 @@
 
 window.addEventListener('DOMContentLoaded', (event) => {
 	console.log('DOM CONTENT LOADED');
-
-
-
-
 });
 
+// const date_time_now = new Date();
 
+// const created = document.getElementsByClassName('date_time_created');
+// const transit = document.getElementsByClassName('date_time_in_transit');
+// const delivered = document.getElementsByClassName('date_time_delivered');
 
+// const button = document.getElementById('insert-uuid-button');
+// button.addEventListener('click', makeCall);
 
+//Add querySelector or Class selector to select all the fileds
+// for (let x = 0; x < delivered.length; x++) {
+// 	if (delivered[x].innerHTML === '') delivered[x].innerHTML = '-';
+// }
+// for (let x = 0; x < transit.length; x++) {
+// 	if (transit[x].innerHTML === '') transit[x].innerHTML = '-';
+// }
 
+// const date_time = new Date(created.innerHTML);
+// const hours = diff_hours(date_time, date_time_now);
 
-
-
-	// const date_time_now = new Date();
-
-	// const created = document.getElementsByClassName('date_time_created');
-	// const transit = document.getElementsByClassName('date_time_in_transit');
-	// const delivered = document.getElementsByClassName('date_time_delivered');
-
-	// const button = document.getElementById('insert-uuid-button');
-	// button.addEventListener('click', makeCall);
-
-	//Add querySelector or Class selector to select all the fileds
-	// for (let x = 0; x < delivered.length; x++) {
-	// 	if (delivered[x].innerHTML === '') delivered[x].innerHTML = '-';
-	// }
-	// for (let x = 0; x < transit.length; x++) {
-	// 	if (transit[x].innerHTML === '') transit[x].innerHTML = '-';
-	// }
-
-	// const date_time = new Date(created.innerHTML);
-	// const hours = diff_hours(date_time, date_time_now);
-
-	// Get uuid to make api call
-	// const uuid = document.querySelector('input[name=uuid]');
-	// uuid.addEventListener('keypress', async (event) => {
-	// 	if (event.keyCode === 13) {
-	// 		event.preventDefault();
-	// 		makeCall(uuid.value);
-	// 		uuid.value = '';
-	// 	}
-	// });
+// Get uuid to make api call
+// const uuid = document.querySelector('input[name=uuid]');
+// uuid.addEventListener('keypress', async (event) => {
+// 	if (event.keyCode === 13) {
+// 		event.preventDefault();
+// 		makeCall(uuid.value);
+// 		uuid.value = '';
+// 	}
+// });
 // function diff_hours(dt2, dt1) {
 // 	let diff = (dt2 - dt1) / 1000;
 // 	diff /= 60 * 60;

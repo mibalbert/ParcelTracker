@@ -11,7 +11,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	const totalAccepted = document.getElementById('admin-total-in-transit');
 
 	if (document.getElementById('myChartAdmin')) {
-		const context = document.getElementById('myChartAdmin').getContext('2d');
+		const context = document.getElementById('myChartAdmin').getContext(
+			'2d',
+		);
 		const myChartAdmin = new Chart(context, {
 			type: 'pie',
 			data: {

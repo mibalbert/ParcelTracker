@@ -15,14 +15,19 @@ export async function setParcelStatus(obj, authorised) {
 			'UPDATE parcels SET status = "in-transit", date_time_in_transit = ?, courier_name = ? WHERE uuid = ?',
 			[dateTime, authorised, uuid],
 		);
-		return { status: 200, message: 'You have accepted a new parcel to deliver!' };
-
-	} else if ( result[0].status === 'in-transit' ) {
-		return { status: 409, message: 'Conflict! Parcel already in-transit!' };	
-	} else if ( result[0].status === 'delivered' ) {
-		return { status: 403, message: 'Forbiden! Parcel already delivered!' };	
+		return {
+			status: 200,
+			message: 'You have accepted a new parcel to deliver!',
+		};
+	} else if (result[0].status === 'in-transit') {
+		return { status: 409, message: 'Conflict! Parcel already in-transit!' };
+	} else if (result[0].status === 'delivered') {
+		return { status: 403, message: 'Forbiden! Parcel already delivered!' };
 	} else {
-		return { status: 404, message: 'Not Found! Cannot find the uuid in the database!' };
+		return {
+			status: 404,
+			message: 'Not Found! Cannot find the uuid in the database!',
+		};
 	}
 }
 

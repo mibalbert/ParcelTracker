@@ -5,7 +5,7 @@
 import { Router } from 'oak';
 import { Handlebars } from 'handlebars';
 import { login, register } from 'accounts';
-import { addParcel } from './modules/send.js';
+import { addParcel } from 'send';
 import {
 	getAdminParcelsCouriers,
 	getAllCouriers,
@@ -19,14 +19,13 @@ import {
 	getParcelsAccepted,
 	getParcelsCustomer,
 	getParcelsDelivered,
-} from './modules/retrieve.js';
-import { setParcelStatus, setParcelStatusDelivered } from './modules/update.js';
+} from 'retrieve';
+import { setParcelStatus, setParcelStatusDelivered } from 'update';
 import {
 	handlebarsHelper1,
 	handlebarsHelper2,
 	handlebarsHelper3,
-} from './modules/handlebarsHelpers.js';
-
+} from 'handlebarsHelpers';
 
 const handle = new Handlebars({
 	defaultLayout: '',
@@ -122,19 +121,19 @@ router.get('/admin-couriers', async (context) => {
 });
 
 // Admin route to see individual courier page
-router.get('/admin-couriers-indiv/:courier', async (context) => {
-	console.log('/GET /admin-couriers-indiv/:courier');
-	const courier = context.params.courier;
-	const authorised = await context.cookies.get('authorised');
-	const permission = await context.cookies.get('permission');
-	const role = permission !== 'admin';
-	if (authorised === undefined || role) context.response.redirect('/login');
-	const result = await getCourierIndividual(courier);
-	// console.log(parcels)
-	const data = { authorised, result, courier };
-	const body = await handle.renderView('admin-couriers-indiv', data);
-	context.response.body = body;
-});
+// router.get('/admin-couriers-indiv/:courier', async (context) => {
+// 	console.log('/GET /admin-couriers-indiv/:courier');
+// 	const courier = context.params.courier;
+// 	const authorised = await context.cookies.get('authorised');
+// 	const permission = await context.cookies.get('permission');
+// 	const role = permission !== 'admin';
+// 	if (authorised === undefined || role) context.response.redirect('/login');
+// 	const result = await getCourierIndividual(courier);
+// 	// console.log(parcels)
+// 	const data = { authorised, result, courier };
+// 	const body = await handle.renderView('admin-couriers-indiv', data);
+// 	context.response.body = body;
+// });
 
 // Admin route to see all parcels page
 router.get('/admin-parcels', async (context) => {
@@ -172,7 +171,7 @@ router.post('/courier-transit', async (context) => {
 	const parsedBody = await body.value;
 	console.log(parsedBody);
 	const result = await setParcelStatus(authorised, parsedBody.uuid);
-	console.log(result);
+	// console.log(result);
 	context.response.status = result.status;
 	context.response.body = { msg: result.message };
 });
@@ -198,9 +197,9 @@ router.post('/courier-parcels', async (context) => {
 	const body = context.request.body({ type: 'json' });
 	const value = await body.value;
 	// const obj = Object.fromEntries(value)
-	console.log(value.uuid);
+	// console.log(value.uuid);
 	const result = await setParcelStatus(value, authorised);
-	console.log(result)
+	// console.log(result)
 	context.response.status = result.status;
 	context.response.body = { msg: result.message };
 	// context.response.redirect('/courier-transit')
@@ -215,7 +214,7 @@ router.get('/courier-route', async (context) => {
 	if (authorised === undefined || role) context.response.redirect('/login');
 	const parcels = await getParcelsAccepted(authorised);
 	const data = { authorised, parcels };
-	console.log(parcels);
+	// console.log(parcels);
 	const body = await handle.renderView('courier-route', data);
 	context.response.body = body;
 });
@@ -326,7 +325,7 @@ router.get('/parcel/:uuid', async (context) => {
 		admin: permission === 'admin',
 	};
 	const parcels = await getParcelDetails(uuid);
-	console.log(parcels);
+	// console.log(parcels);
 	const data = { authorised, role, parcels };
 	const body = await handle.renderView('parcel', data);
 	context.response.body = body;

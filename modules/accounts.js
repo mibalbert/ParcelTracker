@@ -14,7 +14,7 @@ const salt = await genSalt(saltRounds);
  * Checks user credentials.
  * @param {string} username
  * @param {string} password
- * @returns {string} the username for the valid account
+ * @returns {object} the username for the valid account
  */
 export async function login(data) {
 	console.log(data);
@@ -35,16 +35,9 @@ export async function login(data) {
 	// const role = records[0].role
 	// data.role = await encodeRole(role)
 	data.role = records[0].role;
-	console.log(data.role);
 	return { username: data.username, role: data.role };
 }
 
-/**
- * Adds x and y.
- * @param {number} x
- * @param {number} y
- * @returns {number} Sum of x and y
- */
 export async function register(data) {
 	const password = await hash(data.password, salt);
 	const sql =
