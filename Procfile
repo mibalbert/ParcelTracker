@@ -1,1 +1,1 @@
-web: deno task run
+worker: deno task run
