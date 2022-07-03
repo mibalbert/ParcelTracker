@@ -5,24 +5,23 @@ set -e # abort script at first error
 
 RED="\e[31m"
 GREEN="\e[32m"
+BLUE="\e[94m"
+WHITE="\e[97m"
 ENDCOLOR="\e[0m"
 
-echo -e "${RED}This is some red text, ${ENDCOLOR}"
 echo -e "${GREEN}PRE-COMMIT${ENDCOLOR}"
-
-
 
 set +e
 CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
-echo "current branch: ${CURRENT_BRANCH}"
+echo -e "${WHITE}current branch: ${CURRENT_BRANCH}${ENDCOLOR}"
 set -e
 
 EMAIL=$(git config user.email)
-echo "registered email: ${EMAIL}"
+echo -e "${BLUE}registered email: ${EMAIL}${ENDCOLOR}"
 
 if [[ $EMAIL != *"@coventry.ac.uk" ]]
 then
-	echo "invalid email"
-	echo "aborting commit"
+	echo -e "${RED}invalid email${ENDCOLOR}"
+	echo -e "${RED}aborting commit${ENDCOLOR}"
 	exit 1
 fi
