@@ -22,7 +22,9 @@ window.addEventListener('DOMContentLoaded', () => {
 		directionsService,
 		directionsRenderer,
 	) {
-		let waypts = [{ location: 'EC4V 4EG', stopover: true }];
+		// let waypts = [{ location: 'EC4V 4EG', stopover: true }];
+
+		let waypts = [];
 
 		document.querySelectorAll('.recipient_postcode').forEach((item) => {
 			let wayPointId = item.getAttribute('value');
