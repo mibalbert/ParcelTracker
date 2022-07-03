@@ -3,7 +3,7 @@
 window.addEventListener('DOMContentLoaded', (event) => {
 	console.log('DOMContentLoaded');
 
-	/// Display dash if empty
+	/// Display message empty table
 	const section = document.querySelector('.parcels');
 	const textEmpty = document.querySelector('.empty');
 
@@ -44,7 +44,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		setTimeout(function () {
 			alertGreenSuccess.style.display = 'none';
 			// location.reload()
-		}, 1000);
+		}, 1500);
 	}
 	if (yellowTransit) {
 		alertYellowTransit.style.display = 'block';
@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		setTimeout(function () {
 			alertYellowTransit.style.display = 'none';
 			// location.reload()
-		}, 1000);
+		}, 1500);
 	}
 	if (yellowDelivered) {
 		alertYellowDelivered.style.display = 'block';
@@ -60,7 +60,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		setTimeout(function () {
 			alertYellowDelivered.style.display = 'none';
 			// location.reload()
-		}, 1000);
+		}, 1500);
 	}
 	if (redNotFound) {
 		alertRedNotFound.style.display = 'block';
@@ -68,7 +68,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		setTimeout(function () {
 			alertRedNotFound.style.display = 'none';
 			// location.reload()
-		}, 1000);
+		}, 1500);
 	}
 
 	//Handles the text box input

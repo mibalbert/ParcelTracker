@@ -20,25 +20,29 @@
 			</ul>
 		</header>
 	<main>
-		
-		{{!-- <section class="hero-ill">
-			<div class="hero-block">Parcel sending made easy!</div>
-		</section> --}}
+		<section class="main-left">
+			<nav class="side-nav">
+				<ol class="side-nav-bunch">
+						<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
+						<li><a href="/admin-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+						<li><a href="/admin-couriers"><span id="side-nav-icon" class="material-symbols-outlined">local_shipping</span><span>Couriers</span></a></li>
+					
+				</ol>
+			</nav>
+		</section>
+		<section class="main-right">
+			<section class="indv-courier-details">
+				
+					<p>Courier Details</p>
 
-		{{!-- <section class="main-sides"> --}}
 
-			<section class="main-left">
-				<nav class="side-nav">
-					<ol class="side-nav-bunch">
-							<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
-							<li><a href="/admin-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-							<li><a href="/admin-couriers"><span id="side-nav-icon" class="material-symbols-outlined">local_shipping</span><span>Couriers</span></a></li>
-						
-					</ol>
-				</nav>
 			</section>
+			<section class="indv-courier-route">
 
-			<section class="main-right">
+					<p>Courier Map</p>
+
+			</section>
+			<section class="indv-courier-parcels">
 				<table>
 					<thead>
 						<tr>
@@ -69,13 +73,8 @@
 						{{/each}}
 					</tbody>
 				</table>
-
-			</section>
-		{{!-- </section> --}}
+			</section>			
+		</section>
 	</main>
-	{{!-- <footer>
-		<p>This is the footer</p>
-	</footer> --}}
-	</body>
-	
+	</body>	
 </html>

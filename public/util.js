@@ -3,6 +3,17 @@
 window.addEventListener('DOMContentLoaded', (event) => {
 	console.log('DOM CONTENT LOADED');
 
+	/// Display message empty table
+	const section = document.querySelector('.parcels');
+	const textEmpty = document.querySelector('.empty');
+
+	const tableData = document.getElementsByClassName('parcel-td');
+
+	if (tableData.innerHTML === null) {
+		section.style.display = 'none';
+		textEmpty.style.display = 'block';
+	}
+
 	/// Alert
 	const alertGreenSuccess = document.querySelector(
 		'.uuid-alert-green-success',

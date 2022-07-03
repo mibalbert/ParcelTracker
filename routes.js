@@ -61,6 +61,9 @@ router.get('/', async (context) => {
 	context.response.body = body;
 });
 
+
+///////LOGIN & REGISTER routes
+
 router.get('/login', async (context) => {
 	const body = await handle.renderView('login');
 	context.response.body = body;
@@ -104,34 +107,8 @@ router.post('/login', async (context) => {
 	}
 });
 
-// Admin route to see all couriers page
-router.get('/admin-couriers', async (context) => {
-	console.log('/GET /admin-couriers');
-	const authorised = await context.cookies.get('authorised');
-	const permission = await context.cookies.get('permission');
-	const role = permission !== 'admin';
-	if (authorised === undefined || role) context.response.redirect('/login');
-	const couriers = await getAllCouriers();
-	// console.log(parcels)
-	const data = { authorised, couriers };
-	const body = await handle.renderView('admin-couriers', data);
-	context.response.body = body;
-});
 
-// Admin route to see individual courier page
-// router.get('/admin-couriers-indiv/:courier', async (context) => {
-// 	console.log('/GET /admin-couriers-indiv/:courier');
-// 	const courier = context.params.courier;
-// 	const authorised = await context.cookies.get('authorised');
-// 	const permission = await context.cookies.get('permission');
-// 	const role = permission !== 'admin';
-// 	if (authorised === undefined || role) context.response.redirect('/login');
-// 	const result = await getCourierIndividual(courier);
-// 	// console.log(parcels)
-// 	const data = { authorised, result, courier };
-// 	const body = await handle.renderView('admin-couriers-indiv', data);
-// 	context.response.body = body;
-// });
+///////ADMIN routes
 
 // Admin route to see all parcels page
 router.get('/admin-parcels', async (context) => {
@@ -146,6 +123,40 @@ router.get('/admin-parcels', async (context) => {
 	context.response.body = body;
 });
 
+// Admin route to see all couriers page
+router.get('/admin-couriers', async (context) => {
+	console.log('/GET /admin-couriers');
+	const authorised = await context.cookies.get('authorised');
+	const permission = await context.cookies.get('permission');
+	const role = permission !== 'admin';
+	if (authorised === undefined || role) context.response.redirect('/login');
+	const couriers = await getAllCouriers();
+	// console.log(parcels)
+	const data = { authorised, couriers };
+	const body = await handle.renderView('admin-couriers', data);
+	context.response.body = body;
+});
+
+// // Admin route to see individual courier page
+// router.get('/admin-couriers-indiv/:courier', async (context) => {
+// 	console.log('/GET /admin-couriers-indiv/:courier');
+// 	const courier = context.params.courier;
+// 	const authorised = await context.cookies.get('authorised');
+// 	const permission = await context.cookies.get('permission');
+// 	const role = permission !== 'admin';
+// 	if (authorised === undefined || role) context.response.redirect('/login');
+// 	const result = await getCourierIndividual(courier);
+// 	const parcels = await getParcelsAccepted(courier);
+// 	console.log(authorised, result, courier, parcels)
+	
+// 	const data = { authorised, result, courier };
+// 	const body = await handle.renderView('admin-couriers-indiv', data);
+// 	context.response.body = body;
+// });
+
+
+//////COURIER routes
+
 // Courier transit page
 router.get('/courier-transit', async (context) => {
 	console.log('/GET /courier-transit');
@@ -159,19 +170,6 @@ router.get('/courier-transit', async (context) => {
 	const body = await handle.renderView('courier-transit', data);
 	context.response.body = body;
 });
-
-// Courier POST transit page
-// router.post('/courier-transit', async (context) => {
-// 	console.log('/POST /courier-transit');
-// 	const authorised = await context.cookies.get('authorised');
-// 	const body = context.request.body({ type: 'json' });
-// 	const parsedBody = await body.value;
-// 	console.log(parsedBody);
-// 	const result = await setParcelStatusDelivered(authorised, parsedBody.uuid);
-// 	// console.log(result);
-// 	context.response.status = result.status;
-// 	context.response.body = { msg: result.message };
-// });
 
 // Courier parcels to be accepted page
 router.get('/courier-parcels', async (context) => {
@@ -197,7 +195,7 @@ router.post('/courier-parcels', async (context) => {
 	context.response.body = { msg: result.message };
 });
 
-// Courier display route to follow
+// Courier display route 
 router.get('/courier-route', async (context) => {
 	console.log('/GET /courier-route');
 	const authorised = await context.cookies.get('authorised');
@@ -210,6 +208,7 @@ router.get('/courier-route', async (context) => {
 	context.response.body = body;
 });
 
+// Courier input the recipient details at drop-off
 router.get('/courier-recipient-details/:uuid', async (context) => {
 	console.log('/GET /courier-receiver-details/:uuid');
 	const authorised = await context.cookies.get('authorised');
@@ -225,6 +224,7 @@ router.get('/courier-recipient-details/:uuid', async (context) => {
 	context.response.body = body;
 });
 
+// Courier input the recipient details at drop-off
 router.post('/courier-recipient-details/:uuid', async (context) => {
 	console.log('/POST /courier-recipient-details/:uuid');
 	const uuid = context.params.uuid;
@@ -235,6 +235,7 @@ router.post('/courier-recipient-details/:uuid', async (context) => {
 	context.response.body = { msg: result.message };
 });
 
+// Courier delivered parcels page
 router.get('/courier-delivered', async (context) => {
 	console.log('/GET /courier-delivered');
 	const authorised = await context.cookies.get('authorised');
@@ -247,7 +248,9 @@ router.get('/courier-delivered', async (context) => {
 	context.response.body = body;
 });
 
-// Customer home page
+/////////CUSTOMER routes
+
+// Customer delivered parcels page
 router.get('/customer-history', async (context) => {
 	console.log('GET /customer-history');
 	const authorised = await context.cookies.get('authorised');
@@ -271,7 +274,7 @@ router.get('/customer-current', async (context) => {
 	}
 	const parcels = await getCurrentParcelsCustomer(authorised);
 	const data = { authorised, parcels };
-	// console.log(parcels)
+	console.log(parcels)
 	const body = await handle.renderView('customer-current', data);
 	context.response.body = body;
 });
@@ -297,6 +300,9 @@ router.post('/customer-send', async (context) => {
 	await addParcel(data, authorised);
 	context.response.redirect('/customer-current');
 });
+
+
+////////PARCEL routes
 
 // Individual Parcel page
 router.get('/parcel/:uuid', async (context) => {

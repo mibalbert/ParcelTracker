@@ -10,7 +10,7 @@
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />        
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		<script type="module" src="util.js" defer></script>
+		{{!-- <script type="module" src="util.js" defer></script> --}}
 	</head>
 	<body>
 		<header>
@@ -30,39 +30,39 @@
 				</ol>
 			</nav>
 		</section>
-
 		<section class="main-right">
+			<p class="empty">You have not send any parcels yet!</p>	
 			<section class="parcels">
-			<table>	
-				<thead>
-					<tr>
-						<th></th>
-						<th>Sender Full Adress</th>
-						<th>Recipient Full Adress</th>
-						<th>Weight</th>
-						<th>Date Posted</th>
-						<th>Date In-transit</th>
-						<th>Unique ID</th>
-						<th>Status</th>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-				{{#each parcels}}
-						<tr class="parcel-link delivered" onclick="window.location='/parcel/{{this.uuid}}'">
-							<td><img class="parcel-icon" src="img/package.png"></td>
-							<td>{{this.sender_address}} {{this.sender_city}}</td>
-							<td>{{this.recipient_address}} {{this.recipient_city}}</td>
-							<td>{{this.weight_kg}}</td>
-							<td>{{{formatedColored this.date_time_created}}}</td>
-							<td>{{{formatedColored this.date_time_in_transit}}}</td>
-							<td>{{this.uuid}}</td>
-							<td>{{this.status}}</td>
+				<table>	
+					<thead>
+						<tr>
+							<th></th>
+							<th>Sender Full Adress</th>
+							<th>Recipient Full Adress</th>
+							<th>Weight</th>
+							<th>Date Posted</th>
+							<th>Date In-transit</th>
+							<th>Unique ID</th>
+							<th>Status</th>
+							<th></th>
+							<th></th>
 						</tr>
-				{{/each}}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+					{{#each parcels}}
+							<tr class="parcel-link delivered" onclick="window.location='/parcel/{{this.uuid}}'">
+								<td><img class="parcel-icon" src="img/package.png"></td>
+								<td>{{this.sender_address}} {{this.sender_city}}</td>
+								<td>{{this.recipient_address}} {{this.recipient_city}}</td>
+								<td>{{this.weight_kg}}</td>
+								<td>{{{formatedColored this.date_time_created}}}</td>
+								<td>{{{formatedColored this.date_time_in_transit}}}</td>
+								<td>{{this.uuid}}</td>
+								<td>{{this.status}}</td>
+							</tr>
+					{{/each}}
+					</tbody>
+				</table>
 			</section>
 		</section>
 	</main>
