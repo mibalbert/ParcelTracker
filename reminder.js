@@ -226,7 +226,7 @@
 // 	</section>
 
 
-);
+// );
 
 // const created = document.getElementsByClassName('date_time_created');
 // const transit = document.getElementsByClassName('date_time_in_transit');

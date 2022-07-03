@@ -4,7 +4,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Parcelino | Route</title>
+		<title>Parcelino.</title>
 		<meta name="description" content="courier view all parcels stock page">
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
@@ -21,65 +21,39 @@
 			</ul>
 		</header>
 	<main>
-		{{!-- <section class="hero-ill">
-			<div class="hero-block">Parcel sending made easy!</div>
-		</section> --}}
-
-		{{!-- <section class="main-sides"> --}}
-
-			<section class="main-left">
-				<nav class="side-nav">
-					<ol class="side-nav-bunch">
-						<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
-						<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-						<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
-						<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-						<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Delivered</span></a></li>			
-		
-					</ol>
-				</nav>
+		<section class="main-left">
+			<nav class="side-nav">
+				<ol class="side-nav-bunch">
+					<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
+					<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+					<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
+					<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
+					<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Delivered</span></a></li>		
+				</ol>
+			</nav>
+		</section>
+		<section class="main-right">
+			<section class="courier-route-map">
+				<p>Drop-off route for <strong>{{authorised}}</strong> --- Sorted based on hours elapsed since the parcels were accepted</p>
+				<div class="routes-map" id="routes-map"></div>
 			</section>
-
-			<section class="main-right">
-
-
-
-
-				<section class="courier-route-map">
-					<p>Drop-off route for <strong>{{authorised}}</strong> --- Sorted based on hours elapsed since the parcels were accepted</p>
-
-					<div class="routes-map" id="routes-map"></div>
-		
-				</section>
-			
-				<section class="directions-info">
-
-					<div id="directions-route"></div>
-
-				</section>
-
-				<table class="routes-table">
-					<tbody>
-					{{#each parcels}}
-						<tr class="routes-table-row">
-							<td>{{this.sender_postcode}}</td>
-							<td>{{this.sender_address}}</td>
-							
-							<td class="recipient_postcode" value="{{this.recipient_postcode}}"></td>
-							{{!-- <td class="asd" value="{{this.recipient_address}}"></td> --}}
-							
-							{{!-- <td>{{{lol this.date_time_created}}}</td> --}}
-							<td>{{{this.date_time_in_transit}}}</td>
-						</tr>	
-					{{/each}}
-					</tbody>
-				</table>
+			<section class="directions-info">
+				<div id="directions-route"></div>
 			</section>
-		{{!-- </section> --}}
+			<table class="routes-table">
+				<tbody>
+				{{#each parcels}}
+					<tr class="routes-table-row">
+						<td>{{this.sender_postcode}}</td>
+						<td>{{this.sender_address}}</td>	
+						<td class="recipient_postcode" value="{{this.recipient_postcode}}"></td>
+						<td>{{{this.date_time_in_transit}}}</td>
+					</tr>	
+				{{/each}}
+				</tbody>
+			</table>
+		</section>
 	</main>
-	{{!-- <footer>
-		<p>This is the footer</p>
-	</footer> --}}
 	</body>
 	
 </html>

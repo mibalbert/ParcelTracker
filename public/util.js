@@ -1,9 +1,8 @@
+
 /* util.js */
 
 window.addEventListener('DOMContentLoaded', (event) => {
 	console.log('DOM CONTENT LOADED');
-
-
 
 	/// Alert
 	const alertGreenSuccess = document.querySelector(

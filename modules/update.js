@@ -82,7 +82,6 @@ export async function setParcelStatusDelivered(uuid, data) {
 	);
 	if(!result.affectedRows === 1) {
 		throw new Error("Internal Server Error")
-		return {status: 500, message: "Internal Server Error"} 
 	} else {
 		return {
 				status: 200,

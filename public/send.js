@@ -1,4 +1,5 @@
-/* geo-maps.js */
+
+/* send.js */
 
 window.addEventListener('DOMContentLoaded', () => {
 	console.log('DOMContentLoaded');

@@ -53,7 +53,7 @@ app.use(async (context) => {
 	}
 });
 
-app.addEventListener('listen', ({ port }) => {
+app.addEventListener('listen', ({ port || 8000 }) => {
 	console.log(`listening on port: ${port}`);
 });
 

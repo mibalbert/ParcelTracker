@@ -1,9 +1,9 @@
+
+/* courier-route.js */
+
 window.addEventListener('DOMContentLoaded', () => {
 	console.log('DOMContentLoaded');
 
-	// console.log(document.getElementsByClassName('routes-table-row'))
-
-	//Create the script tag, set the appropriate attributes
 	var script = document.createElement('script');
 	script.src =
 		'https://maps.googleapis.com/maps/api/js?key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&callback=initMap';
@@ -15,7 +15,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		const map = new google.maps.Map(document.getElementById('routes-map'), {
 			// disableDefaultUI: true,
 		});
-
 		directionsRenderer.setMap(map);
 		calculateDisplayRoutes(directionsService, directionsRenderer);
 	};
@@ -49,7 +48,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				const summaryPanel = document.getElementById(
 					'directions-route',
 				);
-				summaryPanel.innerHTML += `Starting Point: ` +
+				summaryPanel.innerHTML += `Starting Point (Warehouse): ` +
 					`<strong>${waypts[0].location}</strong>` + `<br><br>`;
 				// For each route, display summary information.
 				for (let i = 0; i < route.legs.length; i++) {
@@ -65,7 +64,7 @@ window.addEventListener('DOMContentLoaded', () => {
 					summaryPanel.innerHTML += route.legs[i].distance.text +
 						'<br><br>';
 				}
-				summaryPanel.innerHTML += `<br>End Point: ` +
+				summaryPanel.innerHTML += `<br>End Point (Last delivery): ` +
 					`<strong>${waypts.at(-1).location}</strong>` + `<br><br>`;
 				
 			} else {

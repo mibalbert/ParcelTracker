@@ -4,7 +4,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Recipient Details</title>
+		<title>Parcelino.</title>
 		<meta name="description" content="form to add recipient details">
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
@@ -22,58 +22,35 @@
 			</ul>
 		</header>
 		<main>
-			{{!-- <section class="hero-ill">
-				<div class="hero-block">Parcel sending made easy!</div>
-			</section> --}}
-
-			{{!-- <section class="main-sides"> --}}
-		
-				<section class="main-left">
-					<nav class="side-nav">
-						<ol class="side-nav-bunch">
-							<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
-							<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-							<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
-							<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-							<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Delivered</span></a></li>			
-						</ol>
-					</nav>
+			<section class="main-left">
+				<nav class="side-nav">
+					<ol class="side-nav-bunch">
+						<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span>Home</span></a></li>
+						<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+						<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
+						<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
+						<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Delivered</span></a></li>			
+					</ol>
+				</nav>
+			</section>
+			<section class="main-right">
+			<section class="recipient-details-section">
+				<p>Details of recipient:</p>
+				<p>Parcel's UUID: <span id="uuid">{{uuid}}</span></p>	
+				<p id="uuid-alert-red" class="uuid-alert-red-not-found">Something went Wrong!</p>
+				<section class="recipient-details-form">
+					<label>Recipient's name:<input type="text" name="handed_to_name" required></label>
+					<label>Recipient's signature:
+						<canvas class="signature-pad"></canvas>
+						<div id="signature-pad-clear">Clear</div>
+					</label>
+						<input type="hidden" name="handed_to_signature">
+					<label>
+					<label>
+						<input type="submit" name="Submit">
+					</label>
 				</section>
-				
-				<section class="main-right">
-				
-				<section class="recipient-details-section">
-					<p>Details of recipient:</p>
-					
-					<p>Parcel's UUID: <span id="uuid">{{uuid}}</span></p>
-					
-					<p id="uuid-alert-red" class="uuid-alert-red-not-found">Something went Wrong!</p>
-				
-					{{!-- <form class="recipient-details-form" action="/courier-recipient-details/{{uuid}}" method="POST" enctype="multipart/form-data">
-						<label>Recipient's name:<input type="text" name="handed_to_name" required></label>
-						<label>Recipient's signature:
-							<canvas class="signature-pad"></canvas>
-							<div id="signature-pad-clear">Clear</div>
-						</label>
-							<input type="hidden" name="handed_to_signature">
-						<label>
-							<input type="submit" name="Submit">
-						</label>
-					</form> --}}
-					<section class="recipient-details-form">
-						<label>Recipient's name:<input type="text" name="handed_to_name" required></label>
-						<label>Recipient's signature:
-							<canvas class="signature-pad"></canvas>
-							<div id="signature-pad-clear">Clear</div>
-						</label>
-							<input type="hidden" name="handed_to_signature">
-						<label>
-						<label>
-							<input type="submit" name="Submit">
-						</label>
-					</section>
-				</section>
-			{{!-- </section> --}}
+			</section>
 		</main>
 		
 		<script defer>
@@ -98,10 +75,6 @@
 			
 			const signaturePad = new SignaturePad(canvas);
 
-							
-							
-			console.log(window.location.host + '/courier-transit')
-		
 			submitButton.addEventListener('click', event => {
 				const signature = signaturePad.toDataURL()
 				const name = recipientName.value
@@ -124,7 +97,7 @@
 						}
 					})
 					.catch(function (error) {
-						if (error.response.status === 500) {
+						if (error.response.status === 404) {
 							sessionStorage.setItem('redNotFound', 'true');
 							location.reload();
 						}
