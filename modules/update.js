@@ -74,19 +74,22 @@ export async function setParcelStatus(uuid, authorised) {
  * @returns {bool} returns bool
  */
 export async function setParcelStatusDelivered(uuid, data) {
-	const name = data.recipientName;
-	const signature = data.recipientSignature;
-	const result = await db.query(
-		'UPDATE parcels SET status = "delivered", date_time_delivered = ?, handed_to_name = ?, handed_to_signature = ?  WHERE uuid = ?',
-		[dateTime, name, signature, uuid],
-	);
-	if (!result.affectedRows === 1) {
-		throw new Error('Internal Server Error');
-	} else {
-		return {
-			status: 200,
-			message: 'Success! Parcel Delivered!',
-		};
-	}
+	try {
+		const name = data.recipientName;
+		const signature = data.recipientSignature;
+		const result = await db.query(
+			'UPDATE parcels SET status = "delivered", date_time_delivered = ?, handed_to_name = ?, handed_to_signature = ?  WHERE uuid = ?',
+			[dateTime, name, signature, uuid],
+		);
+		if (!result.affectedRows === 1) {
+			throw new Error('Internal Server Error');
+		} else {
+			return {
+				status: 200,
+				message: 'Success! Parcel Delivered!',
+			};
+		}
+	} catch(err) {
+		console.log(err)
+	}	
 }
-//

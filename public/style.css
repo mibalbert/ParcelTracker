@@ -424,7 +424,7 @@ section.map-link {
   opacity: 0.5;
 }
 
-section.insert-uuid {
+section.alerts {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -435,7 +435,7 @@ section.insert-uuid {
   gap: 1rem;
 }
 
-section.insert-uuid .input-field {
+section.alerts .input-field {
   display: flex;
   align-items: center;
   justify-content: space-around;

@@ -14,10 +14,14 @@ import { db } from './db.js';
  * @returns {Array} data Parcel details
  */
 export async function getAllParcels() {
-	const data = await db.query(
+	try {
+		const data = await db.query(
 		'SELECT * FROM parcels ORDER BY status DESC, date_time_created DESC',
-	);
-	return data;
+		);
+		return data;
+	} catch(err) {
+		console.log(err)
+	}
 }
 
 /**
@@ -29,11 +33,14 @@ export async function getAllParcels() {
  * @returns {Array} data Courier name and number of parcels accepted
  */
 export async function getAllCouriers() {
-	const data = await db.query(
+	try {
+		const data = await db.query(
 		'SELECT courier_name, COUNT(status) AS parcels FROM parcels WHERE status="in-transit" GROUP BY courier_name',
-	);
-	console.log(data);
-	return data;
+		);
+		return data;
+	} catch(err) {
+		console.log(err);
+	}
 }
 
 // export async function getCourierIndividual(courier) {
@@ -53,10 +60,14 @@ export async function getAllCouriers() {
  * @returns {Array} data Parcel details
  */
 export async function getNotDispParcels() {
-	const data = await db.query(
+	try {
+		const data = await db.query(
 		'SELECT * FROM parcels WHERE status="not-dispatched"  ORDER BY date_time_created DESC',
-	);
-	return data;
+		);
+		return data
+	} catch(err) {
+		console.log(err)
+	}
 }
 
 /**
@@ -68,11 +79,15 @@ export async function getNotDispParcels() {
  * @returns {Array} data Parcel details
  */
 export async function getParcelsAccepted(courier) {
-	const data = await db.query(
+	try {
+		const data = await db.query(
 		'SELECT * FROM parcels WHERE status="in-transit" AND courier_name = ? ORDER BY date_time_in_transit ASC',
 		[courier],
-	);
-	return data;
+		);
+		return data
+	} catch(err) {
+		console.log(err)
+	}
 }
 
 /**
@@ -84,11 +99,14 @@ export async function getParcelsAccepted(courier) {
  * @returns {Array} data Parcel details
  */
 export async function getParcelsDelivered(authorised) {
-	const data = await db.query(
+	try {
+		const data = await db.query(
 		'SELECT * FROM parcels WHERE status="delivered" AND courier_name=? ORDER BY date_time_delivered DESC',
-		[authorised],
-	);
-	return data;
+		[authorised],);
+		return data;
+	} catch(err) {
+		console.log(err)
+	}
 }
 
 ///////	Customer
@@ -103,11 +121,15 @@ export async function getParcelsDelivered(authorised) {
  * @returns {Array} data Parcel details
  */
 export async function getCurrentParcelsCustomer(authorised) {
-	const data = await db.query(
+	try {
+		const data = await db.query(
 		'SELECT * FROM parcels WHERE status != "delivered" AND sender_username = ? ORDER BY status DESC, date_time_in_transit ASC',
 		[authorised],
-	);
-	return data;
+		);
+		return data;
+	} catch(err) {
+		console.log(err)
+	}
 }
 
 /**
@@ -119,11 +141,14 @@ export async function getCurrentParcelsCustomer(authorised) {
  * @returns {Array} data Parcel details
  */
 export async function getParcelsCustomer(authorised) {
-	const data = await db.query(
+	try {
+		const data = await db.query(
 		'SELECT * FROM parcels WHERE status="delivered" AND sender_username = ? ORDER BY status DESC, date_time_created DESC',
-		[authorised],
-	);
-	return data;
+		[authorised],);
+		return data;
+	} catch(err) {
+		console.log(err)
+	}
 }
 
 ///////	Individual Parcel
@@ -136,8 +161,12 @@ export async function getParcelsCustomer(authorised) {
  * @returns {Array} data Parcel details
  */
 export async function getParcelDetails(uuid) {
-	const data = await db.query('SELECT * FROM parcels WHERE uuid = ?', [uuid]);
-	return data;
+	try {
+		const data = await db.query('SELECT * FROM parcels WHERE uuid = ?', [uuid]);
+		return data;
+	} catch (err) {
+		console.log(err)
+	}
 }
 
 //	Home page
@@ -151,34 +180,38 @@ export async function getParcelDetails(uuid) {
  * @returns {Array<number>} data Parcel details
  */
 export async function getAdminParcelsCouriers() {
-	let totalInstore = await db.query(
+	try {
+		let totalInstore = await db.query(
 		'SELECT COUNT(status) AS parcels_instore FROM parcels WHERE status="not-dispatched"',
-	);
-	let totalAccepted = await db.query(
-		'SELECT COUNT(status) AS parcels_accepted FROM parcels WHERE status="in-transit"',
-	);
-	let totalDelivered = await db.query(
-		'SELECT COUNT(status) AS parcels_delivered FROM parcels WHERE status="delivered"',
-	);
-	let totalCouriers = await db.query(
-		'SELECT COUNT(user) AS couriers FROM accounts WHERE role="courier"',
-	);
-	let totalCustomers = await db.query(
-		'SELECT COUNT(user) AS customers FROM accounts WHERE role="customer"',
-	);
-	totalInstore = totalInstore[0].parcels_instore;
-	totalAccepted = totalAccepted[0].parcels_accepted;
-	totalDelivered = totalDelivered[0].parcels_delivered;
-	totalCouriers = totalCouriers[0].couriers;
-	totalCustomers = totalCustomers[0].customers;
-	// console.log(totalInstore, totalAccepted, totalDelivered, totalCouriers, totalCustomers)
-	return {
-		totalInstore,
-		totalAccepted,
-		totalDelivered,
-		totalCouriers,
-		totalCustomers,
-	};
+		);
+		let totalAccepted = await db.query(
+			'SELECT COUNT(status) AS parcels_accepted FROM parcels WHERE status="in-transit"',
+		);
+		let totalDelivered = await db.query(
+			'SELECT COUNT(status) AS parcels_delivered FROM parcels WHERE status="delivered"',
+		);
+		let totalCouriers = await db.query(
+			'SELECT COUNT(user) AS couriers FROM accounts WHERE role="courier"',
+		);
+		let totalCustomers = await db.query(
+			'SELECT COUNT(user) AS customers FROM accounts WHERE role="customer"',
+		);
+		totalInstore = totalInstore[0].parcels_instore;
+		totalAccepted = totalAccepted[0].parcels_accepted;
+		totalDelivered = totalDelivered[0].parcels_delivered;
+		totalCouriers = totalCouriers[0].couriers;
+		totalCustomers = totalCustomers[0].customers;
+		// console.log(totalInstore, totalAccepted, totalDelivered, totalCouriers, totalCustomers)
+		return {
+			totalInstore,
+			totalAccepted,
+			totalDelivered,
+			totalCouriers,
+			totalCustomers,
+		};
+	} catch(err) {
+		console.log(err)
+	}
 }
 
 /**
@@ -190,22 +223,26 @@ export async function getAdminParcelsCouriers() {
  * @returns {Array<number>} data Parcel details
  */
 export async function getCourierParcels(authorised) {
-	let instore = await db.query(
-		'SELECT COUNT(status) AS parcels_instore FROM parcels WHERE status="not-dispatched"',
-	);
-	let accepted = await db.query(
-		'SELECT COUNT(status) AS parcels_accepted FROM parcels WHERE status="in-transit" AND courier_name=?',
-		[authorised],
-	);
-	let delivered = await db.query(
-		'SELECT COUNT(status) AS parcels_delivered FROM parcels WHERE status="delivered" AND courier_name=?',
-		[authorised],
-	);
-	instore = instore[0].parcels_instore;
-	accepted = accepted[0].parcels_accepted;
-	delivered = delivered[0].parcels_delivered;
-	// console.log(instore, accepted, delivered)
-	return { instore, accepted, delivered };
+	try {
+		let instore = await db.query(
+			'SELECT COUNT(status) AS parcels_instore FROM parcels WHERE status="not-dispatched"',
+		);
+		let accepted = await db.query(
+			'SELECT COUNT(status) AS parcels_accepted FROM parcels WHERE status="in-transit" AND courier_name=?',
+			[authorised],
+		);
+		let delivered = await db.query(
+			'SELECT COUNT(status) AS parcels_delivered FROM parcels WHERE status="delivered" AND courier_name=?',
+			[authorised],
+		);
+		instore = instore[0].parcels_instore;
+		accepted = accepted[0].parcels_accepted;
+		delivered = delivered[0].parcels_delivered;
+		// console.log(instore, accepted, delivered)
+		return { instore, accepted, delivered };
+	} catch(err) {
+		console.log(err)
+	}
 }
 
 /**
@@ -217,21 +254,25 @@ export async function getCourierParcels(authorised) {
  * @returns {Array<number>} data Parcel details
  */
 export async function getCustomerParcels(authorised) {
-	let totalNotDispatched = await db.query(
+	try {
+		let totalNotDispatched = await db.query(
 		'SELECT COUNT(sender_username) AS parcels_not_dispatched FROM parcels WHERE status="not-dispatched" AND sender_username=?',
 		[authorised],
-	);
-	let totalTransit = await db.query(
-		'SELECT COUNT(sender_username) AS parcels_in_transit FROM parcels WHERE status="in-transit" AND sender_username=?',
-		[authorised],
-	);
-	let totalDelivered = await db.query(
-		'SELECT COUNT(sender_username) AS parcels_delivered FROM parcels WHERE status="delivered" AND sender_username=?',
-		[authorised],
-	);
-	totalNotDispatched = totalNotDispatched[0].parcels_not_dispatched;
-	totalTransit = totalTransit[0].parcels_in_transit;
-	totalDelivered = totalDelivered[0].parcels_delivered;
-	// console.log(totalNotDispatched, totalTransit, totalDelivered)
-	return { totalNotDispatched, totalTransit, totalDelivered };
+		);
+		let totalTransit = await db.query(
+			'SELECT COUNT(sender_username) AS parcels_in_transit FROM parcels WHERE status="in-transit" AND sender_username=?',
+			[authorised],
+		);
+		let totalDelivered = await db.query(
+			'SELECT COUNT(sender_username) AS parcels_delivered FROM parcels WHERE status="delivered" AND sender_username=?',
+			[authorised],
+		);
+		totalNotDispatched = totalNotDispatched[0].parcels_not_dispatched;
+		totalTransit = totalTransit[0].parcels_in_transit;
+		totalDelivered = totalDelivered[0].parcels_delivered;
+		// console.log(totalNotDispatched, totalTransit, totalDelivered)
+		return { totalNotDispatched, totalTransit, totalDelivered };
+	} catch(err) {
+		console.log(err)
+	}
 }
