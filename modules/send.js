@@ -4,12 +4,35 @@ import { db } from 'db';
 
 const dateTimeCreated = new Date();
 
+/**
+ * @typedef {Object} Details
+ * @property {string} recipient_name
+ * @property {string} sender_address
+ * @property {string} sender_address_details
+ * @property {string} sender_city
+ * @property {string} sender_country
+ * @property {string} recipient_address
+ * @property {string} recipient_address_details
+ * @property {string} recipient_city
+ * @property {string} recipient_postcode
+ * @property {string} recipient_country
+ * @property {number} weight_kg
+ * @property {string} sender_username
+ * @property {Date} date_time_created
+ * @property {string} uuid
+ */
 
+/**
+ * Checks user credentials.
+ * @param {Details} data
+ * @param {string} authorised
+ * @returns {bool} returns bool
+ */
 export async function addParcel(data, authorised) {
 	const parcel = data.fields;
 	const senderUsername = await authorised;
 	const result = await db.query(
-		'INSERT INTO parcels               \
+'INSERT INTO parcels               		   \
 			(	recipient_name,            \
 				sender_address,            \
 				sender_address_details,    \
@@ -27,24 +50,23 @@ export async function addParcel(data, authorised) {
 				uuid                       \
 			)                              \
 			VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, UUID())',
-			[
-				parcel.recipient_name,
-				parcel.sender_address,
-				parcel.sender_address_details,
-				parcel.sender_city,
-				parcel.sender_postcode,
-				parcel.sender_country,
-				parcel.recipient_address,
-				parcel.recipient_address_details,
-				parcel.recipient_city,
-				parcel.recipient_postcode,
-				parcel.recipient_country,
-				parcel.weight_kg,
-				senderUsername,
-				dateTimeCreated,
-			],
-		);
-
+		[
+			parcel.recipient_name,
+			parcel.sender_address,
+			parcel.sender_address_details,
+			parcel.sender_city,
+			parcel.sender_postcode,
+			parcel.sender_country,
+			parcel.recipient_address,
+			parcel.recipient_address_details,
+			parcel.recipient_city,
+			parcel.recipient_postcode,
+			parcel.recipient_country,
+			parcel.weight_kg,
+			senderUsername,
+			dateTimeCreated,
+		],
+	);
 	console.log(result);
-	return 1;
+	return true;
 }

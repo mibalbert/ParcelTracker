@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		directionsService,
 		directionsRenderer,
 	) {
-		let waypts = [{location: 'EC4V 4EG', stopover: true}];
+		let waypts = [{ location: 'EC4V 4EG', stopover: true }];
 
 		document.querySelectorAll('.recipient_postcode').forEach((item) => {
 			let wayPointId = item.getAttribute('value');
@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		directionsService.route({
 			origin: waypts[0].location,
-			destination: waypts.at(-1).location, 
+			destination: waypts.at(-1).location,
 			// destination: waypts[0].location, // if end point to be starting point making it a cycle
 			waypoints: waypts2,
 			optimizeWaypoints: true,
@@ -49,16 +49,25 @@ window.addEventListener('DOMContentLoaded', () => {
 				const summaryPanel = document.getElementById(
 					'directions-route',
 				);
-				summaryPanel.innerHTML += `Starting Point: ` + waypts[0].location + `<br><br>`;
+				summaryPanel.innerHTML += `Starting Point: ` +
+					`<strong>${waypts[0].location}</strong>` + `<br><br>`;
 				// For each route, display summary information.
 				for (let i = 0; i < route.legs.length; i++) {
 					const routeSegment = i + 1;
-					summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment + '</b><br>';
-					summaryPanel.innerHTML += route.legs[i].start_address + ` (Package ${i})`;
-					summaryPanel.innerHTML += '<br><span><strong>to</strong></span>';
-					summaryPanel.innerHTML += route.legs[i].end_address + ` (Package ${i + 1})` + '<br>';
-					summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+					summaryPanel.innerHTML += '<b>Route Segment: ' +
+						routeSegment + '</b><br>';
+					summaryPanel.innerHTML += route.legs[i].start_address +
+						` (Package ${i})`;
+					summaryPanel.innerHTML +=
+						'<br><span><strong>to</strong></span>';
+					summaryPanel.innerHTML += route.legs[i].end_address +
+						` (Package ${i + 1})` + '<br>';
+					summaryPanel.innerHTML += route.legs[i].distance.text +
+						'<br><br>';
 				}
+				summaryPanel.innerHTML += `<br>End Point: ` +
+					`<strong>${waypts.at(-1).location}</strong>` + `<br><br>`;
+				
 			} else {
 				window.alert('Directions request failed due to ' + status);
 			}

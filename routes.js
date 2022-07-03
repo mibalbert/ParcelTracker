@@ -164,17 +164,17 @@ router.get('/courier-transit', async (context) => {
 });
 
 // Courier POST transit page
-router.post('/courier-transit', async (context) => {
-	console.log('/POST /courier-transit');
-	const authorised = await context.cookies.get('authorised');
-	const body = context.request.body({ type: 'json' });
-	const parsedBody = await body.value;
-	console.log(parsedBody);
-	const result = await setParcelStatus(authorised, parsedBody.uuid);
-	// console.log(result);
-	context.response.status = result.status;
-	context.response.body = { msg: result.message };
-});
+// router.post('/courier-transit', async (context) => {
+// 	console.log('/POST /courier-transit');
+// 	const authorised = await context.cookies.get('authorised');
+// 	const body = context.request.body({ type: 'json' });
+// 	const parsedBody = await body.value;
+// 	console.log(parsedBody);
+// 	const result = await setParcelStatusDelivered(authorised, parsedBody.uuid);
+// 	// console.log(result);
+// 	context.response.status = result.status;
+// 	context.response.body = { msg: result.message };
+// });
 
 // Courier parcels to be accepted page
 router.get('/courier-parcels', async (context) => {
@@ -198,7 +198,7 @@ router.post('/courier-parcels', async (context) => {
 	const value = await body.value;
 	// const obj = Object.fromEntries(value)
 	// console.log(value.uuid);
-	const result = await setParcelStatus(value, authorised);
+	const result = await setParcelStatus(value.uuid, authorised);
 	// console.log(result)
 	context.response.status = result.status;
 	context.response.body = { msg: result.message };
@@ -239,9 +239,8 @@ router.post('/courier-recipient-details/:uuid', async (context) => {
 	const uuid = context.params.uuid;
 	const body = context.request.body({ type: 'form-data' });
 	const data = await body.value.read();
-	console.log('THE DATA FROM POST IS:', data.fields.handed_to_signature);
-	await setParcelStatusDelivered(uuid, data);
-	context.response.body = body;
+	const result = await setParcelStatusDelivered(uuid, data.fields);
+	console.log("THE RESULT IS :", result)
 	context.response.redirect('/courier-transit');
 });
 

@@ -8,19 +8,26 @@ import { db } from 'db';
 const saltRounds = 10;
 const salt = await genSalt(saltRounds);
 
-// const key = 'secrete-key'
+/**
+ * @typedef {Object} LogDetails
+ * @property {string} username
+ * @property {string} role
+ */
 
 /**
  * Checks user credentials.
+ * @function login
+ * @async
  * @param {string} username
  * @param {string} password
- * @returns {object} the username for the valid account
+ * @returns {LogDetails} returns username and role
  */
 export async function login(data) {
 	console.log(data);
 	let sql =
 		`SELECT count(id) AS count FROM accounts WHERE user="${data.username}";`;
 	let records = await db.query(sql);
+	// console.log(records)
 	if (!records[0].count) {
 		throw new Error(`username "${data.username}" not found`);
 	}
@@ -32,12 +39,23 @@ export async function login(data) {
 	}
 	sql = `SELECT role FROM accounts WHERE user = "${data.username}"`;
 	records = await db.query(sql);
-	// const role = records[0].role
-	// data.role = await encodeRole(role)
 	data.role = records[0].role;
 	return { username: data.username, role: data.role };
 }
 
+/**
+ * @typedef {Object} RegDatails
+ * @property {string} username
+ * @property {string} password
+ */
+
+/**
+ * Creates new user.
+ * @function register
+ * @async
+ * @param {RegDatails} data
+ * @returns {bool} returns bool
+ */
 export async function register(data) {
 	const password = await hash(data.password, salt);
 	const sql =
@@ -47,11 +65,15 @@ export async function register(data) {
 	return true;
 }
 
+//// Create JWT encoding and decoding for the role
+
+// const key = 'secrete-key'
+//
 // /**
 //  * Creates JWT Token for user permissions.
 //  * @param {string} key
 //  * @param {string} role
-//  * @returns {string} JWT encoded 'role'
+//  * @returns {string} jwt encoded 'role'
 //  */
 // async function encodeRole(role){
 // 	const jwt = await create({alg: 'HS512', type: 'JWT'}, {role:role}, key)
@@ -65,6 +87,7 @@ export async function register(data) {
 //  * @returns {string} decoded 'role'
 //  */
 // export async function verifyRole(jwt){
-// 	const veri = await verify(jwt, key, 'HS512')
-// 	console.log(veri)
+// 	const vrf = await verify(jwt, key, 'HS512')
+// 	console.log(vrf)
+//  return vrf
 // }

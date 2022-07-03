@@ -1,7 +1,7 @@
 {
 	"importMap": "import_map.json",
 	"tasks": {
-		"install": "deno run --allow-all --unstable index.js"
+		"install": "deno run --allow-all --unstable index.js",
 		"run": "deno run --allow-all --unstable index.js"
 	},
 	"lint": {

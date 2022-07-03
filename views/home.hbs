@@ -146,6 +146,11 @@
 								
 								{{#if role.customer}}
 									<section class="info-bundle2 customer">	
+										<p>Not-dispatched parcels</p>
+										<div class="numbers-and-icon">
+											<p class="courier-delivered-numbers">{{customerParcels.totalNotDispatched}}</p>
+											<span id="side-nav-icon-sparkel" class="material-symbols-outlined">rocket_launch</span>
+										</div>
 										<p>Current in transit parcels:</p>
 										<div class="numbers-and-icon">
 											<p class="courier-delivered-numbers">{{customerParcels.totalTransit}}</p>
@@ -156,11 +161,6 @@
 											<p class="courier-delivered-numbers">{{customerParcels.totalDelivered}}</p>
 											{{!-- <img class="home-parcel-icon" src="img/package.png" alt="parcel-icon-alt"> --}}
 											<span id="side-nav-icon-handshake" class="material-symbols-outlined">handshake</span>
-										</div>
-										<p>Total of parcels (Not-dispatched, In-transit, Delivered):</p>
-										<div class="numbers-and-icon">
-											<p class="courier-delivered-numbers">{{customerParcels.totalPlaced}}</p>
-											<span id="side-nav-icon-sparkel" class="material-symbols-outlined">rocket_launch</span>
 										</div>
 									</section>
 								</section>
