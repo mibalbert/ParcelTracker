@@ -39,7 +39,6 @@ const handle = new Handlebars({
 const router = new Router();
 
 // the routes defined here
-// Main homepage - describes the project
 router.get('/', async (context) => {
 	const authorised = await context.cookies.get('authorised');
 	const permission = await context.cookies.get('permission');
@@ -83,7 +82,6 @@ router.post('/register', async (context) => {
 });
 
 router.get('/logout', async (context) => {
-	// context.cookies.set('authorised', null) // this does the same
 	await context.cookies.delete('authorised');
 	await context.cookies.delete('permission');
 	context.response.redirect('/');
@@ -143,7 +141,6 @@ router.get('/admin-parcels', async (context) => {
 	const role = permission !== 'admin';
 	if (authorised === undefined || role) context.response.redirect('/login');
 	const parcels = await getAllParcels();
-	// console.log(parcels)
 	const data = { authorised, parcels };
 	const body = await handle.renderView('admin-parcels', data);
 	context.response.body = body;
@@ -184,7 +181,6 @@ router.get('/courier-parcels', async (context) => {
 	const role = permission !== 'courier' && permission !== 'admin';
 	if (authorised === undefined || role) context.response.redirect('/login');
 	const parcels = await getNotDispParcels();
-	// console.log(parcels)
 	const data = { authorised, parcels };
 	const body = await handle.renderView('courier-parcels', data);
 	context.response.body = body;
@@ -196,13 +192,9 @@ router.post('/courier-parcels', async (context) => {
 	const authorised = await context.cookies.get('authorised');
 	const body = context.request.body({ type: 'json' });
 	const value = await body.value;
-	// const obj = Object.fromEntries(value)
-	// console.log(value.uuid);
 	const result = await setParcelStatus(value.uuid, authorised);
-	// console.log(result)
 	context.response.status = result.status;
 	context.response.body = { msg: result.message };
-	// context.response.redirect('/courier-transit')
 });
 
 // Courier display route to follow
@@ -214,7 +206,6 @@ router.get('/courier-route', async (context) => {
 	if (authorised === undefined || role) context.response.redirect('/login');
 	const parcels = await getParcelsAccepted(authorised);
 	const data = { authorised, parcels };
-	// console.log(parcels);
 	const body = await handle.renderView('courier-route', data);
 	context.response.body = body;
 });
@@ -237,11 +228,11 @@ router.get('/courier-recipient-details/:uuid', async (context) => {
 router.post('/courier-recipient-details/:uuid', async (context) => {
 	console.log('/POST /courier-recipient-details/:uuid');
 	const uuid = context.params.uuid;
-	const body = context.request.body({ type: 'form-data' });
-	const data = await body.value.read();
-	const result = await setParcelStatusDelivered(uuid, data.fields);
-	console.log("THE RESULT IS :", result)
-	context.response.redirect('/courier-transit');
+	const body = context.request.body({ type: 'json' });
+	const data = await body.value;
+	const result = await setParcelStatusDelivered(uuid, data);
+	context.response.status = result.status;
+	context.response.body = { msg: result.message };
 });
 
 router.get('/courier-delivered', async (context) => {
@@ -251,7 +242,6 @@ router.get('/courier-delivered', async (context) => {
 	const role = permission !== 'courier';
 	if (authorised === undefined || role) context.response.redirect('/login');
 	const parcels = await getParcelsDelivered(authorised);
-	// console.log(parcels);
 	const data = { authorised, parcels };
 	const body = await handle.renderView('courier-delivered', data);
 	context.response.body = body;
@@ -267,7 +257,6 @@ router.get('/customer-history', async (context) => {
 	}
 	const parcels = await getParcelsCustomer(authorised);
 	const data = { authorised, parcels };
-	// console.log(parcels)
 	const body = await handle.renderView('customer-history', data);
 	context.response.body = body;
 });
@@ -306,8 +295,6 @@ router.post('/customer-send', async (context) => {
 	const data = await body.value.read();
 	const authorised = context.cookies.get('authorised');
 	await addParcel(data, authorised);
-	// const bodys = await handle.renderView('send')
-	// context.response.body = bodys
 	context.response.redirect('/customer-current');
 });
 
@@ -324,7 +311,6 @@ router.get('/parcel/:uuid', async (context) => {
 		admin: permission === 'admin',
 	};
 	const parcels = await getParcelDetails(uuid);
-	// console.log(parcels);
 	const data = { authorised, role, parcels };
 	const body = await handle.renderView('parcel', data);
 	context.response.body = body;

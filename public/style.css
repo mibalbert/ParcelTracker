@@ -782,38 +782,38 @@ section.recipient-details-section {
   gap: 2rem;
 }
 
-form.recipient-details-form {
+.recipient-details-form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 2rem;
-  padding: 3rem 0;
+  padding: 5rem 2.5rem;
   width: 60%;
   box-shadow: 1px 1px 5px -1px rgba(137, 137, 138, 0.8);
   border-radius: 20px;
 
 }
 
-form.recipient-details-form label{
+.recipient-details-form label{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 0.5rem;
 }
 
-form.recipient-details-form label,
-form.recipient-details-form canvas {
+.recipient-details-form label,
+.recipient-details-form canvas {
   width: 100%;
 }
 
-form.recipient-details-form label:first-of-type input{
+.recipient-details-form label:first-of-type input{
 
   border-style: 2px solid rgb(99, 99, 99);
   border-radius: 5px;
   height: 2rem;
 }
 
-form.recipient-details-form label:last-of-type input{
+.recipient-details-form label:last-of-type input{
   /* background-color:rgb(230, 230, 230); */
   background-color: #1c81e0;
   color: #fff;
@@ -824,7 +824,7 @@ form.recipient-details-form label:last-of-type input{
   transition-duration: 0.1s;
 }
 
-form.recipient-details-form label:last-of-type input:hover{
+.recipient-details-form label:last-of-type input:hover{
   /* background-color:rgb(230, 230, 230); */
   /* background-color: #4195e4; */
   opacity: 0.8;
@@ -836,7 +836,7 @@ form.recipient-details-form label:last-of-type input:hover{
 
 
 .signature-pad {
-   
+
   /* border-radius: 20px; */
   border: 1px solid black;
   /* bo/rder-style: 4px solid red; */ */

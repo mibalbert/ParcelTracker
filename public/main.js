@@ -33,13 +33,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	const yellowDelivered = sessionStorage.getItem('yellowDelivered');
 	const redNotFound = sessionStorage.getItem('redNotFound');
 
-	console.log(greenSuccess);
-
-	console.log(yellowTransit);
-
-	console.log(yellowDelivered);
-
-	console.log(redNotFound);
+	// console.log(greenSuccess);
+	// console.log(yellowTransit);
+	// console.log(yellowDelivered);
+	// console.log(redNotFound);
 
 	if (greenSuccess) {
 		alertGreenSuccess.style.display = 'block';

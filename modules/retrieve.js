@@ -32,6 +32,7 @@ export async function getAllCouriers() {
 	const data = await db.query(
 		'SELECT courier_name, COUNT(status) AS parcels FROM parcels WHERE status="in-transit" GROUP BY courier_name',
 	);
+	console.log(data)
 	return data;
 }
 

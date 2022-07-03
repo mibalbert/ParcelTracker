@@ -74,13 +74,13 @@ export async function setParcelStatus(uuid, authorised) {
  * @returns {bool} returns bool
  */
 export async function setParcelStatusDelivered(uuid, data) {
-	const handedToName = data.handed_to_name;
-	const handedToSignature = data.handed_to_signature;
+	const name = data.recipientName;
+	const signature = data.recipientSignature;
 	const result = await db.query(
 		'UPDATE parcels SET status = "delivered", date_time_delivered = ?, handed_to_name = ?, handed_to_signature = ?  WHERE uuid = ?',
-		[dateTime, handedToName, handedToSignature, uuid],
+		[dateTime, name, signature, uuid],
 	);
-	if(!result.affectedRows) {
+	if(!result.affectedRows === 1) {
 		throw new Error("Internal Server Error")
 		return {status: 500, message: "Internal Server Error"} 
 	} else {

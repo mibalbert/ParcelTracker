@@ -14,79 +14,57 @@
 	</head>
 	<body>
 		<header>
-			<h1><a href="/">Parcelino<span id="dot">.</span></a></h1>
-			
-                {{!-- <li><a href="/send">Send<span class="plus-sign">&#8314;</span></a></li> --}}
+			<h1><a href="/">Parcelino<span id="dot">.</span></a></h1>	
             <ul>
                 <li class="logout"><a href="/logout"><span class="material-symbols-outlined">logout</span><span>Log-out</span></a></li>
 			</ul>
-
 		</header>
 	<main>
-		{{!-- <section class="hero-ill">
-			<div class="hero-block">Parcel sending made easy!</div>
-		</section> --}}
+		<section class="main-left">
+			<nav class="side-nav">
+				<ol class="side-nav-bunch">
+					<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
+					<li><a href="/customer-send"><span id="side-nav-icon" class="material-symbols-outlined">add_box</span><span>Send</span></a></li>
+					<li><a href="/customer-current"><span id="side-nav-icon" class="material-symbols-outlined">schedule</span><span>Current</span></a></li>
+					<li><a href="/customer-history"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>History</span></a></li>
+				</ol>
+			</nav>
+		</section>
 
-		{{!-- <section class="main-sides"> --}}
-
-			<section class="main-left">
-				<nav class="side-nav">
-					<ol class="side-nav-bunch">
-						<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
-						<li><a href="/customer-send"><span id="side-nav-icon" class="material-symbols-outlined">add_box</span><span>Send</span></a></li>
-						<li><a href="/customer-current"><span id="side-nav-icon" class="material-symbols-outlined">schedule</span><span>Current</span></a></li>
-						<li><a href="/customer-history"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>History</span></a></li>
-					</ol>
-				</nav>
-			</section>
-
-			<section class="main-right">
-				<section class="parcels">
-				<table>	
-					<thead>
-						<tr>
-							<th></th>
-							{{!-- <th>Sender Username</th> --}}
-							{{!-- <th>Sender PostCode</th> --}}
-							<th>Sender Full Adress</th>
-							{{!-- <th>Recipient Name</th> --}}
-							{{!-- <th>Recipient PostCode</th> --}}
-							<th>Recipient Full Adress</th>
-							<th>Weight</th>
-							<th>Date Posted</th>
-							<th>Date In-transit</th>
-							{{!-- <th>Date Delivered</th> --}}
-							<th>Unique ID</th>
-							<th>Status</th>
-							<th></th>
-							<th></th>
+		<section class="main-right">
+			<section class="parcels">
+			<table>	
+				<thead>
+					<tr>
+						<th></th>
+						<th>Sender Full Adress</th>
+						<th>Recipient Full Adress</th>
+						<th>Weight</th>
+						<th>Date Posted</th>
+						<th>Date In-transit</th>
+						<th>Unique ID</th>
+						<th>Status</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				{{#each parcels}}
+						<tr class="parcel-link delivered" onclick="window.location='/parcel/{{this.uuid}}'">
+							<td><img class="parcel-icon" src="img/package.png"></td>
+							<td>{{this.sender_address}} {{this.sender_city}}</td>
+							<td>{{this.recipient_address}} {{this.recipient_city}}</td>
+							<td>{{this.weight_kg}}</td>
+							<td>{{{formatedColored this.date_time_created}}}</td>
+							<td>{{{formatedColored this.date_time_in_transit}}}</td>
+							<td>{{this.uuid}}</td>
+							<td>{{this.status}}</td>
 						</tr>
-					</thead>
-					<tbody>
-					{{#each parcels}}
-							<tr class="parcel-link delivered" onclick="window.location='/parcel/{{this.uuid}}'">
-								<td><img class="parcel-icon" src="img/package.png"></td>
-								{{!-- <td>{{this.sender_username}}</td> --}}
-								{{!-- <td>{{this.sender_postcode}}</td> --}}
-								<td>{{this.sender_address}} {{this.sender_city}}</td>
-								{{!-- <td>{{this.recipient_name}}</td> --}}
-								{{!-- <td>{{this.recipient_postcode}}</td> --}}
-								<td>{{this.recipient_address}} {{this.recipient_city}}</td>
-								<td>{{this.weight_kg}}</td>
-								<td>{{{formatedColored this.date_time_created}}}</td>
-								<td>{{{formatedColored this.date_time_in_transit}}}</td>
-								{{!-- <td>{{{formated this.date_time_delivered}}}</td> --}}
-								<td>{{this.uuid}}</td>
-								<td>{{this.status}}</td>
-							</tr>
-					{{/each}}
-					</tbody>
-				</table>
-				</section>
+				{{/each}}
+				</tbody>
+			</table>
 			</section>
-		{{!-- </section> --}}
-	</main>	
-	
+		</section>
+	</main>
 	</body>
-	
 </html>
