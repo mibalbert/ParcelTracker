@@ -1,4 +1,3 @@
-
 /* util.js */
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -9,7 +8,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		'.uuid-alert-green-success',
 	);
 	const greenSuccess = sessionStorage.getItem('greenSuccess');
-	
+
 	if (greenSuccess) {
 		alertGreenSuccess.style.display = 'block';
 		sessionStorage.removeItem('greenSuccess');
@@ -17,5 +16,4 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			alertGreenSuccess.style.display = 'none';
 		}, 1500);
 	}
-
 });

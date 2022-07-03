@@ -1,4 +1,3 @@
-
 /* send.js */
 
 window.addEventListener('DOMContentLoaded', () => {

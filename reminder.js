@@ -225,7 +225,6 @@
 // 		</ul>
 // 	</section>
 
-
 // );
 
 // const created = document.getElementsByClassName('date_time_created');
@@ -312,24 +311,6 @@
 // };
 // // Append the 'script' element to 'head'
 // document.head.appendChild(script);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //   if (!record || record.length == 0) {
 //     throw new Error("The user name or password is incorrect.");

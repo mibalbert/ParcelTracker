@@ -173,7 +173,6 @@ router.get('/courier-transit', async (context) => {
 // 	context.response.body = { msg: result.message };
 // });
 
-
 // Courier parcels to be accepted page
 router.get('/courier-parcels', async (context) => {
 	console.log('/GET /courier-parcels');

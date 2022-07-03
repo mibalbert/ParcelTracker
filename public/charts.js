@@ -1,4 +1,3 @@
-
 /* charts.js */
 
 window.addEventListener('DOMContentLoaded', (event) => {

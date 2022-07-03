@@ -1,4 +1,3 @@
-
 /* courier-route.js */
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -66,7 +65,6 @@ window.addEventListener('DOMContentLoaded', () => {
 				}
 				summaryPanel.innerHTML += `<br>End Point (Last delivery): ` +
 					`<strong>${waypts.at(-1).location}</strong>` + `<br><br>`;
-				
 			} else {
 				window.alert('Directions request failed due to ' + status);
 			}

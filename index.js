@@ -13,8 +13,6 @@ Deno.env.delete('MODE'); // clear the test mode if set
 // const argPort = parse(args).port;
 // const port = argPort ? Number(argPort) : defaultPort;
 
-
-
 const app = new Application();
 const handle = new Handlebars({ defaultLayout: '' });
 
@@ -61,8 +59,6 @@ app.addEventListener('listen', ({ port }) => {
 
 // await app.listen({ port });
 
-
 const DEFAULT_PORT = 8000;
 const argPort = parse(Deno.args).port;
 await app.listen({ port: argPort ?? DEFAULT_PORT });
-

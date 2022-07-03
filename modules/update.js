@@ -9,7 +9,7 @@ const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
  * @typedef {Object} Response
  * @property {number} status response status code
  * @property {string} message response message
-*/
+ */
 /**
  * Db call - Returns all the parcels ordered by status
  * starting from not-dispatced and by date_time_created
@@ -62,11 +62,11 @@ export async function setParcelStatus(uuid, authorised) {
  * @typedef {Object} Data
  * @property {string} handed_to_name name of recipient
  * @property {string} handed_to_signature blob image of recipient signature
-*/
+ */
 /**
  * Db call - Sets the status to deliver.
  * Adds the name and signature of person receiving
- * the parcel into the db based on uuid 
+ * the parcel into the db based on uuid
  * @function setParcelStatusDelivered
  * @async
  * @param {string} uuid parcel's unique identifier
@@ -80,15 +80,13 @@ export async function setParcelStatusDelivered(uuid, data) {
 		'UPDATE parcels SET status = "delivered", date_time_delivered = ?, handed_to_name = ?, handed_to_signature = ?  WHERE uuid = ?',
 		[dateTime, name, signature, uuid],
 	);
-	if(!result.affectedRows === 1) {
-		throw new Error("Internal Server Error")
+	if (!result.affectedRows === 1) {
+		throw new Error('Internal Server Error');
 	} else {
 		return {
-				status: 200,
-				message: 'Success! Parcel Delivered!',
-			};
+			status: 200,
+			message: 'Success! Parcel Delivered!',
+		};
 	}
-	
-
 }
-// 
+//
