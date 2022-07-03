@@ -32,7 +32,34 @@ window.addEventListener('DOMContentLoaded', () => {
 			});
 		});
 		const waypts2 = waypts.slice(1, -1);
-		const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+		const alphabet = [
+			'A',
+			'B',
+			'C',
+			'D',
+			'E',
+			'F',
+			'G',
+			'H',
+			'I',
+			'J',
+			'K',
+			'L',
+			'M',
+			'N',
+			'O',
+			'P',
+			'Q',
+			'R',
+			'S',
+			'T',
+			'U',
+			'V',
+			'W',
+			'X',
+			'Y',
+			'Z',
+		];
 
 		directionsService.route({
 			origin: waypts[0].location,
@@ -57,12 +84,14 @@ window.addEventListener('DOMContentLoaded', () => {
 						routeSegment + '</b><br>';
 					// summaryPanel.innerHTML += route.legs[i].start_address +
 					// 	` (Package ${i})`;
-					summaryPanel.innerHTML += route.legs[i].start_address + `  ( ${alphabet[i]} )`;
+					summaryPanel.innerHTML += route.legs[i].start_address +
+						`  ( ${alphabet[i]} )`;
 					summaryPanel.innerHTML +=
 						'<br><span><strong>to</strong></span>';
 					// summaryPanel.innerHTML += route.legs[i].end_address +
 					// 	` (Package ${i + 1})` + '<br>';
-					summaryPanel.innerHTML += route.legs[i].end_address + `  ( ${alphabet[i+1]} )` +'<br>';
+					summaryPanel.innerHTML += route.legs[i].end_address +
+						`  ( ${alphabet[i + 1]} )` + '<br>';
 					summaryPanel.innerHTML += route.legs[i].distance.text +
 						'<br><br>';
 				}

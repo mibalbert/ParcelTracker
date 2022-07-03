@@ -61,7 +61,6 @@ router.get('/', async (context) => {
 	context.response.body = body;
 });
 
-
 ///////LOGIN & REGISTER routes
 
 router.get('/login', async (context) => {
@@ -107,7 +106,6 @@ router.post('/login', async (context) => {
 	}
 });
 
-
 ///////ADMIN routes
 
 // Admin route to see all parcels page
@@ -148,12 +146,11 @@ router.get('/admin-couriers', async (context) => {
 // 	const result = await getCourierIndividual(courier);
 // 	const parcels = await getParcelsAccepted(courier);
 // 	console.log(authorised, result, courier, parcels)
-	
+
 // 	const data = { authorised, result, courier };
 // 	const body = await handle.renderView('admin-couriers-indiv', data);
 // 	context.response.body = body;
 // });
-
 
 //////COURIER routes
 
@@ -195,7 +192,7 @@ router.post('/courier-parcels', async (context) => {
 	context.response.body = { msg: result.message };
 });
 
-// Courier display route 
+// Courier display route
 router.get('/courier-route', async (context) => {
 	console.log('/GET /courier-route');
 	const authorised = await context.cookies.get('authorised');
@@ -274,7 +271,7 @@ router.get('/customer-current', async (context) => {
 	}
 	const parcels = await getCurrentParcelsCustomer(authorised);
 	const data = { authorised, parcels };
-	console.log(parcels)
+	console.log(parcels);
 	const body = await handle.renderView('customer-current', data);
 	context.response.body = body;
 });
@@ -300,7 +297,6 @@ router.post('/customer-send', async (context) => {
 	await addParcel(data, authorised);
 	context.response.redirect('/customer-current');
 });
-
 
 ////////PARCEL routes
 
