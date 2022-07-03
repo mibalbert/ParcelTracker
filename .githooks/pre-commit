@@ -6,14 +6,14 @@ set -e # abort script at first error
 RED="\e[31m"
 GREEN="\e[32m"
 BLUE="\e[94m"
-WHITE="\e[97m"
+YELLOW="\e[93m"
 ENDCOLOR="\e[0m"
 
 echo -e "${GREEN}PRE-COMMIT${ENDCOLOR}"
 
 set +e
 CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
-echo -e "${WHITE}current branch: ${CURRENT_BRANCH}${ENDCOLOR}"
+echo -e "${YELLOW}current branch: ${CURRENT_BRANCH}${ENDCOLOR}"
 set -e
 
 EMAIL=$(git config user.email)
