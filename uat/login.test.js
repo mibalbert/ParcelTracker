@@ -35,7 +35,7 @@ Deno.test('access login page from home page     ', async () => {
 // SCENARIO log in with valid username/password
 Deno.test('log in with valid username/password  ', async () => {
 	// GIVEN I am on the homepage
-	const browser = await puppeteer.launch({  headless: true });
+	const browser = await puppeteer.launch({ headless: true });
 	const page = await browser.newPage();
 	await page.goto(url, { waitUntil: 'networkidle0' });
 	// AND I click on the login button

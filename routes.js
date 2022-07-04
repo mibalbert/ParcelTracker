@@ -239,7 +239,7 @@ router.get('/courier-delivered', async (context) => {
 	const permission = await context.cookies.get('permission');
 	const role = permission !== 'courier';
 	if (authorised === undefined || role) context.response.redirect('/login');
-	
+
 	const parcels = await getParcelsDelivered(authorised);
 	const data = { authorised, parcels };
 	const body = await handle.renderView('courier-delivered', data);

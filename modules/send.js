@@ -7,7 +7,7 @@ const dateTimeCreated = new Date();
 /**
  * Object compriesed of form data
  * inputed by the user
- * 
+ *
  * @typedef {Object} Details
  * @property {string} recipient_name
  * @property {string} sender_address
@@ -25,9 +25,9 @@ const dateTimeCreated = new Date();
  * @property {string} uuid
  */
 /**
- * Adds a new parcel to the db based on 
- * object from the user filled form 
- * 
+ * Adds a new parcel to the db based on
+ * object from the user filled form
+ *
  * @param {Details} data
  * @param {string} authorised
  * @returns {bool} returns bool
@@ -35,10 +35,10 @@ const dateTimeCreated = new Date();
 export async function addParcel(data, authorised) {
 	try {
 		const parcel = data.fields;
-		console.log(parcel)
+		console.log(parcel);
 		const senderUsername = await authorised;
 		const result = await db.query(
-			'INSERT INTO parcels           \
+'INSERT INTO parcels           \
 			(	recipient_name,            \
 				sender_address,            \
 				sender_address_details,    \
@@ -75,7 +75,7 @@ export async function addParcel(data, authorised) {
 		);
 		console.log(result);
 		return true;
-	} catch(err) {
-		console.log(err)
+	} catch (err) {
+		console.log(err);
 	}
 }

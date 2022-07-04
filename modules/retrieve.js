@@ -8,35 +8,35 @@ import { db } from './db.js';
  * Db call - Returns all the parcels ordered by status
  * starting from not-dispatced and by date_time_created
  * ordered desc (From last inserted).
- * 
+ *
  * @param {void} void
  * @returns {Array} data Parcel details
  */
 export async function getAllParcels() {
 	try {
 		const data = await db.query(
-		'SELECT * FROM parcels ORDER BY status DESC, date_time_created DESC',
+			'SELECT * FROM parcels ORDER BY status DESC, date_time_created DESC',
 		);
 		return data;
-	} catch(err) {
-		console.log(err)
+	} catch (err) {
+		console.log(err);
 	}
 }
 
 /**
  * Db call - Returns couriers by name and number of parcels
  * currently 'accepted'.
- * 
+ *
  * @param {void} void
  * @returns {Array} data Courier name and number of parcels accepted
  */
 export async function getAllCouriers() {
 	try {
 		const data = await db.query(
-		'SELECT courier_name, COUNT(status) AS parcels FROM parcels WHERE status="in-transit" GROUP BY courier_name',
+			'SELECT courier_name, COUNT(status) AS parcels FROM parcels WHERE status="in-transit" GROUP BY courier_name',
 		);
 		return data;
-	} catch(err) {
+	} catch (err) {
 		console.log(err);
 	}
 }
@@ -52,55 +52,56 @@ export async function getAllCouriers() {
 /**
  * Db call - Returns all the parcels available to be
  * accepted by the courier.
- * 
+ *
  * @param {void} void
  * @returns {Array} data Parcel details
  */
 export async function getNotDispParcels() {
 	try {
 		const data = await db.query(
-		'SELECT * FROM parcels WHERE status="not-dispatched"  ORDER BY date_time_created DESC',
+			'SELECT * FROM parcels WHERE status="not-dispatched"  ORDER BY date_time_created DESC',
 		);
-		return data
-	} catch(err) {
-		console.log(err)
+		return data;
+	} catch (err) {
+		console.log(err);
 	}
 }
 
 /**
  * Db call - Returns the accepted parcels for the currently logged in
  * courier, ordered by last accepted.
- * 
+ *
  * @param {string} courier Username of current courier
  * @returns {Array} data Parcel details
  */
 export async function getParcelsAccepted(courier) {
 	try {
 		const data = await db.query(
-		'SELECT * FROM parcels WHERE status="in-transit" AND courier_name = ? ORDER BY date_time_in_transit ASC',
-		[courier],
+			'SELECT * FROM parcels WHERE status="in-transit" AND courier_name = ? ORDER BY date_time_in_transit ASC',
+			[courier],
 		);
-		return data
-	} catch(err) {
-		console.log(err)
+		return data;
+	} catch (err) {
+		console.log(err);
 	}
 }
 
 /**
  * Db call - Returns the delivered parcels of current courier ordered
  * by when they where delivered from last deliverd.
- * 
+ *
  * @param {string} authorised Username of current courier
  * @returns {Array} data Parcel details
  */
 export async function getParcelsDelivered(authorised) {
 	try {
 		const data = await db.query(
-		'SELECT * FROM parcels WHERE status="delivered" AND courier_name=? ORDER BY date_time_delivered DESC',
-		[authorised],);
+			'SELECT * FROM parcels WHERE status="delivered" AND courier_name=? ORDER BY date_time_delivered DESC',
+			[authorised],
+		);
 		return data;
-	} catch(err) {
-		console.log(err)
+	} catch (err) {
+		console.log(err);
 	}
 }
 
@@ -110,37 +111,38 @@ export async function getParcelsDelivered(authorised) {
  * Db call - Returns the all parcels except delivered ones
  * of the currently logged in customer, ordered by
  * last 'accepted'.
- * 
+ *
  * @param {string} authorised Username of current customer
  * @returns {Array} data Parcel details
  */
 export async function getCurrentParcelsCustomer(authorised) {
 	try {
 		const data = await db.query(
-		'SELECT * FROM parcels WHERE status != "delivered" AND sender_username = ? ORDER BY status DESC, date_time_in_transit ASC',
-		[authorised],
+			'SELECT * FROM parcels WHERE status != "delivered" AND sender_username = ? ORDER BY status DESC, date_time_in_transit ASC',
+			[authorised],
 		);
 		return data;
-	} catch(err) {
-		console.log(err)
+	} catch (err) {
+		console.log(err);
 	}
 }
 
 /**
  * Db call - Returns the delivered parcels of the currently logged in
  * customer, ordered by last 'created'.
- * 
+ *
  * @param {string} authorised Username of current customer
  * @returns {Array} data Parcel details
  */
 export async function getParcelsCustomer(authorised) {
 	try {
 		const data = await db.query(
-		'SELECT * FROM parcels WHERE status="delivered" AND sender_username = ? ORDER BY status DESC, date_time_created DESC',
-		[authorised],);
+			'SELECT * FROM parcels WHERE status="delivered" AND sender_username = ? ORDER BY status DESC, date_time_created DESC',
+			[authorised],
+		);
 		return data;
-	} catch(err) {
-		console.log(err)
+	} catch (err) {
+		console.log(err);
 	}
 }
 
@@ -148,16 +150,18 @@ export async function getParcelsCustomer(authorised) {
 
 /**
  * Db call - Returns all the details of a parcel based on uuid
- * 
+ *
  * @param {string} uuid uuid of one parcel
  * @returns {Array} data Parcel details
  */
 export async function getParcelDetails(uuid) {
 	try {
-		const data = await db.query('SELECT * FROM parcels WHERE uuid = ?', [uuid]);
+		const data = await db.query('SELECT * FROM parcels WHERE uuid = ?', [
+			uuid,
+		]);
 		return data;
 	} catch (err) {
-		console.log(err)
+		console.log(err);
 	}
 }
 
@@ -166,14 +170,14 @@ export async function getParcelDetails(uuid) {
 /**
  * Db call - Returns the accepted, in-transit and delivered
  * parcels also the couriers and customers for the admin page
- * 
+ *
  * @param {void} void
  * @returns {Array<number>} data Parcel details
  */
 export async function getAdminParcelsCouriers() {
 	try {
 		let totalInstore = await db.query(
-		'SELECT COUNT(status) AS parcels_instore FROM parcels WHERE status="not-dispatched"',
+			'SELECT COUNT(status) AS parcels_instore FROM parcels WHERE status="not-dispatched"',
 		);
 		let totalAccepted = await db.query(
 			'SELECT COUNT(status) AS parcels_accepted FROM parcels WHERE status="in-transit"',
@@ -200,15 +204,15 @@ export async function getAdminParcelsCouriers() {
 			totalCouriers,
 			totalCustomers,
 		};
-	} catch(err) {
-		console.log(err)
+	} catch (err) {
+		console.log(err);
 	}
 }
 
 /**
  * Db call - Returns the accepted, in-transit and delivered
  * parcels as digits based of the logged in courier
- * 
+ *
  * @param {string} authorised courier username
  * @returns {Array<number>} data Parcel details
  */
@@ -230,23 +234,23 @@ export async function getCourierParcels(authorised) {
 		delivered = delivered[0].parcels_delivered;
 		// console.log(instore, accepted, delivered)
 		return { instore, accepted, delivered };
-	} catch(err) {
-		console.log(err)
+	} catch (err) {
+		console.log(err);
 	}
 }
 
 /**
  * Db call - Returns the accepted, in-transit and delivered
  * parcels as digits based of the logged in customer
- * 
+ *
  * @param {string} authorised customer username
  * @returns {Array<number>} data Parcel details
  */
 export async function getCustomerParcels(authorised) {
 	try {
 		let totalNotDispatched = await db.query(
-		'SELECT COUNT(sender_username) AS parcels_not_dispatched FROM parcels WHERE status="not-dispatched" AND sender_username=?',
-		[authorised],
+			'SELECT COUNT(sender_username) AS parcels_not_dispatched FROM parcels WHERE status="not-dispatched" AND sender_username=?',
+			[authorised],
 		);
 		let totalTransit = await db.query(
 			'SELECT COUNT(sender_username) AS parcels_in_transit FROM parcels WHERE status="in-transit" AND sender_username=?',
@@ -261,7 +265,7 @@ export async function getCustomerParcels(authorised) {
 		totalDelivered = totalDelivered[0].parcels_delivered;
 		// console.log(totalNotDispatched, totalTransit, totalDelivered)
 		return { totalNotDispatched, totalTransit, totalDelivered };
-	} catch(err) {
-		console.log(err)
+	} catch (err) {
+		console.log(err);
 	}
 }
