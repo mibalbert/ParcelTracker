@@ -2,7 +2,11 @@
 
 set -e # abort script at first error
 
+# Allows script to read the user input
+exec < /dev/tty
 
+
+MAGENTA="\e[35m"
 RED="\e[31m"
 GREEN="\e[32m"
 BLUE="\e[94m"
@@ -26,20 +30,18 @@ then
 	exit 1
 fi
 
-
-exec < /dev/tty
-
-echo "Do you wish to install this program?"
-select yn in "Yes" "No"; do
-  case $yn in
-    Yes ) exit;;
-    No ) exit;;
-  esac
-done
-
 if [[ $CURRENT_BRANCH == "main" ]]
 then
-	echo "asdasd"
+	while true; do
+	read -p $"On branch ${CURRENT_BRANCH}, do you want to commit directly to ${CURRENT_BRANCH}? (y/n) " yn
+	case $yn in 
+		[yY] ) echo Great! Commiting...;
+			exit 0;;
+		[nN] ) echo Canceling...;
+			exit 1;;
+		* ) echo invalid response;;
+	esac
+	done
 fi
 
 
