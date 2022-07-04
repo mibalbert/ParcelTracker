@@ -39,13 +39,13 @@ Deno.test('log in with valid username/password  ', async () => {
 	const page = await browser.newPage();
 	await page.goto(url, { waitUntil: 'networkidle0' });
 	// AND I click on the login button
-	await page.click('a[href="/login"]', { waitUntil: 'networkidle2' });
+	await page.click('a[href="/login"]', { waitUntil: 'networkidle0' });
 	// WHEN I enter "doej" in the username field
 	await page.type('input[name="username"]', 'doej');
 	// AND I enter "p455w0rd" in the password field
 	await page.type('input[name="password"]', 'p455w0rd');
 	// AND I click on the login button
-	await page.click('input[type="submit"]', { waitUntil: 'networkidle2' });
+	await page.click('input[type="submit"]', { waitUntil: 'networkidle0' });
 	// THEN I should see the "Foo Bar" page
 	const heading = await page.$eval('h1', (node) => node.innerText);
 	// const heading = 'Parcelino.'

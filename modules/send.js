@@ -35,6 +35,7 @@ const dateTimeCreated = new Date();
 export async function addParcel(data, authorised) {
 	try {
 		const parcel = data.fields;
+		console.log(parcel)
 		const senderUsername = await authorised;
 		const result = await db.query(
 			'INSERT INTO parcels           \

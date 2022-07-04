@@ -272,7 +272,7 @@ router.get('/customer-current', async (context) => {
 	}
 	const parcels = await getCurrentParcelsCustomer(authorised);
 	const data = { authorised, parcels };
-	console.log(parcels);
+	// console.log(parcels);
 	const body = await handle.renderView('customer-current', data);
 	context.response.body = body;
 });
