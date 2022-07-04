@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e # abort script at first error
+
+YELLOW="\e[93m"
+ENDCOLOR="\e[0m"
+
+echo -e "${YELLOW}PRE-MERGE-COMMIT${ENDCOLOR}" 

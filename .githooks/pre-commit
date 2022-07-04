@@ -25,3 +25,12 @@ then
 	echo -e "${RED}aborting commit${ENDCOLOR}"
 	exit 1
 fi
+
+if [[ $CURRENT_BRANCH == "main" ]]
+then
+
+	echo "asdasdas"
+
+fi
+
+

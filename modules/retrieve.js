@@ -8,8 +8,7 @@ import { db } from './db.js';
  * Db call - Returns all the parcels ordered by status
  * starting from not-dispatced and by date_time_created
  * ordered desc (From last inserted).
- * @function getAllParcels
- * @async
+ * 
  * @param {void} void
  * @returns {Array} data Parcel details
  */
@@ -27,8 +26,7 @@ export async function getAllParcels() {
 /**
  * Db call - Returns couriers by name and number of parcels
  * currently 'accepted'.
- * @function getAllCouriers
- * @async
+ * 
  * @param {void} void
  * @returns {Array} data Courier name and number of parcels accepted
  */
@@ -54,8 +52,7 @@ export async function getAllCouriers() {
 /**
  * Db call - Returns all the parcels available to be
  * accepted by the courier.
- * @function getNotDispParcels
- * @async
+ * 
  * @param {void} void
  * @returns {Array} data Parcel details
  */
@@ -73,8 +70,7 @@ export async function getNotDispParcels() {
 /**
  * Db call - Returns the accepted parcels for the currently logged in
  * courier, ordered by last accepted.
- * @function getParcelsAccepted
- * @async
+ * 
  * @param {string} courier Username of current courier
  * @returns {Array} data Parcel details
  */
@@ -93,8 +89,7 @@ export async function getParcelsAccepted(courier) {
 /**
  * Db call - Returns the delivered parcels of current courier ordered
  * by when they where delivered from last deliverd.
- * @function getParcelsDelivered
- * @async
+ * 
  * @param {string} authorised Username of current courier
  * @returns {Array} data Parcel details
  */
@@ -115,8 +110,7 @@ export async function getParcelsDelivered(authorised) {
  * Db call - Returns the all parcels except delivered ones
  * of the currently logged in customer, ordered by
  * last 'accepted'.
- * @function getCurrentParcelsCustomer
- * @async
+ * 
  * @param {string} authorised Username of current customer
  * @returns {Array} data Parcel details
  */
@@ -135,8 +129,7 @@ export async function getCurrentParcelsCustomer(authorised) {
 /**
  * Db call - Returns the delivered parcels of the currently logged in
  * customer, ordered by last 'created'.
- * @function getParcelsCustomer
- * @async
+ * 
  * @param {string} authorised Username of current customer
  * @returns {Array} data Parcel details
  */
@@ -155,8 +148,7 @@ export async function getParcelsCustomer(authorised) {
 
 /**
  * Db call - Returns all the details of a parcel based on uuid
- * @function getParcelDetails
- * @async
+ * 
  * @param {string} uuid uuid of one parcel
  * @returns {Array} data Parcel details
  */
@@ -173,9 +165,8 @@ export async function getParcelDetails(uuid) {
 
 /**
  * Db call - Returns the accepted, in-transit and delivered
- * parcels; the couriers and customers of admin
- * @function getAdminParcelsCouriers
- * @async
+ * parcels also the couriers and customers for the admin page
+ * 
  * @param {void} void
  * @returns {Array<number>} data Parcel details
  */
@@ -216,9 +207,8 @@ export async function getAdminParcelsCouriers() {
 
 /**
  * Db call - Returns the accepted, in-transit and delivered
- * parcels as numbers of the logged courier
- * @function getCourierParcels
- * @async
+ * parcels as digits based of the logged in courier
+ * 
  * @param {string} authorised courier username
  * @returns {Array<number>} data Parcel details
  */
@@ -247,9 +237,8 @@ export async function getCourierParcels(authorised) {
 
 /**
  * Db call - Returns the accepted, in-transit and delivered
- * parcels as numbers of the logged customer
- * @function getCustomerParcels
- * @async
+ * parcels as digits based of the logged in customer
+ * 
  * @param {string} authorised customer username
  * @returns {Array<number>} data Parcel details
  */

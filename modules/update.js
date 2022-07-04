@@ -6,6 +6,10 @@ import { format } from 'https://deno.land/std@0.91.0/datetime/mod.ts';
 const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
 
 /**
+ * Object from db response containing status code
+ * and message to be later sent back to axios 
+ * and handled as an 'alert'
+ * 
  * @typedef {Object} Response
  * @property {number} status response status code
  * @property {string} message response message
@@ -14,8 +18,7 @@ const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
  * Db call - Returns all the parcels ordered by status
  * starting from not-dispatced and by date_time_created
  * ordered desc (From last inserted).
- * @function setParcelStatus
- * @async
+ * 
  * @param {string} uuid parcel's unique identifier
  * @returns {Response} data Parcel details
  */
@@ -59,6 +62,10 @@ export async function setParcelStatus(uuid, authorised) {
 }
 
 /**
+ * Object from the axios post request conprised of
+ * the name of person recieving the parcels and 
+ * their signature
+ * 
  * @typedef {Object} Data
  * @property {string} handed_to_name name of recipient
  * @property {string} handed_to_signature blob image of recipient signature
@@ -67,8 +74,7 @@ export async function setParcelStatus(uuid, authorised) {
  * Db call - Sets the status to deliver.
  * Adds the name and signature of person receiving
  * the parcel into the db based on uuid
- * @function setParcelStatusDelivered
- * @async
+ * 
  * @param {string} uuid parcel's unique identifier
  * @param {Data} data name and signature of recipient
  * @returns {bool} returns bool

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e # abort script at first error
+
+MAGENTA="\e[35m"
+YELLOW="\e[93m"
+ENDCOLOR="\e[0m"
+
+echo -e "${YELLOW}PREPARE-COMMIT-MSG${ENDCOLOR}"
+
+COMMIT_MSG_FILE=$1
+
+echo "default commit message" > "${MAGENTA}$COMMIT_MSG_FILE${ENDCOLOR}"

@@ -4,11 +4,12 @@
 		"name": "login",
 		"location": {
 			"filename": "file:///home/codio/workspace/modules/accounts.js",
-			"line": 17,
+			"line": 26,
 			"col": 0
 		},
+		"declarationKind": "export",
 		"jsDoc": {
-			"doc": "Checks user credentials.",
+			"doc": "Checks user credentials.\n",
 			"tags": [
 				{
 					"kind": "param",
@@ -22,8 +23,8 @@
 				},
 				{
 					"kind": "return",
-					"type": "string",
-					"doc": "the username for the valid account"
+					"type": "LogDetails",
+					"doc": "returns username and role"
 				}
 			]
 		},
@@ -47,8 +48,24 @@
 		"name": "register",
 		"location": {
 			"filename": "file:///home/codio/workspace/modules/accounts.js",
-			"line": 29,
+			"line": 65,
 			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Creates new user.\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "data",
+					"type": "RegDatails"
+				},
+				{
+					"kind": "return",
+					"type": "bool",
+					"doc": "returns bool"
+				}
+			]
 		},
 		"functionDef": {
 			"params": [
@@ -70,11 +87,12 @@
 		"name": "compare",
 		"location": {
 			"filename": "file:///home/codio/workspace/modules/accounts.js",
-			"line": 4,
+			"line": 3,
 			"col": 0
 		},
+		"declarationKind": "private",
 		"importDef": {
-			"src": "https://deno.land/x/bcrypt@v0.2.4/mod.ts",
+			"src": "https://deno.land/x/bcrypt@v0.3.0/mod.ts",
 			"imported": "compare"
 		}
 	},
@@ -83,11 +101,12 @@
 		"name": "genSalt",
 		"location": {
 			"filename": "file:///home/codio/workspace/modules/accounts.js",
-			"line": 4,
+			"line": 3,
 			"col": 0
 		},
+		"declarationKind": "private",
 		"importDef": {
-			"src": "https://deno.land/x/bcrypt@v0.2.4/mod.ts",
+			"src": "https://deno.land/x/bcrypt@v0.3.0/mod.ts",
 			"imported": "genSalt"
 		}
 	},
@@ -96,11 +115,12 @@
 		"name": "hash",
 		"location": {
 			"filename": "file:///home/codio/workspace/modules/accounts.js",
-			"line": 4,
+			"line": 3,
 			"col": 0
 		},
+		"declarationKind": "private",
 		"importDef": {
-			"src": "https://deno.land/x/bcrypt@v0.2.4/mod.ts",
+			"src": "https://deno.land/x/bcrypt@v0.3.0/mod.ts",
 			"imported": "hash"
 		}
 	},
@@ -112,9 +132,622 @@
 			"line": 6,
 			"col": 0
 		},
+		"declarationKind": "private",
 		"importDef": {
 			"src": "file:///home/codio/workspace/modules/db.js",
 			"imported": "db"
+		}
+	},
+	{
+		"kind": "function",
+		"name": "getAllParcels",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/retrieve.js",
+			"line": 15,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Returns all the parcels ordered by status\nstarting from not-dispatced and by date_time_created\nordered desc (From last inserted).\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "void",
+					"type": "void"
+				},
+				{
+					"kind": "return",
+					"type": "Array",
+					"doc": "data Parcel details"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "function",
+		"name": "getAllCouriers",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/retrieve.js",
+			"line": 33,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Returns couriers by name and number of parcels\ncurrently 'accepted'.\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "void",
+					"type": "void"
+				},
+				{
+					"kind": "return",
+					"type": "Array",
+					"doc": "data Courier name and number of parcels accepted"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "function",
+		"name": "getNotDispParcels",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/retrieve.js",
+			"line": 59,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Returns all the parcels available to be\naccepted by the courier.\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "void",
+					"type": "void"
+				},
+				{
+					"kind": "return",
+					"type": "Array",
+					"doc": "data Parcel details"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "function",
+		"name": "getParcelsAccepted",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/retrieve.js",
+			"line": 77,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Returns the accepted parcels for the currently logged in\ncourier, ordered by last accepted.\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "courier",
+					"type": "string",
+					"doc": "Username of current courier"
+				},
+				{
+					"kind": "return",
+					"type": "Array",
+					"doc": "data Parcel details"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [
+				{
+					"kind": "identifier",
+					"name": "courier",
+					"optional": false,
+					"tsType": null
+				}
+			],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "function",
+		"name": "getParcelsDelivered",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/retrieve.js",
+			"line": 96,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Returns the delivered parcels of current courier ordered\nby when they where delivered from last deliverd.\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "authorised",
+					"type": "string",
+					"doc": "Username of current courier"
+				},
+				{
+					"kind": "return",
+					"type": "Array",
+					"doc": "data Parcel details"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [
+				{
+					"kind": "identifier",
+					"name": "authorised",
+					"optional": false,
+					"tsType": null
+				}
+			],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "function",
+		"name": "getCurrentParcelsCustomer",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/retrieve.js",
+			"line": 117,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Returns the all parcels except delivered ones\nof the currently logged in customer, ordered by\nlast 'accepted'.\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "authorised",
+					"type": "string",
+					"doc": "Username of current customer"
+				},
+				{
+					"kind": "return",
+					"type": "Array",
+					"doc": "data Parcel details"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [
+				{
+					"kind": "identifier",
+					"name": "authorised",
+					"optional": false,
+					"tsType": null
+				}
+			],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "function",
+		"name": "getParcelsCustomer",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/retrieve.js",
+			"line": 136,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Returns the delivered parcels of the currently logged in\ncustomer, ordered by last 'created'.\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "authorised",
+					"type": "string",
+					"doc": "Username of current customer"
+				},
+				{
+					"kind": "return",
+					"type": "Array",
+					"doc": "data Parcel details"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [
+				{
+					"kind": "identifier",
+					"name": "authorised",
+					"optional": false,
+					"tsType": null
+				}
+			],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "function",
+		"name": "getParcelDetails",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/retrieve.js",
+			"line": 155,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Returns all the details of a parcel based on uuid\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "uuid",
+					"type": "string",
+					"doc": "uuid of one parcel"
+				},
+				{
+					"kind": "return",
+					"type": "Array",
+					"doc": "data Parcel details"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [
+				{
+					"kind": "identifier",
+					"name": "uuid",
+					"optional": false,
+					"tsType": null
+				}
+			],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "function",
+		"name": "getAdminParcelsCouriers",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/retrieve.js",
+			"line": 173,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Returns the accepted, in-transit and delivered\nparcels also the couriers and customers for the admin page\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "void",
+					"type": "void"
+				},
+				{
+					"kind": "return",
+					"type": "Array<number>",
+					"doc": "data Parcel details"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "function",
+		"name": "getCourierParcels",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/retrieve.js",
+			"line": 215,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Returns the accepted, in-transit and delivered\nparcels as digits based of the logged in courier\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "authorised",
+					"type": "string",
+					"doc": "courier username"
+				},
+				{
+					"kind": "return",
+					"type": "Array<number>",
+					"doc": "data Parcel details"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [
+				{
+					"kind": "identifier",
+					"name": "authorised",
+					"optional": false,
+					"tsType": null
+				}
+			],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "function",
+		"name": "getCustomerParcels",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/retrieve.js",
+			"line": 245,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Returns the accepted, in-transit and delivered\nparcels as digits based of the logged in customer\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "authorised",
+					"type": "string",
+					"doc": "customer username"
+				},
+				{
+					"kind": "return",
+					"type": "Array<number>",
+					"doc": "data Parcel details"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [
+				{
+					"kind": "identifier",
+					"name": "authorised",
+					"optional": false,
+					"tsType": null
+				}
+			],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "import",
+		"name": "db",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/retrieve.js",
+			"line": 3,
+			"col": 0
+		},
+		"declarationKind": "private",
+		"importDef": {
+			"src": "file:///home/codio/workspace/modules/db.js",
+			"imported": "db"
+		}
+	},
+	{
+		"kind": "function",
+		"name": "addParcel",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/send.js",
+			"line": 35,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Adds a new parcel to the db based on \nobject from the user filled form \n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "data",
+					"type": "Details"
+				},
+				{
+					"kind": "param",
+					"name": "authorised",
+					"type": "string"
+				},
+				{
+					"kind": "return",
+					"type": "bool",
+					"doc": "returns bool"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [
+				{
+					"kind": "identifier",
+					"name": "data",
+					"optional": false,
+					"tsType": null
+				},
+				{
+					"kind": "identifier",
+					"name": "authorised",
+					"optional": false,
+					"tsType": null
+				}
+			],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "import",
+		"name": "db",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/send.js",
+			"line": 3,
+			"col": 0
+		},
+		"declarationKind": "private",
+		"importDef": {
+			"src": "file:///home/codio/workspace/modules/db.js",
+			"imported": "db"
+		}
+	},
+	{
+		"kind": "function",
+		"name": "setParcelStatus",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/update.js",
+			"line": 25,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Returns all the parcels ordered by status\nstarting from not-dispatced and by date_time_created\nordered desc (From last inserted).\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "uuid",
+					"type": "string",
+					"doc": "parcel's unique identifier"
+				},
+				{
+					"kind": "return",
+					"type": "Response",
+					"doc": "data Parcel details"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [
+				{
+					"kind": "identifier",
+					"name": "uuid",
+					"optional": false,
+					"tsType": null
+				},
+				{
+					"kind": "identifier",
+					"name": "authorised",
+					"optional": false,
+					"tsType": null
+				}
+			],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "function",
+		"name": "setParcelStatusDelivered",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/update.js",
+			"line": 82,
+			"col": 0
+		},
+		"declarationKind": "export",
+		"jsDoc": {
+			"doc": "Db call - Sets the status to deliver.\nAdds the name and signature of person receiving\nthe parcel into the db based on uuid\n",
+			"tags": [
+				{
+					"kind": "param",
+					"name": "uuid",
+					"type": "string",
+					"doc": "parcel's unique identifier"
+				},
+				{
+					"kind": "param",
+					"name": "data",
+					"type": "Data",
+					"doc": "name and signature of recipient"
+				},
+				{
+					"kind": "return",
+					"type": "bool",
+					"doc": "returns bool"
+				}
+			]
+		},
+		"functionDef": {
+			"params": [
+				{
+					"kind": "identifier",
+					"name": "uuid",
+					"optional": false,
+					"tsType": null
+				},
+				{
+					"kind": "identifier",
+					"name": "data",
+					"optional": false,
+					"tsType": null
+				}
+			],
+			"returnType": null,
+			"isAsync": true,
+			"isGenerator": false,
+			"typeParams": []
+		}
+	},
+	{
+		"kind": "import",
+		"name": "db",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/update.js",
+			"line": 3,
+			"col": 0
+		},
+		"declarationKind": "private",
+		"importDef": {
+			"src": "file:///home/codio/workspace/modules/db.js",
+			"imported": "db"
+		}
+	},
+	{
+		"kind": "import",
+		"name": "format",
+		"location": {
+			"filename": "file:///home/codio/workspace/modules/update.js",
+			"line": 4,
+			"col": 0
+		},
+		"declarationKind": "private",
+		"importDef": {
+			"src": "https://deno.land/std@0.91.0/datetime/mod.ts",
+			"imported": "format"
 		}
 	}
 ]

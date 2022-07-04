@@ -9,14 +9,16 @@ const saltRounds = 10;
 const salt = await genSalt(saltRounds);
 
 /**
+ * Object - username and password from 
+ * the login form
+ * 
  * @typedef {Object} LogDetails
  * @property {string} username
  * @property {string} role
  */
 /**
  * Checks user credentials.
- * @function login
- * @async
+ * 
  * @param {string} username
  * @param {string} password
  * @returns {LogDetails} returns username and role
@@ -47,14 +49,16 @@ export async function login(data) {
 }
 
 /**
+ * Object - username and password from 
+ * the register form
+ * 
  * @typedef {Object} RegDatails
  * @property {string} username
  * @property {string} password
  */
 /**
  * Creates new user.
- * @function register
- * @async
+ * 
  * @param {RegDatails} data
  * @returns {bool} returns bool
  */
