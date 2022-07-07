@@ -2,10 +2,10 @@
 
 // import { yey } from './publi/util.js'
 
-import { Router } from 'oak';
-import { Handlebars } from 'handlebars';
-import { login, register } from 'accounts';
-import { addParcel } from 'send';
+import { Router } from 'https://deno.land/x/oak@v10.4.0/mod.ts';
+import { Handlebars } from 'https://deno.land/x/handlebars@v0.8.0/mod.ts';
+import { login, register } from './modules/accounts.js';
+import { addParcel } from './modules/send.js';
 import {
 	getAdminParcelsCouriers,
 	getAllCouriers,
@@ -19,13 +19,13 @@ import {
 	getParcelsAccepted,
 	getParcelsCustomer,
 	getParcelsDelivered,
-} from 'retrieve';
-import { setParcelStatus, setParcelStatusDelivered } from 'update';
+} from './modules/retrieve.js';
+import { setParcelStatus, setParcelStatusDelivered } from './modules/update.js';
 import {
 	handlebarsHelper1,
 	handlebarsHelper2,
 	handlebarsHelper3,
-} from 'handlebarsHelpers';
+} from './modules/handlebarsHelpers.js';
 
 const handle = new Handlebars({
 	defaultLayout: '',

@@ -1,10 +1,11 @@
+
 /* index.js */
 
-import { Application } from 'oak';
-import { Handlebars } from 'handlebars';
-import { parse } from 'flags';
+import { Application } from 'https://deno.land/x/oak@v10.4.0/mod.ts';
+import { Handlebars } from 'https://deno.land/x/handlebars@v0.8.0/mod.ts';
+import { parse } from 'https://deno.land/std@0.133.0/flags/mod.ts';
 
-import router from 'routes';
+import router from './routes.js';
 
 Deno.env.delete('MODE'); // clear the test mode if set
 

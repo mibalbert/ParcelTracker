@@ -1,6 +1,6 @@
 /* send.js */
 
-import { db } from 'db';
+import { db } from './db.js';
 
 const dateTimeCreated = new Date();
 

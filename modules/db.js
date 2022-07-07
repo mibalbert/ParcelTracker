@@ -1,12 +1,12 @@
 /* db.js */
 
-import { Client } from 'mysql';
+import { Client } from 'https://deno.land/x/mysql@v2.10.2/mod.ts';
 
 const home = Deno.env.get('HOME');
 console.log(`HOME: ${home}`);
 
 const connectionData = {
-	'/home/codio': {
+	'undefined': {
 		hostname: '127.0.0.1',
 		username: 'websiteuser',
 		password: 'websitepassword',
