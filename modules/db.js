@@ -6,7 +6,7 @@ const home = Deno.env.get('HOME');
 console.log(`HOME: ${home}`);
 
 const connectionData = {
-	'/home/codio': {
+	'/home/ubuntu': {
 		hostname: '127.0.0.1',
 		username: 'websiteuser',
 		password: 'websitepassword',
