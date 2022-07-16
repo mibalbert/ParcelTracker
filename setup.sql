@@ -1,4 +1,8 @@
 
+-- setup.sql
+
+CREATE DATABASE IF NOT EXITS website;
+
 -- make sure the websiteuser account is set up and has the correct privileges
 CREATE USER IF NOT EXISTS websiteuser IDENTIFIED BY 'websitepassword';
 GRANT INSERT, SELECT, UPDATE, DELETE ON website.* TO websiteuser;
