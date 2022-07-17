@@ -6,12 +6,12 @@ const home = Deno.env.get('HOME');
 console.log(`HOME: ${home}`);
 
 const connectionData = {
-	// 'undefined': {
+	'/home/ubuntu': {
 		hostname: '127.0.0.1',
 		username: 'websiteuser',
 		password: 'websitepassword',
 		db: 'website',
-	// },
+	},
 	// '/app': 
 		// {
 		// hostname: 'us-cdbr-east-06.cleardb.net',
