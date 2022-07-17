@@ -1,4 +1,3 @@
-
 /* send.js */
 
 import { db } from './db.js';

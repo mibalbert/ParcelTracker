@@ -1,11 +1,10 @@
-
 /* index.js */
 
 import { Application } from './deps.js';
 import { Handlebars } from './deps.js';
 import { parse } from './deps.js';
 
-import router from './routes.js'
+import router from './routes.js';
 
 Deno.env.delete('MODE'); // clear the test mode if set
 
