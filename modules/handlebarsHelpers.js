@@ -1,3 +1,4 @@
+
 /*  handlebarsHelpers.js  */
 
 ///Formats the date-time format

@@ -1,5 +1,6 @@
 {
 	"imports": {
+		"/": "./",
 		"asserts": "https://deno.land/std@0.133.0/testing/asserts.ts",
 		"bcrypt": "https://deno.land/x/bcrypt@v0.3.0/mod.ts",
 		"oak": "https://deno.land/x/oak@v10.4.0/mod.ts",

@@ -1,10 +1,11 @@
+
 /* accounts.js */
 
 import {
 	compare,
 	genSalt,
 	hash,
-} from 'https://deno.land/x/bcrypt@v0.3.0/mod.ts';
+} from '../deps.js';
 // import { create, verify, decode } from 'https://deno.land/x/djwt@v2.1/mod.ts'
 
 import { db } from './db.js';

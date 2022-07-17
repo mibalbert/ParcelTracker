@@ -68,7 +68,7 @@ INSERT INTO parcels(
                     date_time_delivered, 
                     status, 
                     uuid
-                  )         
+                  )    
           VALUES( "68 S Audley St", 
                   "London", 
                   "W1K 2QY",  
@@ -141,7 +141,8 @@ INSERT INTO parcels(
                   UUID()
                 ),
                 ( "128 High St", 
-                  "Slough", "SL1 1JF",  
+                  "Slough", 
+                  "SL1 1JF",  
                   "United Kingdom", 
                   "442-444 Roman Rd", 
                   "Bow, London", 

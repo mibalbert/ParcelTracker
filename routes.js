@@ -2,8 +2,8 @@
 
 // import { yey } from './publi/util.js'
 
-import { Router } from 'https://deno.land/x/oak@v10.4.0/mod.ts';
-import { Handlebars } from 'https://deno.land/x/handlebars@v0.8.0/mod.ts';
+import { Router } from './deps.js';
+import { Handlebars } from './deps.js';
 import { login, register } from './modules/accounts.js';
 import { addParcel } from './modules/send.js';
 import {
