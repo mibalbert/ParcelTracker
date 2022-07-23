@@ -6,6 +6,12 @@ const home = Deno.env.get('HOME');
 console.log(`HOME: ${home}`);
 
 const connectionData = {
+	'undefined': {
+		hostname: '127.0.0.1',
+		username: 'websiteuser',
+		password: 'websitepassword',
+		db: 'website',
+	},
 	'/home/ubuntu': {
 		hostname: '127.0.0.1',
 		username: 'websiteuser',
@@ -21,8 +27,8 @@ const connectionData = {
 	// },
 };
 
-// const conn = connectionData[home];
-const conn = connectionData;
+const conn = connectionData[home];
+// const conn = connectionData;
 console.log(conn);
 
 const db = await new Client().connect(conn);
