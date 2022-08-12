@@ -125,73 +125,53 @@
 					{{/each}}
 			</section>
 	</main>
+
+
 	<script>
-	
-	const startPostcode = document.getElementById("sender_postcode").innerHTML
-	console.log(startPostcode)
-	const endPostcode = document.getElementById("recipient_postcode").innerHTML
-	
-	///Create function that initiates the map and adds the decorators to it, like polyline(straight-path) and markers.
-	function initMap() {
-		const map = new google.maps.Map(document.getElementById("map-one-parcel"), {
-			zoom: 6,
-			center: { lat: 52.131459, lng: -1.219818 },
-		});
-
-		let add1
-
-		let	url1 = `https://maps.googleapis.com/maps/api/geocode/json?address=E11ES&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
-		fetch(url1, {
-			method: "POST",		
-		}).then(response =>
-			response.json()
-		).then(data => {
-
-
-		const lat = data.results[0].geometry.location.lat;
-		const lng = data.results[0].geometry.location.lng;
-		add1 = {lat, lng}
-		console.log(add1)
+		let lat = document.getElementById('sender_postcode')	
+		let lng = document.getElementById('recipient_postcode')
+		lat = lat.innerHTML
+		lng = lng.innerHTML
+		let map;
+		function initMap(){
+			//initiate the directions stuff
+			const directionsRenderer = new google.maps.DirectionsRenderer()
+			const directionsService = new google.maps.DirectionsService()
+			//create the map
+			map = new google.maps.Map(document.getElementById('map-one-parcel'), {
+				disableDefaultUI: true,
+			})
+			directionsRenderer.setMap(map)
+			calculateAndDisplayRoute(directionsService, directionsRenderer)
+		}
+		function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+			directionsService.route(
+				{
+					origin: lat ,
+					destination: lng ,
+					travelMode: "DRIVING"
+				},
+				(response, status) => {
+					directionsRenderer.setDirections(response);
+					console.log(status);
+					if(status != 'OK'){
+						display(status)
+					}
+				}
+			)
+		}
 		
-		});
+		function display(status){
+			let map_error = document.getElementById('error-map-one-parcel')
+			let map = document.getElementById('map-one-parcel')
+			map.style.display = 'none'
+			map_error.innerHTML = `The route could not be accessed status code: <strong>${status}</strong> <br>
+									Probbably the postcode is faulty.`
+			map_error.style.display = 'block'
+		}
+		window.initMap = initMap;
+		</script>
 
-		let	url2 = `https://maps.googleapis.com/maps/api/geocode/json?address=${endPostcode}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
-		fetch(url2, {
-			method: "POST",		
-		}).then(response =>
-			response.json()
-		).then(json => {
-			
-		});
-
-		//Draws the line
-		const drawPoly = new google.maps.Polyline({
-			path: [{ lat: 52.131459, lng: -1.219818 }, { lat: 52.131459, lng: -10.219818 },],
-			//geodesic: true, #curves the line
-			strokeColor: "#FF0000",
-			strokeOpacity: 1.0,
-			strokeWeight: 2,
-		});
-		//Sets the starting point marker
-		const mark1 = new google.maps.Marker({
-				position: "asd",
-				title: "1",
-				map: map,
-		});
-		//Sets the end point marker
-		{{!-- const mark2 = new google.maps.Marker({
-				position: add1,
-				title: "2",
-				map: map,
-		}); --}}
-		drawPoly.setMap(map);
-		mark1.setMap(map)
-		{{!-- mark2.setMap(map) --}}
-		
-		
-	}
-	window.initMap = initMap;
-	</script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE&callback=initMap&v=weekly"
       defer
