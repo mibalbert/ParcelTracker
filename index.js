@@ -54,7 +54,7 @@ app.use(async (context) => {
 });
 
 app.addEventListener('listen', ({ port }) => {
-	console.log(`listening on port: ${port}`);
+	console.log(`listening at: http://localhost:${port}`);
 });
 
 await app.listen({ port });

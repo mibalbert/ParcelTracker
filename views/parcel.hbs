@@ -10,9 +10,9 @@
 		<meta name="author" content="Alberto Paros">
 		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />        
-		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 		<link href="/style.css" type="text/css" rel="stylesheet" />
-		<script type="module/javascript" src="indiv-parcel-map.js" defer></script>
+		{{!-- This page uses the Google maps API inside the HTML --}}
 	</head>
 	<body>
 		<header>
@@ -89,7 +89,6 @@
 							</tr>
 						</thead>
 						<tbody>
-						
 							<tr class="solo-parcel">
 								<td id="sender_username">{{this.sender_username}}</td>
 								<td id="sender_postcode">{{this.sender_postcode}}</td>
@@ -116,123 +115,88 @@
 						</tbody>
 					</table>
 					</section>
-
 						{{#if this.handed_to_name}}
 							<section class="delivered-invoice">
-								
 								<div class="courier_name">Courier name: <span>{{this.courier_name}}</span></div>
 								<div class="handed_to_name">Handed to name: <span>{{this.handed_to_name}}</span></div>
 								<div class="handed_to_signature">Signature: <img src="{{this.handed_to_signature}}"></div>
-								
 							</section>
 						{{/if}}
-
 					{{/each}}
-
 			</section>
-		{{!-- </section> --}}
 	</main>
-	{{!-- <footer>
-		<p>This is the footer</p>
-	</footer> --}}
+	<script>
+	
+	const startPostcode = document.getElementById("sender_postcode").innerHTML
+	console.log(startPostcode)
+	const endPostcode = document.getElementById("recipient_postcode").innerHTML
+	
+	///Create function that initiates the map and adds the decorators to it, like polyline(straight-path) and markers.
+	function initMap() {
+		const map = new google.maps.Map(document.getElementById("map-one-parcel"), {
+			zoom: 6,
+			center: { lat: 52.131459, lng: -1.219818 },
+		});
 
-{{!-- 
-		<script>
+		let add1
+
+		let	url1 = `https://maps.googleapis.com/maps/api/geocode/json?address=E11ES&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
+		fetch(url1, {
+			method: "POST",		
+		}).then(response =>
+			response.json()
+		).then(data => {
 
 
-		let lat = document.getElementById('sender_postcode')	
-		let lng = document.getElementById('recipient_postcode')
-		lat = lat.innerHTML
-		lng = lng.innerHTML
-		let map;
-		function initMap(){
-			//initiate the directions stuff
-			const directionsRenderer = new google.maps.DirectionsRenderer()
-			const directionsService = new google.maps.DirectionsService()
-			//create the map
-			map = new google.maps.Map(document.getElementById('map-one-parcel'), {
-				disableDefaultUI: true,
-			})
-			directionsRenderer.setMap(map)
-			calculateAndDisplayRoute(directionsService, directionsRenderer)
-		}
-		function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-			directionsService.route(
-				{
-					origin: lat ,
-					destination: lng ,
-					travelMode: "DRIVING"
-				},
-				(response, status) => {
-					directionsRenderer.setDirections(response);
-					console.log(status);
-					if(status != 'OK'){
-						display(status)
-					}
-				}
-			)
-		}
+		const lat = data.results[0].geometry.location.lat;
+		const lng = data.results[0].geometry.location.lng;
+		add1 = {lat, lng}
+		console.log(add1)
 		
-		function display(status){
-			let map_error = document.getElementById('error-map-one-parcel')
-			let map = document.getElementById('map-one-parcel')
-			map.style.display = 'none'
-			map_error.innerHTML = `The route could not be accessed status code: <strong>${status}</strong> <br>
-									Probbably the postcode is faulty.`
-			map_error.style.display = 'block'
-		}
+		});
 
-		window.initMap = initMap;
-		</script>
-	  {{!-- Has to be loaded last --}}
-	  <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&callback=initMap&v=weekly"
+		let	url2 = `https://maps.googleapis.com/maps/api/geocode/json?address=${endPostcode}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
+		fetch(url2, {
+			method: "POST",		
+		}).then(response =>
+			response.json()
+		).then(json => {
+			
+		});
+
+		//Draws the line
+		const drawPoly = new google.maps.Polyline({
+			path: [{ lat: 52.131459, lng: -1.219818 }, { lat: 52.131459, lng: -10.219818 },],
+			//geodesic: true, #curves the line
+			strokeColor: "#FF0000",
+			strokeOpacity: 1.0,
+			strokeWeight: 2,
+		});
+		//Sets the starting point marker
+		const mark1 = new google.maps.Marker({
+				position: "asd",
+				title: "1",
+				map: map,
+		});
+		//Sets the end point marker
+		{{!-- const mark2 = new google.maps.Marker({
+				position: add1,
+				title: "2",
+				map: map,
+		}); --}}
+		drawPoly.setMap(map);
+		mark1.setMap(map)
+		{{!-- mark2.setMap(map) --}}
+		
+		
+	}
+	window.initMap = initMap;
+	</script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE&callback=initMap&v=weekly"
       defer
-	  ></script> --}}
+    ></script>
 	</body>	
 </html>
 
 
-
-
-
-
-{{!-- <h1>Parcelino<span id="dot">.</span></h1>
-<nav>
-	<ul>
-	{{#if role.customer}}
-		<li><a href="/send">Send<span class="plus-sign">&#8314;</span></a></li>
-		<li><a href="/home-customer">Sended</a></li>	
-	{{/if}}
-	{{#if role.courier}}
-		<p id="courier" style="display:none;"></p>
-		<li><a href="/home-courier-p">Packages</a></li>
-		<li><a href="/home-courier-transit">Transit</a></li>
-	{{/if}}
-	{{#if role.admin}}
-		<li><a href="/home-admin-c">Couriers List</a></li>
-		<li><a href="/home-admin-p">Parcels List</a></li>	
-	{{/if}}
-		<li><a href="/logout">Log out</a></li>
-	</ul>
-</nav> --}}
-
-
-
-
-
-
-			{{!-- function file2DataURI(file) {
-			return new Promise((resolve, reject) => {
-					try {
-						const reader = new FileReader()
-						reader.onload = () => {
-							resolve(reader.result)
-						}
-						reader.readAsDataURL(file)
-						console.log('adasd')
-					} catch(err) {
-						reject(err)
-					}
-			})
-			} --}}
