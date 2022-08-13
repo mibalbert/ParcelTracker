@@ -262,3 +262,54 @@ function initMap() {
 
 window.initMap = initMap;
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- let lat = document.getElementById('sender_postcode')	
+let lng = document.getElementById('recipient_postcode')
+lat = lat.innerHTML
+lng = lng.innerHTML
+let map;
+function initMap(){
+    //initiate the directions stuff
+    const directionsRenderer = new google.maps.DirectionsRenderer()
+    const directionsService = new google.maps.DirectionsService()
+    //create the map
+    map = new google.maps.Map(document.getElementById('map-one-parcel'), {
+        disableDefaultUI: true,
+    })
+    directionsRenderer.setMap(map)
+    calculateAndDisplayRoute(directionsService, directionsRenderer)
+}
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+    directionsService.route(
+        {
+            origin: lat ,
+            destination: lng ,
+            travelMode: "DRIVING"
+        },
+        (response, status) => {
+            directionsRenderer.setDirections(response);
+            console.log(status);
+            if(status != 'OK'){
+                display(status)
+            }
+        }
+    )
+}
+
+
+window.initMap = initMap; --}}

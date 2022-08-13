@@ -803,7 +803,7 @@ section.recipient-details-section {
 
 .recipient-details-form label,
 .recipient-details-form canvas {
-  width: 100%;
+  /* width: 100%; */
 }
 
 .recipient-details-form label:first-of-type input{
@@ -834,12 +834,11 @@ section.recipient-details-section {
 }
 
 
-
 .signature-pad {
 
   /* border-radius: 20px; */
   border: 1px solid black;
-  /* bo/rder-style: 4px solid red; */ */
+  /* bo/rder-style: 4px solid red; */
 
 }
 

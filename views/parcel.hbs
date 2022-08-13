@@ -125,42 +125,49 @@
 					{{/each}}
 			</section>
 	</main>
-
-
 	<script>
-		let lat = document.getElementById('sender_postcode')	
-		let lng = document.getElementById('recipient_postcode')
-		lat = lat.innerHTML
-		lng = lng.innerHTML
-		let map;
-		function initMap(){
-			//initiate the directions stuff
-			const directionsRenderer = new google.maps.DirectionsRenderer()
-			const directionsService = new google.maps.DirectionsService()
-			//create the map
-			map = new google.maps.Map(document.getElementById('map-one-parcel'), {
-				disableDefaultUI: true,
-			})
-			directionsRenderer.setMap(map)
-			calculateAndDisplayRoute(directionsService, directionsRenderer)
+		const start = document.getElementById("sender_postcode").innerHTML
+		const end = document.getElementById("recipient_postcode").innerHTML
+		console.log(end)
+		function initMap() {	
+			const url1 = `https://maps.googleapis.com/maps/api/geocode/json?address=${start}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
+			const url2 = `https://maps.googleapis.com/maps/api/geocode/json?address=${end}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
+			Promise.all([
+				fetch(url1).then(value => value.json()),
+				fetch(url2).then(value => value.json())
+				]).then((value) => {
+
+				console.log(value[1])
+				
+				const map = new google.maps.Map(document.getElementById("map-one-parcel"), {
+					zoom: 7,
+					center: value[0].results[0].geometry.location,
+				});	
+				const path = new google.maps.Polyline({
+					path: [ value[0].results[0].geometry.location, value[1].results[0].geometry.location],
+					geodesic: true,
+					strokeColor: "#FF0000",
+					strokeOpacity: 1.0,
+					strokeWeight: 2,
+				});					
+				const mark1 = new google.maps.Marker({
+						position: value[0].results[0].geometry.location,
+						title: "Pick-up",
+						map: map,
+				});
+				const mark2 = new google.maps.Marker({
+						position: value[1].results[0].geometry.location,
+						title: "Drop-off",
+						map: map,
+				});
+				path.setMap(map)
+				mark1.setMap(map)
+				mark2.setMap(map)
+				}).catch((err) => {
+					console.log(err)
+					if(err) display()
+				});
 		}
-		function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-			directionsService.route(
-				{
-					origin: lat ,
-					destination: lng ,
-					travelMode: "DRIVING"
-				},
-				(response, status) => {
-					directionsRenderer.setDirections(response);
-					console.log(status);
-					if(status != 'OK'){
-						display(status)
-					}
-				}
-			)
-		}
-		
 		function display(status){
 			let map_error = document.getElementById('error-map-one-parcel')
 			let map = document.getElementById('map-one-parcel')
@@ -169,8 +176,8 @@
 									Probbably the postcode is faulty.`
 			map_error.style.display = 'block'
 		}
-		window.initMap = initMap;
-		</script>
+		window.initMap = initMap
+	</script>
 
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE&callback=initMap&v=weekly"
