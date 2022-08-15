@@ -128,8 +128,8 @@
 	<script>
 		const start = document.getElementById("sender_postcode").innerHTML
 		const end = document.getElementById("recipient_postcode").innerHTML
-		console.log(end)
-		function initMap() {	
+		
+		function initMap() {
 			const url1 = `https://maps.googleapis.com/maps/api/geocode/json?address=${start}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
 			const url2 = `https://maps.googleapis.com/maps/api/geocode/json?address=${end}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
 			Promise.all([
@@ -137,50 +137,155 @@
 				fetch(url2).then(value => value.json())
 				]).then((value) => {
 
-				console.log(value[1])
+				let pos1 = value[0].results[0].geometry.location
+					pos2 = value[1].results[0].geometry.location
 				
 				const map = new google.maps.Map(document.getElementById("map-one-parcel"), {
-					zoom: 7,
-					center: value[0].results[0].geometry.location,
-				});	
-				const path = new google.maps.Polyline({
-					path: [ value[0].results[0].geometry.location, value[1].results[0].geometry.location],
+					{{!-- zoom: 3, --}}
+					center: pos1,
+				});
+
+				let bounds = new google.maps.LatLngBounds();
+				bounds.extend(pos1);
+				bounds.extend(pos2);
+				map.fitBounds(bounds);
+
+				{{!-- const path = new google.maps.Polyline({
+					path: [ pos1, pos2],
 					geodesic: true,
 					strokeColor: "#FF0000",
 					strokeOpacity: 1.0,
 					strokeWeight: 2,
-				});					
+				});					 --}}
 				const mark1 = new google.maps.Marker({
-						position: value[0].results[0].geometry.location,
+						position: pos1,
 						title: "Pick-up",
+						label: "Org",
 						map: map,
 				});
 				const mark2 = new google.maps.Marker({
-						position: value[1].results[0].geometry.location,
+						position: pos2,
 						title: "Drop-off",
+						label: "Dst",
 						map: map,
 				});
-				path.setMap(map)
+				{{!-- path.setMap(map)
 				mark1.setMap(map)
-				mark2.setMap(map)
+				mark2.setMap(map) --}}
+				
+				// Create a geodesic Polyline with the "path" array.
+				var GmapsCubicBezier = function (latlong1, latlong2, latlong3, latlong4, resolution, map) {
+					var lat1 = latlong1.lat();
+					var long1 = latlong1.lng();
+					var lat2 = latlong2.lat();
+					var long2 = latlong2.lng();
+					var lat3 = latlong3.lat();
+					var long3 = latlong3.lng();
+					var lat4 = latlong4.lat();
+					var long4 = latlong4.lng();
+
+					var points = [];
+
+					for (it = 0; it <= 1; it += resolution) {
+						points.push(this.getBezier({
+							x: lat1,
+							y: long1
+						}, {
+							x: lat2,
+							y: long2
+						}, {
+							x: lat3,
+							y: long3
+						}, {
+							x: lat4,
+							y: long4
+						}, it));
+					}
+
+					var path = [];
+					for (var i = 0; i < points.length - 1; i++) {
+						path.push(new google.maps.LatLng(points[i].x, points[i].y));
+						path.push(new google.maps.LatLng(points[i + 1].x, points[i + 1].y, false));
+								}
+								
+						var Line = new google.maps.Polyline({
+							path: path,
+							geodesic: true,
+							strokeOpacity: 0.0,
+							icons: [{
+								icon: {
+									path: 'M 0,-1 0,1',
+									strokeOpacity: 1,
+									scale: 4
+								},
+								offset: '0',
+								repeat: '20px'
+							}],
+							strokeColor: 'red'
+						});
+
+						Line.setMap(map);
+
+					return Line;
+				};
+
+
+				GmapsCubicBezier.prototype = {
+
+					B1: function (t) {
+						return t * t * t;
+					},
+					B2: function (t) {
+						return 3 * t * t * (1 - t);
+					},
+					B3: function (t) {
+						return 3 * t * (1 - t) * (1 - t);
+					},
+					B4: function (t) {
+						return (1 - t) * (1 - t) * (1 - t);
+					},
+					getBezier: function (C1, C2, C3, C4, percent) {
+						var pos = {};
+						pos.x = C1.x * this.B1(percent) + C2.x * this.B2(percent) + C3.x * this.B3(percent) + C4.x * this.B4(percent);
+						pos.y = C1.y * this.B1(percent) + C2.y * this.B2(percent) + C3.y * this.B3(percent) + C4.y * this.B4(percent);
+						return pos;
+					}
+				};
+
+				var lineLength = google.maps.geometry.spherical.computeDistanceBetween(mark1.getPosition(), mark2.getPosition());
+				var lineHeading = google.maps.geometry.spherical.computeHeading(mark1.getPosition(), mark2.getPosition());
+
+				// Create two points off the main line to create the curve
+				var curveMakerA = google.maps.geometry.spherical.computeOffset(mark1.getPosition(), lineLength / 3, lineHeading - 60);
+				var curveMakerB = google.maps.geometry.spherical.computeOffset(mark2.getPosition(), lineLength / 3, -lineHeading + 120);
+				var curvedLine = new GmapsCubicBezier(mark1.getPosition(), curveMakerA, curveMakerB, mark2.getPosition(), 0.0, map);
+
 				}).catch((err) => {
 					console.log(err)
 					if(err) display()
 				});
+
+
+
 		}
+
+
+
+
+		/* In case there is an error with the postcode the map will not be shown */
 		function display(status){
 			let map_error = document.getElementById('error-map-one-parcel')
 			let map = document.getElementById('map-one-parcel')
 			map.style.display = 'none'
-			map_error.innerHTML = `The route could not be accessed status code: <strong>${status}</strong> <br>
-									Probbably the postcode is faulty.`
+			map_error.innerHTML = `The map could not be displayed status code: <strong>${status}</strong> <br>
+									Probably the postcode is faulty.`
 			map_error.style.display = 'block'
 		}
 		window.initMap = initMap
 	</script>
 
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE&libraries=geometry&callback=initMap&v=weekly"
       defer
     ></script>
 	</body>	

@@ -20,15 +20,15 @@ CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
 echo -e "${YELLOW}current branch: ${CURRENT_BRANCH}${ENDCOLOR}"
 set -e
 
-EMAIL=$(git config user.email)
-echo -e "${BLUE}registered email: ${EMAIL}${ENDCOLOR}"
+# EMAIL=$(git config user.email)
+# echo -e "${BLUE}registered email: ${EMAIL}${ENDCOLOR}"
 
-if [[ $EMAIL != *"@coventry.ac.uk" ]]
-then
-	echo -e "${RED}invalid email${ENDCOLOR}"
-	echo -e "${RED}aborting commit${ENDCOLOR}"
-	exit 1
-fi
+# if [[ $EMAIL != *"@coventry.ac.uk" ]]
+# then
+# 	echo -e "${RED}invalid email${ENDCOLOR}"
+# 	echo -e "${RED}aborting commit${ENDCOLOR}"
+# 	exit 1
+# fi
 
 if [[ $CURRENT_BRANCH == "main" ]]
 then
