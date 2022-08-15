@@ -93,7 +93,7 @@
 								<td id="sender_username">{{this.sender_username}}</td>
 								<td id="sender_postcode">{{this.sender_postcode}}</td>
 								<td id="sender_address">{{this.sender_address}}, {{this.sender_city}}, {{this.sender_country}}</td>
-								<td id="recipient_address">{{this.recipient_name}}</td>
+								<td id="recipient_name">{{this.recipient_name}}</td>
 								<td id="recipient_postcode">{{this.recipient_postcode}}</td>
 								<td id="recipient_address">{{this.recipient_address}}, {{this.recipient_city}}, {{this.recipient_country}}</td>
 								<td id="weight_kg">{{this.weight_kg}}</td>
@@ -128,6 +128,8 @@
 	<script>
 		const start = document.getElementById("sender_postcode").innerHTML
 		const end = document.getElementById("recipient_postcode").innerHTML
+		const startFullAdd = document.getElementById("sender_address").innerHTML
+		const endFullAdd = document.getElementById("recipient_address").innerHTML
 		
 		function initMap() {
 			const url1 = `https://maps.googleapis.com/maps/api/geocode/json?address=${start}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
@@ -141,7 +143,6 @@
 					pos2 = value[1].results[0].geometry.location
 				
 				const map = new google.maps.Map(document.getElementById("map-one-parcel"), {
-					{{!-- zoom: 3, --}}
 					center: pos1,
 				});
 
@@ -150,125 +151,154 @@
 				bounds.extend(pos2);
 				map.fitBounds(bounds);
 
-				{{!-- const path = new google.maps.Polyline({
+				const path = new google.maps.Polyline({
 					path: [ pos1, pos2],
 					geodesic: true,
-					strokeColor: "#FF0000",
-					strokeOpacity: 1.0,
-					strokeWeight: 2,
-				});					 --}}
+					strokeOpacity: 0.0,
+					icons: [{
+						//creates the dotted line
+						icon: {
+							path: 'M 0,-1 0,1',
+							strokeOpacity: 1,
+							scale: 4
+						},
+						offset: '0',
+						repeat: '20px'
+					}],
+					strokeColor: 'blue'
+				});
+				
+				const svgMarker = {
+					path: 'M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z',
+					fillColor: 'blue',
+					fillOpacity: 1,
+					strokeWeight: 0,
+					rotation: 0,
+					scale: 2,
+					anchor: new google.maps.Point(12, 25),
+				};
+				const svgMarker2 = {
+					path: 'M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z',
+					fillColor: 'blue',
+					fillOpacity: 1,
+					strokeWeight: 0,
+					rotation: 0,
+					scale: 2,
+					anchor: new google.maps.Point(12, 25),
+				};
 				const mark1 = new google.maps.Marker({
 						position: pos1,
-						title: "Pick-up",
-						label: "Org",
+						{{!-- icon: svgMarker, --}}
+						animation: google.maps.Animation.DROP,
 						map: map,
 				});
 				const mark2 = new google.maps.Marker({
 						position: pos2,
-						title: "Drop-off",
-						label: "Dst",
+						{{!-- icon: svgMarker2, --}}
+						animation: google.maps.Animation.DROP,
 						map: map,
 				});
-				{{!-- path.setMap(map)
-				mark1.setMap(map)
-				mark2.setMap(map) --}}
 				
-				// Create a geodesic Polyline with the "path" array.
-				var GmapsCubicBezier = function (latlong1, latlong2, latlong3, latlong4, resolution, map) {
-					var lat1 = latlong1.lat();
-					var long1 = latlong1.lng();
-					var lat2 = latlong2.lat();
-					var long2 = latlong2.lng();
-					var lat3 = latlong3.lat();
-					var long3 = latlong3.lng();
-					var lat4 = latlong4.lat();
-					var long4 = latlong4.lng();
-
-					var points = [];
-
-					for (it = 0; it <= 1; it += resolution) {
-						points.push(this.getBezier({
-							x: lat1,
-							y: long1
-						}, {
-							x: lat2,
-							y: long2
-						}, {
-							x: lat3,
-							y: long3
-						}, {
-							x: lat4,
-							y: long4
-						}, it));
-					}
-
-					var path = [];
-					for (var i = 0; i < points.length - 1; i++) {
-						path.push(new google.maps.LatLng(points[i].x, points[i].y));
-						path.push(new google.maps.LatLng(points[i + 1].x, points[i + 1].y, false));
-								}
-								
-						var Line = new google.maps.Polyline({
-							path: path,
-							geodesic: true,
-							strokeOpacity: 0.0,
-							icons: [{
-								icon: {
-									path: 'M 0,-1 0,1',
-									strokeOpacity: 1,
-									scale: 4
-								},
-								offset: '0',
-								repeat: '20px'
-							}],
-							strokeColor: 'red'
-						});
-
-						Line.setMap(map);
-
-					return Line;
-				};
-
-
-				GmapsCubicBezier.prototype = {
-
-					B1: function (t) {
-						return t * t * t;
-					},
-					B2: function (t) {
-						return 3 * t * t * (1 - t);
-					},
-					B3: function (t) {
-						return 3 * t * (1 - t) * (1 - t);
-					},
-					B4: function (t) {
-						return (1 - t) * (1 - t) * (1 - t);
-					},
-					getBezier: function (C1, C2, C3, C4, percent) {
-						var pos = {};
-						pos.x = C1.x * this.B1(percent) + C2.x * this.B2(percent) + C3.x * this.B3(percent) + C4.x * this.B4(percent);
-						pos.y = C1.y * this.B1(percent) + C2.y * this.B2(percent) + C3.y * this.B3(percent) + C4.y * this.B4(percent);
-						return pos;
-					}
-				};
-
-				var lineLength = google.maps.geometry.spherical.computeDistanceBetween(mark1.getPosition(), mark2.getPosition());
-				var lineHeading = google.maps.geometry.spherical.computeHeading(mark1.getPosition(), mark2.getPosition());
+				path.setMap(map)
+				mark1.setMap(map)
+				mark2.setMap(map)
+				
+				
+				
+				{{!-- const lineLength = google.maps.geometry.spherical.computeDistanceBetween(mark1.getPosition(), mark2.getPosition());
+				const lineHeading = google.maps.geometry.spherical.computeHeading(mark1.getPosition(), mark2.getPosition());
 
 				// Create two points off the main line to create the curve
-				var curveMakerA = google.maps.geometry.spherical.computeOffset(mark1.getPosition(), lineLength / 3, lineHeading - 60);
-				var curveMakerB = google.maps.geometry.spherical.computeOffset(mark2.getPosition(), lineLength / 3, -lineHeading + 120);
-				var curvedLine = new GmapsCubicBezier(mark1.getPosition(), curveMakerA, curveMakerB, mark2.getPosition(), 0.0, map);
+				// Also known as "controllers"
+				const ctrl1 = google.maps.geometry.spherical.computeOffset(mark1.getPosition(), lineLength / 3, lineHeading );
+				const ctrl2 = google.maps.geometry.spherical.computeOffset(mark2.getPosition(), lineLength / 3, -lineHeading );
+				
+				const curvedLine = new GmapsCubicBezier(mark1.getPosition(), ctrl1, ctrl2, mark2.getPosition(), 0.01, map); --}}
 
 				}).catch((err) => {
 					console.log(err)
 					if(err) display()
 				});
-
-
-
 		}
+		// Create a geodesic Polyline with the "path" array.
+		const GmapsCubicBezier = function (latlong1, latlong2, latlong3, latlong4, resolution, map) {
+			let lat1 = latlong1.lat();
+			let long1 = latlong1.lng();
+			let lat2 = latlong2.lat();
+			let long2 = latlong2.lng();
+			let lat3 = latlong3.lat();
+			let long3 = latlong3.lng();
+			let lat4 = latlong4.lat();
+			let long4 = latlong4.lng();
 
+			let points = [];
+
+			for (it = 0; it <= 1; it += resolution) {
+				points.push(this.getBezier({
+					x: lat1,
+					y: long1
+				}, {
+					x: lat2,
+					y: long2
+				}, {
+					x: lat3,
+					y: long3
+				}, {
+					x: lat4,
+					y: long4
+				}, it));
+			}
+
+			let path = [];
+			for (let i = 0; i < points.length - 1; i++) {
+				path.push(new google.maps.LatLng(points[i].x, points[i].y));
+				path.push(new google.maps.LatLng(points[i + 1].x, points[i + 1].y, false));
+						}
+						
+				let Line = new google.maps.Polyline({
+					path: path,
+					geodesic: true,
+					strokeOpacity: 0.0,
+					icons: [{
+						//creates the dotted line
+						icon: {
+							path: 'M 0,-1 0,1',
+							strokeOpacity: 1,
+							scale: 4
+						},
+						offset: '0',
+						repeat: '20px'
+					}],
+					strokeColor: 'red'
+				});
+
+				Line.setMap(map);
+
+			return Line;
+		};
+
+
+		GmapsCubicBezier.prototype = {
+
+			B1: function (t) {
+				return t * t * t;
+			},
+			B2: function (t) {
+				return 3 * t * t * (1 - t);
+			},
+			B3: function (t) {
+				return 3 * t * (1 - t) * (1 - t);
+			},
+			B4: function (t) {
+				return (1 - t) * (1 - t) * (1 - t);
+			},
+			getBezier: function (C1, C2, C3, C4, percent) {
+				let pos = {};
+				pos.x = C1.x * this.B1(percent) + C2.x * this.B2(percent) + C3.x * this.B3(percent) + C4.x * this.B4(percent);
+				pos.y = C1.y * this.B1(percent) + C2.y * this.B2(percent) + C3.y * this.B3(percent) + C4.y * this.B4(percent);
+				return pos;
+			}
+		};
 
 
 
