@@ -130,8 +130,7 @@
 		const end = document.getElementById("recipient_postcode").innerHTML
 		const startFullAdd = document.getElementById("sender_address").innerHTML
 		const endFullAdd = document.getElementById("recipient_address").innerHTML
-		console.log(startFullAdd)
-		console.log(endFullAdd)
+		
 		function initMap() {
 			const url1 = `https://maps.googleapis.com/maps/api/geocode/json?address=${start}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
 			const url2 = `https://maps.googleapis.com/maps/api/geocode/json?address=${end}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
@@ -144,6 +143,7 @@
 					pos2 = value[1].results[0].geometry.location
 				
 				const map = new google.maps.Map(document.getElementById("map-one-parcel"), {
+					mapId: "14558a00a81bc942",
 					center: pos1,
 				});
 
@@ -151,7 +151,7 @@
 				bounds.extend(pos1);
 				bounds.extend(pos2);
 				map.fitBounds(bounds);
-
+				map.setTilt(45)
 				const path = new google.maps.Polyline({
 					path: [ pos1, pos2],
 					geodesic: true,
@@ -159,43 +159,39 @@
 					icons: [{
 						//creates the dotted line
 						icon: {
-							path: 'M 0,-1 0,1',
+							path: "M 0,-1 0,1",
 							strokeOpacity: 1,
 							scale: 4
 						},
-						offset: '0',
-						repeat: '20px'
+						offset: "0",
+						repeat: "20px"
 					}],
-					strokeColor: 'red'
+					{{!-- geodesic: true,
+					strokeColor: "#FF0000",
+					strokeOpacity: 1.0,
+					strokeWeight: 3, --}}
+					strokeColor: "#CC2327"
 				});
 				
-				const svgMarker = {
-					path: 'M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z',
-					fillColor: 'blue',
-					fillOpacity: 1,
-					strokeWeight: 0,
-					rotation: 0,
-					scale: 2,
-					anchor: new google.maps.Point(12, 25),
-				};
-				const svgMarker2 = {
-					path: 'M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z',
-					fillColor: 'blue',
-					fillOpacity: 1,
-					strokeWeight: 0,
-					rotation: 0,
-					scale: 2,
-					anchor: new google.maps.Point(12, 25),
-				};
 				const mark1 = new google.maps.Marker({
 						position: pos1,
-						{{!-- icon: svgMarker, --}}
+						icon: {
+						url: "https://i.ibb.co/MBfWrx2/Marker-Pick-Up2.png",
+						size: new google.maps.Size(36, 45),
+						scaledSize: new google.maps.Size(36, 45),
+						anchor: new google.maps.Point(17, 48)
+						},
 						animation: google.maps.Animation.DROP,
 						map: map,
 				});
 				const mark2 = new google.maps.Marker({
 						position: pos2,
-						{{!-- icon: svgMarker2, --}}
+						icon: {
+						url: "https://i.ibb.co/G0fpVRx/Marker-Drop-Off2.png",
+						size: new google.maps.Size(36, 45),
+						scaledSize: new google.maps.Size(36, 45),
+						anchor: new google.maps.Point(17, 48)
+						},
 						animation: google.maps.Animation.DROP,
 						map: map,
 				});
