@@ -126,19 +126,24 @@
 			</section>
 	</main>
 	<script>
+		//Pick-up postcode
 		const start = document.getElementById("sender_postcode").innerHTML
+		//Drop-off postcode
 		const end = document.getElementById("recipient_postcode").innerHTML
 		const startFullAdd = document.getElementById("sender_address").innerHTML
 		const endFullAdd = document.getElementById("recipient_address").innerHTML
-		
+		//Initialize the map
 		function initMap() {
+			//Fetch request to get the geolocation (lat and lng) based on postcode to later display
+			//the markers and the line between them
 			const url1 = `https://maps.googleapis.com/maps/api/geocode/json?address=${start}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
 			const url2 = `https://maps.googleapis.com/maps/api/geocode/json?address=${end}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
 			Promise.all([
 				fetch(url1).then(value => value.json()),
 				fetch(url2).then(value => value.json())
 				]).then((value) => {
-
+				
+				//The lat and lng for pick-up (pos1) and drop-off (pos2) locations based on postcode  
 				let pos1 = value[0].results[0].geometry.location
 					pos2 = value[1].results[0].geometry.location
 				
@@ -147,17 +152,20 @@
 					center: pos1,
 				});
 
+				//Sets the map to fit the markers and polyline
 				let bounds = new google.maps.LatLngBounds();
 				bounds.extend(pos1);
 				bounds.extend(pos2);
 				map.fitBounds(bounds);
+				//Tilt effect on the map
 				map.setTilt(45)
+				//Creates the polyline
 				const path = new google.maps.Polyline({
 					path: [ pos1, pos2],
 					geodesic: true,
 					strokeOpacity: 0.0,
+					//creates the dotted polyline
 					icons: [{
-						//creates the dotted line
 						icon: {
 							path: "M 0,-1 0,1",
 							strokeOpacity: 1,
@@ -166,13 +174,15 @@
 						offset: "0",
 						repeat: "20px"
 					}],
+					strokeColor: "#CC2327"
+					
+					//Uncomment for a solid polylineline
 					{{!-- geodesic: true,
 					strokeColor: "#FF0000",
 					strokeOpacity: 1.0,
 					strokeWeight: 3, --}}
-					strokeColor: "#CC2327"
 				});
-				
+				//Creates the first marker (pick-up marker)
 				const mark1 = new google.maps.Marker({
 						position: pos1,
 						icon: {
@@ -184,6 +194,7 @@
 						animation: google.maps.Animation.DROP,
 						map: map,
 				});
+				//Creates the second marker (drop-off marker)
 				const mark2 = new google.maps.Marker({
 						position: pos2,
 						icon: {
@@ -195,49 +206,60 @@
 						animation: google.maps.Animation.DROP,
 						map: map,
 				});
-				
+				//Adds path and markers to map object
 				path.setMap(map);
 				mark1.setMap(map);
 				mark2.setMap(map);
 				
+				//Content within the pop-out window for pick-up marker
 				const contentString1 =
 					'<h2 id="firstHeading" class="firstHeading">Pick-up</h2><br>' +
 					`<p style="font-size: 14px"><b>Address:</b> ${startFullAdd}`
 					
+				//Content within the pop-out window for drop-off marker
 				const contentString2 =
 					'<h2 id="firstHeading" class="firstHeading">Drop-off</h2><br>' +
 					`<p style="font-size: 14px"><b>Address:</b> ${endFullAdd}`
-					
+				
+				//Pop-out window (pick-up maker - infowindow)
 				const infoWindowOptions1 = {
 					content: contentString1,
 					maxWidth: 200
 				};
 				
+				//Pop-out window (drop-off maker - infowindow)
 				const infoWindowOptions2 = {
 					content: contentString2,
 					maxWidth: 200
 				};
 
+				//Create pop-out windows objects
 				const infoWindow1 = new google.maps.InfoWindow(infoWindowOptions1);
 				const infoWindow2 = new google.maps.InfoWindow(infoWindowOptions2);
 				
+				//Options to attach to map and display from "mark1"/pick-up marker as the source
 				const infoWindowOptionsOpen1 = {
 					map: map,
 					anchor: mark1,
 					shouldFocus: true
 				};
+				
+				//Options to attach to map and display from "mark2"/drop-off marker as the source
 				const infoWindowOptionsOpen2 = {
 					map: map,
 					anchor: mark2,
 					shouldFocus: true
 				};
+				//Event listener to open the infowindow when clicking the pick-up marker
 				mark1.addListener('click', ev => {
 					infoWindow1.open(infoWindowOptionsOpen1);
 				});
+				//Event listener to open the infowindow when clicking the drop-off marker
 				mark2.addListener('click', ev => {
 					infoWindow2.open(infoWindowOptionsOpen2);
 				});
 
+				//Event listener to close infowindow when clicking the map
 				map.addListener('click', ev => {
 					infoWindow1.close(infoWindowOptionsOpen1);
 					infoWindow2.close(infoWindowOptionsOpen2);
@@ -257,6 +279,7 @@
 					if(err) display()
 				});
 		}
+		// Not working properly !!! yet... 
 		// Create a geodesic Polyline with the "path" array.
 		const GmapsCubicBezier = function (latlong1, latlong2, latlong3, latlong4, resolution, map) {
 			let lat1 = latlong1.lat();
@@ -339,7 +362,7 @@
 
 
 
-		/* In case there is an error with the postcode the map will not be shown */
+		//In case there is an issue with the postcode the map will not be displayed
 		function display(status){
 			let map_error = document.getElementById('error-map-one-parcel')
 			let map = document.getElementById('map-one-parcel')
