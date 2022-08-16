@@ -130,7 +130,8 @@
 		const end = document.getElementById("recipient_postcode").innerHTML
 		const startFullAdd = document.getElementById("sender_address").innerHTML
 		const endFullAdd = document.getElementById("recipient_address").innerHTML
-		
+		console.log(startFullAdd)
+		console.log(endFullAdd)
 		function initMap() {
 			const url1 = `https://maps.googleapis.com/maps/api/geocode/json?address=${start}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
 			const url2 = `https://maps.googleapis.com/maps/api/geocode/json?address=${end}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
@@ -165,7 +166,7 @@
 						offset: '0',
 						repeat: '20px'
 					}],
-					strokeColor: 'blue'
+					strokeColor: 'red'
 				});
 				
 				const svgMarker = {
@@ -199,20 +200,60 @@
 						map: map,
 				});
 				
-				path.setMap(map)
-				mark1.setMap(map)
-				mark2.setMap(map)
+				path.setMap(map);
+				mark1.setMap(map);
+				mark2.setMap(map);
 				
+				const contentString1 =
+					'<h2 id="firstHeading" class="firstHeading">Pick-up</h2><br>' +
+					`<p style="font-size: 14px"><b>Address:</b> ${startFullAdd}`
+					
+				const contentString2 =
+					'<h2 id="firstHeading" class="firstHeading">Drop-off</h2><br>' +
+					`<p style="font-size: 14px"><b>Address:</b> ${endFullAdd}`
+					
+				const infoWindowOptions1 = {
+					content: contentString1,
+					maxWidth: 200
+				};
 				
+				const infoWindowOptions2 = {
+					content: contentString2,
+					maxWidth: 200
+				};
+
+				const infoWindow1 = new google.maps.InfoWindow(infoWindowOptions1);
+				const infoWindow2 = new google.maps.InfoWindow(infoWindowOptions2);
 				
+				const infoWindowOptionsOpen1 = {
+					map: map,
+					anchor: mark1,
+					shouldFocus: true
+				};
+				const infoWindowOptionsOpen2 = {
+					map: map,
+					anchor: mark2,
+					shouldFocus: true
+				};
+				mark1.addListener('click', ev => {
+					infoWindow1.open(infoWindowOptionsOpen1);
+				});
+				mark2.addListener('click', ev => {
+					infoWindow2.open(infoWindowOptionsOpen2);
+				});
+
+				map.addListener('click', ev => {
+					infoWindow1.close(infoWindowOptionsOpen1);
+					infoWindow2.close(infoWindowOptionsOpen2);
+				});
+
+				///Uncomment the following for a bendy polyline (doesn't work properly though)
 				{{!-- const lineLength = google.maps.geometry.spherical.computeDistanceBetween(mark1.getPosition(), mark2.getPosition());
 				const lineHeading = google.maps.geometry.spherical.computeHeading(mark1.getPosition(), mark2.getPosition());
-
 				// Create two points off the main line to create the curve
 				// Also known as "controllers"
 				const ctrl1 = google.maps.geometry.spherical.computeOffset(mark1.getPosition(), lineLength / 3, lineHeading );
 				const ctrl2 = google.maps.geometry.spherical.computeOffset(mark2.getPosition(), lineLength / 3, -lineHeading );
-				
 				const curvedLine = new GmapsCubicBezier(mark1.getPosition(), ctrl1, ctrl2, mark2.getPosition(), 0.01, map); --}}
 
 				}).catch((err) => {
