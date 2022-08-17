@@ -146,7 +146,7 @@
 				//The lat and lng for pick-up (pos1) and drop-off (pos2) locations based on postcode  
 				let pos1 = value[0].results[0].geometry.location
 					pos2 = value[1].results[0].geometry.location
-				
+				console.log(pos1)
 				const map = new google.maps.Map(document.getElementById("map-one-parcel"), {
 					mapId: "14558a00a81bc942",
 					center: pos1,
@@ -266,12 +266,13 @@
 					infoWindow2.close(infoWindowOptionsOpen2);
 				});
 
-				
+				//Buttons with settings
 				const buttons = [
-					["expand_more", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],
-					["expand_more", "rotate", -20, google.maps.ControlPosition.RIGHT_CENTER],
-					["expand_more", "tilt", 20, google.maps.ControlPosition.TOP_CENTER],
-					["expand_more", "tilt", -20, google.maps.ControlPosition.BOTTOM_CENTER],
+					///These names are the ones used to display the UI (for the google icons span ting) 
+					["navigate_before", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],
+					["navigate_next", "rotate", -20, google.maps.ControlPosition.RIGHT_CENTER],
+					["expand_less", "tilt", -10, google.maps.ControlPosition.TOP_CENTER],
+					["expand_more", "tilt", 10, google.maps.ControlPosition.BOTTOM_CENTER],
 				];
 
 				buttons.forEach(([text, mode, amount, position]) => {
@@ -279,14 +280,19 @@
 					const controlUI = document.createElement("div");
 					const span = document.createElement("span")
 					span.classList.add("material-symbols-outlined")
+					span.setAttribute("id", "arrows")
 					span.innerText = `${text}`
 
-					{{!-- controlUI.classList.add("ui-rotate"); --}}
-					{{!-- controlUI.innerText = `<span class="material-symbols-outlined">${text}</span>`; --}}
-					{{!-- controlUI.style =  --}}
-					
 					controlUI.append(span)
 
+					controlUI.style.transform = "scale(1.5)"
+					controlUI.style.padding = "0.35rem 0.35rem";
+
+					controlUI.addEventListener("mouseover", () => {
+						document.body.style.cursor = 'pointer';
+
+					});
+					
 					controlUI.addEventListener("click", () => {
 					adjustMap(mode, amount);
 					});
