@@ -43,7 +43,7 @@
 								<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
 								<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
 								<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-								<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Delivered</span></a></li>
+								<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Delivered</span></a></li>
 								
 							{{/if}}
 							
@@ -150,6 +150,7 @@
 				const map = new google.maps.Map(document.getElementById("map-one-parcel"), {
 					mapId: "14558a00a81bc942",
 					center: pos1,
+					tilt: 50,
 				});
 
 				//Sets the map to fit the markers and polyline
@@ -264,6 +265,49 @@
 					infoWindow1.close(infoWindowOptionsOpen1);
 					infoWindow2.close(infoWindowOptionsOpen2);
 				});
+
+				
+				const buttons = [
+					["expand_more", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],
+					["expand_more", "rotate", -20, google.maps.ControlPosition.RIGHT_CENTER],
+					["expand_more", "tilt", 20, google.maps.ControlPosition.TOP_CENTER],
+					["expand_more", "tilt", -20, google.maps.ControlPosition.BOTTOM_CENTER],
+				];
+
+				buttons.forEach(([text, mode, amount, position]) => {
+					const controlDiv = document.createElement("div");
+					const controlUI = document.createElement("div");
+					const span = document.createElement("span")
+					span.classList.add("material-symbols-outlined")
+					span.innerText = `${text}`
+
+					{{!-- controlUI.classList.add("ui-rotate"); --}}
+					{{!-- controlUI.innerText = `<span class="material-symbols-outlined">${text}</span>`; --}}
+					{{!-- controlUI.style =  --}}
+					
+					controlUI.append(span)
+
+					controlUI.addEventListener("click", () => {
+					adjustMap(mode, amount);
+					});
+					controlDiv.appendChild(controlUI);
+					map.controls[position].push(controlDiv);
+				});
+
+				const adjustMap = function (mode, amount) {
+					switch (mode) {
+					case "tilt":
+						map.setTilt(map.getTilt() + amount);
+						break;
+					case "rotate":
+						map.setHeading(map.getHeading() + amount);
+						break;
+					default:
+						break;
+					}
+				};
+
+
 
 				///Uncomment the following for a bendy polyline (doesn't work properly though)
 				{{!-- const lineLength = google.maps.geometry.spherical.computeDistanceBetween(mark1.getPosition(), mark2.getPosition());
