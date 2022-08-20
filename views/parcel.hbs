@@ -150,16 +150,25 @@
 				const map = new google.maps.Map(document.getElementById("map-one-parcel"), {
 					mapId: "14558a00a81bc942",
 					center: pos1,
-					tilt: 50,
+					zoomControl: true,
+					mapTypeControl: false,
+					scaleControl: false,
+					streetViewControl: false,
+					fullscreenControl: false
 				});
+				
+				
 
 				//Sets the map to fit the markers and polyline
 				let bounds = new google.maps.LatLngBounds();
 				bounds.extend(pos1);
 				bounds.extend(pos2);
 				map.fitBounds(bounds);
+				{{!-- map.setTilt(45) --}}
 				//Tilt effect on the map
-				map.setTilt(45)
+				setTimeout(() =>{
+					map.setTilt(45)
+				}, 1500)
 				//Creates the polyline
 				const path = new google.maps.Polyline({
 					path: [ pos1, pos2],
@@ -207,20 +216,43 @@
 						animation: google.maps.Animation.DROP,
 						map: map,
 				});
+				
+				
 				//Adds path and markers to map object
 				path.setMap(map);
 				mark1.setMap(map);
 				mark2.setMap(map);
+
+
+				{{!-- mark1.addListener('mouseover', ()=>{
+					mark1.setOptions({
+						icon: {
+							url: "https://i.ibb.co/G0fpVRx/Marker-Drop-Off2.png",
+							size: new google.maps.Size(40, 49),
+							scaledSize: new google.maps.Size(40, 49),
+							anchor: new google.maps.Point(17, 48)
+						},
+					})
+				}) --}}
 				
+				{{!-- poly.addListener('mouseout', ()=>{
+					setTimeout(()=>{
+						poly.setOptions({
+							strokeWeight: 5,
+							strokeColor: '#4986E7',
+						})
+					}, 100)
+					
+				}) --}}
 				//Content within the pop-out window for pick-up marker
 				const contentString1 =
-					'<h2 id="firstHeading" class="firstHeading">Pick-up</h2><br>' +
-					`<p style="font-size: 14px"><b>Address:</b> ${startFullAdd}`
+					'<h2 id="firstHeading" class="firstHeading" style="background-color: #48b5e9; color: white; padding: 6px;">Pick-up</h2><br>' +
+					`<p style="font-size: 14px; margin-bottom: 5px;"><b>Address:</b> ${startFullAdd} <hr>`
 					
 				//Content within the pop-out window for drop-off marker
 				const contentString2 =
-					'<h2 id="firstHeading" class="firstHeading">Drop-off</h2><br>' +
-					`<p style="font-size: 14px"><b>Address:</b> ${endFullAdd}`
+					'<h2 id="firstHeading" class="firstHeading"  style="background-color: #48b5e9; color: white; padding: 6px;">Drop-off</h2><br>' +
+					`<p style="font-size: 14px; margin-bottom: 5px;"><b>Address:</b> ${endFullAdd}` + "<hr>"
 				
 				//Pop-out window (pick-up maker - infowindow)
 				const infoWindowOptions1 = {
