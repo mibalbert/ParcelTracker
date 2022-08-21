@@ -224,26 +224,56 @@
 				mark2.setMap(map);
 
 
-				{{!-- mark1.addListener('mouseover', ()=>{
+				mark1.addListener('mouseover', ()=>{
 					mark1.setOptions({
+						icon: {
+							url: "https://i.ibb.co/MBfWrx2/Marker-Pick-Up2.png",
+							size: new google.maps.Size(40, 49),
+							scaledSize: new google.maps.Size(40, 49),
+							anchor: new google.maps.Point(19, 49.5)
+						}
+					})
+				})
+				
+				mark1.addListener('mouseout', ()=>{
+					setTimeout(()=>{
+						mark1.setOptions({
+							icon: {
+								url: "https://i.ibb.co/MBfWrx2/Marker-Pick-Up2.png",
+								size: new google.maps.Size(36, 45),
+								scaledSize: new google.maps.Size(36, 45),
+								anchor: new google.maps.Point(17, 48)
+							}
+						})
+					}, 50)
+					
+				})
+				
+
+				mark2.addListener('mouseover', ()=>{
+					mark2.setOptions({
 						icon: {
 							url: "https://i.ibb.co/G0fpVRx/Marker-Drop-Off2.png",
 							size: new google.maps.Size(40, 49),
 							scaledSize: new google.maps.Size(40, 49),
-							anchor: new google.maps.Point(17, 48)
-						},
+							anchor: new google.maps.Point(19, 49.5)
+						}
 					})
-				}) --}}
+				})
 				
-				{{!-- poly.addListener('mouseout', ()=>{
+				mark2.addListener('mouseout', ()=>{
 					setTimeout(()=>{
-						poly.setOptions({
-							strokeWeight: 5,
-							strokeColor: '#4986E7',
+						mark2.setOptions({
+							icon: {
+								url: "https://i.ibb.co/G0fpVRx/Marker-Drop-Off2.png",
+								size: new google.maps.Size(36, 45),
+								scaledSize: new google.maps.Size(36, 45),
+								anchor: new google.maps.Point(17, 48)
+							}
 						})
-					}, 100)
+					}, 50)
 					
-				}) --}}
+				})
 				//Content within the pop-out window for pick-up marker
 				const contentString1 =
 					'<h2 id="firstHeading" class="firstHeading" style="background-color: #48b5e9; color: white; padding: 6px;">Pick-up</h2><br>' +

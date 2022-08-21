@@ -38,7 +38,8 @@ const handle = new Handlebars({
 
 const router = new Router();
 
-// the routes defined here
+///////HOME page routes
+
 router.get('/', async (context) => {
 	const authorised = await context.cookies.get('authorised');
 	const permission = await context.cookies.get('permission');
@@ -58,6 +59,40 @@ router.get('/', async (context) => {
 		customerParcels,
 	};
 	const body = await handle.renderView('home', data);
+	context.response.body = body;
+});
+
+router.get('/customer-home', async (context) => {
+	const authorised = await context.cookies.get('authorised');
+	const permission = await context.cookies.get('permission');
+	const role = permission !== 'customer';
+	if (authorised === 'undefined' || role) context.response.redirect('/login');
+	const customerParcels = await getCustomerParcels(authorised);
+	console.log(customerParcels)
+	const data = { authorised, customerParcels };
+	const body = await handle.renderView('customer-home', data);
+	context.response.body = body;
+});
+
+router.get('/courier-home', async (context) => {
+	const authorised = await context.cookies.get('authorised');
+	const permission = await context.cookies.get('permission');
+	const role = permission !== 'courier';
+	if (authorised === 'undefined' || role) context.response.redirect('/login');
+	const courierParcels = await getCourierParcels(authorised);
+	const data = { authorised, courierParcels };
+	const body = await handle.renderView('courier-home', data);
+	context.response.body = body;
+});
+
+router.get('/admin-home', async (context) => {
+	const authorised = await context.cookies.get('authorised');
+	const permission = await context.cookies.get('permission');
+	const role = permission !== 'admin';
+	if (authorised === 'undefined' || role) context.response.redirect('/login');
+	const adminParcelsCouriers = await getAdminParcelsCouriers(authorised);
+	const data = { authorised, adminParcelsCouriers };
+	const body = await handle.renderView('admin-home', data);
 	context.response.body = body;
 });
 
