@@ -14,6 +14,6 @@ COPY . .
 
 RUN deno cache --unstable index.js
 
-RUN mkdir -p /var/tmp/log
+# RUN mkdir -p /var/tmp/log
 
 CMD ["run", "--allow-all", "--unstable", "index.js"]

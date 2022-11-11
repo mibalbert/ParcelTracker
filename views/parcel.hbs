@@ -164,7 +164,7 @@
 				bounds.extend(pos1);
 				bounds.extend(pos2);
 				map.fitBounds(bounds);
-				{{!-- map.setTilt(45) --}}
+				map.setTilt(45)
 				//Tilt effect on the map
 				setTimeout(() =>{
 					map.setTilt(45)
@@ -187,8 +187,7 @@
 					strokeColor: "#CC2327"
 					
 					//Uncomment for a solid polylineline
-					{{!-- geodesic: true,
-					strokeColor: "#FF0000",
+					{{!-- strokeColor: "#FF0000",
 					strokeOpacity: 1.0,
 					strokeWeight: 3, --}}
 				});
