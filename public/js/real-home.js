@@ -17,10 +17,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		  zoom: 8,
 		});		
 		const marker = new google.maps.Marker({
-			position: { lat: -34.397, lng: 150.644 },
+			position: { lat: -34.397, lng: 50.644 },
 			map: map,
 		  });
 
+		  
 	}
 
 	

@@ -360,19 +360,23 @@ router.post('/customer-send', async (context) => {
 // Individual Parcel page
 router.get('/parcel/:uuid', async (context) => {
 	console.log('/GET /parcel/:uuid');
-	const uuid = context.params.uuid;
-	const authorised = await context.cookies.get('authorised');
-	const permission = await context.cookies.get('permission');
-	if (authorised === undefined) context.response.redirect('/login');
-	const role = {
-		customer: permission === 'customer',
-		courier: permission === 'courier',
-		admin: permission === 'admin',
-	};
-	const parcels = await getParcelDetails(uuid);
-	const data = { authorised, role, parcels };
-	const body = await handle.renderView('parcel', data);
-	context.response.body = body;
+	try {
+		const uuid = context.params.uuid;
+		const authorised = await context.cookies.get('authorised');
+		const permission = await context.cookies.get('permission');
+		if (authorised === undefined) context.response.redirect('/login');
+		const role = {
+			customer: permission === 'customer',
+			courier: permission === 'courier',
+			admin: permission === 'admin',
+		};
+		const parcels = await getParcelDetails(uuid);
+		const data = { authorised, role, parcels };
+		const body = await handle.renderView('parcel', data);
+		context.response.body = body;
+	}catch(err) {
+		throw new Error(err)
+	}
 });
 
 export default router;
