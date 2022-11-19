@@ -186,6 +186,11 @@ section.main-right {
 } */
 
 
+#departure {
+  height: 30px;
+  width: 190px;
+}
+
 
 
 .get-started {

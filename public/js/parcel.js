@@ -1,7 +1,6 @@
 
 window.addEventListener('DOMContentLoaded', () => {
-
-
+    console.log('DOMContentLoaded')
 
 	var script = document.createElement('script');
 	script.src =

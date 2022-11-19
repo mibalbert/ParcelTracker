@@ -28,20 +28,17 @@
 					<nav class="side-nav">
 							<ol class="side-nav-bunch">
 								{{#if role.admin}}
-										<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
-										<li><a href="/admin-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-										<li><a href="/admin-couriers"><span id="side-nav-icon" class="material-symbols-outlined">local_shipping</span><span>Couriers</span></a></li>
+									<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
+									<li><a href="/admin-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+									<li><a href="/admin-couriers"><span id="side-nav-icon" class="material-symbols-outlined">local_shipping</span><span>Couriers</span></a></li>
 								{{/if}}
-								
 								{{#if role.courier}}
 									<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
 									<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
 									<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
 									<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
 									<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Delivered</span></a></li>
-									
 								{{/if}}
-								
 								{{#if role.customer}}
 									<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
 									<li><a href="/customer-send"><span id="side-nav-icon" class="material-symbols-outlined">add_box</span><span>Send</span></a></li>
@@ -52,17 +49,12 @@
 							</ol>
 						</nav>
 				</section>
-
 				<section class="main-right">
-					
 					<h3 class="title-parcel-details">Parcel Details:</h3>
-					
 					<section class="map-wrapper">
 						<div id="map-one-parcel"></div>
 						<div style="display:none;" id="error-map-one-parcel"></div>
 					</section>
-
-
 					{{#each parcels}}
 					<section class="parcels indiv">
 						<table>

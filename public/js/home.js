@@ -3,6 +3,11 @@
 window.addEventListener('DOMContentLoaded', (event) => {
 	console.log('DOMContentLoaded');
 
+	
+    // const date = new Date(Date.UTC(2020, 11, 20, 3, 23, 16, 738));
+    // console.log(date)
+
+	
 	var script = document.createElement('script');
 	script.src =
 		'https://maps.googleapis.com/maps/api/js?key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&callback=initMap';
