@@ -186,7 +186,7 @@ section.main-right {
 } */
 
 
-#departure {
+#departure, #arrival {
   height: 30px;
   width: 190px;
 }

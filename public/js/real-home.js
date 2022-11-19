@@ -49,14 +49,14 @@ window.addEventListener('DOMContentLoaded', () => {
 		  zoom: 8,
 		})
 		
-		autocompleteDep = new google.maps.places.Autocomplete(
+		let autocompleteDep = new google.maps.places.Autocomplete(
 			departure,
 			{
 				componentRestrictions: {'country': ['UK']},
 				fields: ['address_components', 'geometry', 'name']
 			}
 		)
-		autocompleteArrv = new google.maps.places.Autocomplete(
+		let autocompleteArrv = new google.maps.places.Autocomplete(
 			arrival,
 			{
 				componentRestrictions: {'country': ['UK']},
@@ -86,8 +86,8 @@ window.addEventListener('DOMContentLoaded', () => {
 			
 			let senderStreetName, senderPostcode, senderStreetNumber, senderTown
 
-			sessionStorage.setItem('depLat', place.geometry.location.lat().toString()) 
-			sessionStorage.setItem('depLng', place.geometry.location.lng().toString()) 
+			sessionStorage.setItem('sendLat', place.geometry.location.lat().toString()) 
+			sessionStorage.setItem('sendLng', place.geometry.location.lng().toString()) 
 
 			// console.log(place.name)
 
@@ -119,8 +119,13 @@ window.addEventListener('DOMContentLoaded', () => {
 						
 					}
 				}
-				console.log(senderStreetNumber, senderStreetName, senderPostcode, senderTown )
+				// console.log(senderStreetNumber, ";", senderStreetName, ";", senderPostcode, ";",senderTown )
 
+				sessionStorage.setItem('sendStreetNum', senderStreetNumber) 
+				sessionStorage.setItem('sendStreetName', senderStreetName) 
+				sessionStorage.setItem('sendPostalCode', senderPostcode) 
+				sessionStorage.setItem('sendPostalTown', senderTown) 
+	
 			} catch(err){
 				console.log(err)
 			}
@@ -132,10 +137,10 @@ window.addEventListener('DOMContentLoaded', () => {
 			
 			let recipStreetName, recipPostcode, recipStreetNumber, recipTown
 	
-			sessionStorage.setItem('repLat', place.geometry.location.lat().toString()) 
-			sessionStorage.setItem('repLng', place.geometry.location.lng().toString()) 
+			sessionStorage.setItem('recipLat', place2.geometry.location.lat().toString()) 
+			sessionStorage.setItem('recipLng', place2.geometry.location.lng().toString()) 
 	
-			console.log(place.name)
+			// console.log(place2.name)
 	
 			try{
 				for (const component of place2.address_components) {
@@ -165,8 +170,12 @@ window.addEventListener('DOMContentLoaded', () => {
 						
 					}
 				}
-				console.log(recipStreetNumber, recipStreetName, recipPostcode, recipTown )
-	
+				// console.log(recipStreetNumber, recipStreetName, recipPostcode, recipTown )
+				sessionStorage.setItem('recipStreetNum', recipStreetNumber) 
+				sessionStorage.setItem('recipStreetName', recipStreetName) 
+				sessionStorage.setItem('recipPostalCode', recipPostcode) 
+				sessionStorage.setItem('recipPostalTown', recipTown) 
+		
 			} catch(err){
 				console.log(err)
 			}
