@@ -1,11 +1,5 @@
 // // export { Handlebars } from ''
 
-
-
-
-
-
-
 // {{!-- const startPostcode = document.getElementById("sender_postcode").innerHTML
 // console.log(startPostcode)
 // const endPostcode = document.getElementById("recipient_postcode").innerHTML
@@ -23,14 +17,13 @@
 
 //     let ff = {}
 
-
 //     let	url1 = `https://maps.googleapis.com/maps/api/geocode/json?address=${startPostcode}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
 //     fetch(url1, {
-//         method: "POST",		
+//         method: "POST",
 //     }).then(response =>
 //         response.json()
 //     ).then(json => {
-//         {{!-- const lat = 
+//         {{!-- const lat =
 //         const lng = json.results[0].geometry.location.lng --}}
 
 //         ff = {lat: json.results[0].geometry.location.lat, lng: json.results[0].geometry.location.lng}
@@ -41,19 +34,18 @@
 
 //     let	url2 = `https://maps.googleapis.com/maps/api/geocode/json?address=${endPostcode}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
 //     fetch(url2, {
-//         method: "POST",		
+//         method: "POST",
 //     }).then(response =>
 //         response.json()
 //     ).then(json => {
 //         {{!-- geoPoints2.push(json.results[0].geometry.location) --}}
-    
+
 //         const latt = json.results[0].geometry.location.lat
 //         const lngg = json.results[0].geometry.location.lng
 
 //         coord[1].lat = latt
 //         coord[1].lng = lngg
 //     });
-
 
 //     console.log(coord)
 
@@ -80,47 +72,9 @@
 //     drawPoly.setMap(map);
 //     mark1.setMap(map)
 //     {{!-- mark2.setMap(map) --}}
-    
-    
+
 // } --}}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
 // const startPostcode = document.getElementById("sender_postcode").innerHTML
 // console.log(startPostcode)
 // const endPostcode = document.getElementById("recipient_postcode").innerHTML
@@ -139,11 +93,10 @@
 
 //     let	url1 = `https://maps.googleapis.com/maps/api/geocode/json?address=E11ES&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
 //     fetch(url1, {
-//         method: "POST",		
+//         method: "POST",
 //     }).then(response =>
 //         response.json()
 //     ).then(data => {
-
 
 //     {{!-- const lat = data.results[0].geometry.location.lat;
 //     const lng = data.results[0].geometry.location.lng;
@@ -154,11 +107,11 @@
 
 //     {{!-- let	url2 = `https://maps.googleapis.com/maps/api/geocode/json?address=${endPostcode}&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE`
 //     fetch(url2, {
-//         method: "POST",		
+//         method: "POST",
 //     }).then(response =>
 //         response.json()
 //     ).then(json => {
-        
+
 //     }); --}}
 
 //     console.log(lineCoordinates)
@@ -172,8 +125,6 @@
 //         strokeWeight: 2,
 //     });
 //     //Sets the starting point marker
-
-
 
 //     const mark1 = new google.maps.Marker({
 //             position: new google.maps.LatLng(45.4215296, -75.6971931),
@@ -189,36 +140,10 @@
 //     {{!-- drawPoly.setMap(map); --}}
 //     mark1.setMap(map)
 //     {{!-- mark2.setMap(map) --}}
-    
-    
+
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // <script>
-
 
 // function initMap() {
 //     const map = new google.maps.Map(document.getElementById("map-one-parcel"), {
@@ -230,7 +155,7 @@
 //         fetch("https://maps.googleapis.com/maps/api/geocode/json?address=E11ES&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE"),
 //         fetch("https://maps.googleapis.com/maps/api/geocode/json?address=E11ES&key=AIzaSyDD8R7YovtasMKrrOIp8D29AoFiJH8fKSE"),
 //         ]).then(([start, end]) => {
-        
+
 //             start.json()
 //             end.json()
 
@@ -240,8 +165,6 @@
 //         .catch((err) => {
 //             console.log(err);
 //         });
-
-
 
 //             const flightPlanCoordinates = [
 //                 new google.maps.LatLng(0, 21),
@@ -263,22 +186,7 @@
 // window.initMap = initMap;
 // </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// {{!-- let lat = document.getElementById('sender_postcode')	
+// {{!-- let lat = document.getElementById('sender_postcode')
 // let lng = document.getElementById('recipient_postcode')
 // lat = lat.innerHTML
 // lng = lng.innerHTML
@@ -310,6 +218,5 @@
 //         }
 //     )
 // }
-
 
 // window.initMap = initMap; --}}
