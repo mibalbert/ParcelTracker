@@ -821,3 +821,287 @@
 		</main>
 	</body>	
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+	console.log('DOMContentLoaded');
+	
+	// const date = Date.now();
+
+	// console.log(new Intl.DateTimeFormat('gb-EU',{ dateStyle: 'full', timeStyle: 'short' }).format(date));
+	
+	var script = document.createElement('script');
+	script.src =
+	'https://maps.googleapis.com/maps/api/js?key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&libraries=places,geometry&callback=initMap';
+	script.async = true;
+
+	// localStorage.clear()
+
+	
+	function Compo(Lat, Lng) {
+		this.Lat = Lat;
+		this.Lng = Lng;
+	}
+	  
+	
+	const departure = document.getElementById('departure');
+	const arrival = document.getElementById('arrival');
+
+	window.initMap = async function () {
+		// const directionsService = new google.maps.DirectionsService();
+		// const directionsRenderer = new google.maps.DirectionsRenderer();
+
+		let map = new google.maps.Map(document.getElementById('map-bitch'), {
+			center: { lat: 51.482447, lng: -0.138447 },
+			zoom: 8,
+		});
+
+		let autocompleteDep = new google.maps.places.Autocomplete(
+			departure,
+			{
+				componentRestrictions: { 'country': ['UK'] },
+				fields: ['address_components', 'geometry', 'name'],
+			},
+		);
+		let autocompleteArrv = new google.maps.places.Autocomplete(
+			arrival,
+			{
+				componentRestrictions: { 'country': ['UK'] },
+				fields: ['address_components', 'geometry', 'name'],
+			},
+		);
+		departure.addEventListener('change', function () {
+			departure.value = '';
+		});
+
+		arrival.addEventListener('change', function () {
+			arrival.value = '';
+		});
+		
+		const result = autocompleteDep.addListener('place_changed', fillInAddressSender);
+		autocompleteArrv.addListener('place_changed', fillInAddressRecipient);
+		
+		// console.log(result)
+		var place = autocomplete.getPlace();
+
+		var lat = place.geometry.location.lat(),
+			lng = place.geometry.location.lng();
+		
+		// Then do whatever you want with them
+		
+		console.log(lat);
+		console.log(lng);
+
+		
+		const LatLng = function fillInAddressSender() {
+			// Get the place details from the autocomplete object.
+			const place = autocompleteDep.getPlace();
+			
+			let senderStreetName,
+				senderPostcode,
+				senderStreetNumber,
+				senderTown;
+
+			// document.cookie = `sendLat=${place.geometry.location.lat().toString()}`
+			
+			// const coords = new Compo(place.geometry.location.lat().toString(), place.geometry.location.lng().toString());
+			
+			// console.log(coords.Lat)
+				
+			try {
+				for (const component of place.address_components) {
+					const componentType = component.types[0];
+
+					switch (componentType) {
+						case 'street_number': {
+							senderStreetNumber = component.long_name;
+							break;
+						}
+
+						case 'route': {
+							senderStreetName = component.short_name;
+							break;
+						}
+
+						case 'postal_code': {
+							senderPostcode = component.long_name;
+							break;
+						}
+
+						case 'postal_town': {
+							senderTown = component.long_name;
+							break;
+						}
+					}
+				}
+
+				// return place.geometry.location.lat().toString(), place.geometry.location.lng().toString()
+			} catch (err) {
+				console.log(err);
+			}
+		}
+		  
+
+		function fillInAddressRecipient() {
+			// Get the place details from the autocomplete object.
+			const place2 = autocompleteArrv.getPlace();
+			
+			let recipStreetName, recipPostcode, recipStreetNumber, recipTown;
+
+			localStorage.setItem(
+				'recipLat',
+				place2.geometry.location.lat().toString(),
+			);
+			localStorage.setItem(
+				'recipLng',
+				place2.geometry.location.lng().toString(),
+				);
+				
+				// console.log(place2.name)
+				
+			try {
+				for (const component of place2.address_components) {
+					const componentType = component.types[0];
+
+					switch (componentType) {
+						case 'street_number': {
+							recipStreetNumber = component.long_name;
+							break;
+						}
+						
+						case 'route': {
+							recipStreetName = component.short_name;
+							break;
+						}
+
+						case 'postal_code': {
+							recipPostcode = component.long_name;
+							break;
+						}
+						
+						case 'postal_town': {
+							recipTown = component.long_name;                                                                                                                                                                                   
+							break;
+						}
+					}
+				}
+
+			} catch (err) {
+				console.log(err);
+			}
+		}
+		
+		const markerDeparture = new google.maps.Marker({
+			position: { coords.Lat, Lng},
+			map: map,
+		});
+
+
+		function getCookie(cName) {
+			const name = cName + "=";
+			const cDecoded = decodeURIComponent(document.cookie); //to be careful
+			const cArr = cDecoded .split('; ');
+			let res;
+			cArr.forEach(val => {
+				if (val.indexOf(name) === 0) res = val.substring(name.length);
+			})
+			return res;
+		}
+
+	};
+	document.head.appendChild(script);
+});
