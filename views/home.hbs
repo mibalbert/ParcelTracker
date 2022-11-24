@@ -25,8 +25,8 @@
 		</header>
 		<main>	
 			<section class="ooo">
-
-					{{!-- <div style="display: none"> --}}
+				<div id="map-bitch"></div>
+				<div class="mid" >
 					<input
 						id="origin-input"
 						class="controls"
@@ -34,7 +34,6 @@
 						placeholder="Enter an origin location"
 						onClick="this.setSelectionRange(0, this.value.length)"
 					/>
-
 					<input
 						id="destination-input"
 						class="controls"
@@ -42,27 +41,8 @@
 						placeholder="Enter a destination location"
 						onClick="this.setSelectionRange(0, this.value.length)"
 					/>
-					<div id="map-bitch"></div>
-				
-
-					<div>
-						<input type="text" onClick="this.setSelectionRange(0, this.value.length)" placeholder="Departure.." id="departure" >
-					</div>
-					<div>
-						<input type="text"  onClick="this.setSelectionRange(0, this.value.length)" placeholder="Arrival.." id="arrival" >
-					</div>
-
-
-					{{!-- <h1>Welcome to Parcelino<span id="dot">.</span></p></h1>
-					<h2>Parcel sending reimagined...</h2>
-					<h2>easy, fast, reliable!</h2>
-					<h3>Click explore to discover a <span id="better-word">better</span> way of sending, managing and delivering a parcel 											
-						<span id="home-sparkels" class="material-symbols-outlined">temp_preferences_custom</span>
-					</h3>
-				 --}}
-
-					
-
+					<div id="clear-button" >clear</div>
+				</div>
 					{{#if authorised}}
 						<a class="btn explore" href="/login">Explore</a>			
 					{{else}}
