@@ -42,8 +42,8 @@ const router = new Router();
 
 router.get('/', async (context) => {
 	console.log('GET / /');
-	const authorised = await context.cookies.get('authorised');
-	const permission = await context.cookies.get('permission');
+	const authorised = context.cookies.get('authorised');
+	const permission = context.cookies.get('permission');
 	const role = {
 		customer: permission === 'customer',
 		courier: permission === 'courier',
@@ -68,14 +68,20 @@ router.get('/', async (context) => {
 	// else if (authorised && role.customer){
 	// 	context.response.redirect('/customer-home')
 	// }
-	const body = await handle.renderView('home');
+	const body = await handle.renderView('home', authorised);
+	context.response.body = body;
+});
+
+router.get('/testing', async (context) => {
+	console.log('GET / testing');
+	const body = await handle.renderView('testing');
 	context.response.body = body;
 });
 
 router.get('/customer-home', async (context) => {
 	console.log('GET /customer-home');
-	const authorised = await context.cookies.get('authorised');
-	const permission = await context.cookies.get('permission');
+	const authorised = context.cookies.get('authorised');
+	const permission = context.cookies.get('permission');
 	const role = permission !== 'customer';
 	if (authorised === 'undefined' || role) context.response.redirect('/login');
 	const customerParcels = await getCustomerParcels(authorised);
@@ -87,8 +93,8 @@ router.get('/customer-home', async (context) => {
 
 router.get('/courier-home', async (context) => {
 	console.log('GET /courier-home');
-	const authorised = await context.cookies.get('authorised');
-	const permission = await context.cookies.get('permission');
+	const authorised = context.cookies.get('authorised');
+	const permission = context.cookies.get('permission');
 	const role = permission !== 'courier';
 	if (authorised === 'undefined' || role) context.response.redirect('/login');
 	const courierParcels = await getCourierParcels(authorised);
