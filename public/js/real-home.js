@@ -1,6 +1,7 @@
+
 window.addEventListener('DOMContentLoaded', () => {
 	console.log('DOMContentLoaded');
-
+	
 	// const date = Date.now();
 
 	// console.log(new Intl.DateTimeFormat('gb-EU',{ dateStyle: 'full', timeStyle: 'short' }).format(date));
@@ -11,12 +12,19 @@ window.addEventListener('DOMContentLoaded', () => {
 	script.async = true;
 
 	window.initMap = async function () {
-		const map = new google.maps.Map(document.getElementById('map-bitch'), {
-			mapTypeControl: false,
-			disableDefaultUI: true,
-			center: { lat: 52.713709, lng: -1.586320 },
-			zoom: 6.35,
-		});
+		google.maps.visualRefresh = true;
+
+		const map = new google.maps.Map(document.getElementById('map-bitch'), 
+			{
+				mapId: 'b1beacae401d047c',
+				// mapId: '14558a00a81bc942',
+				mapTypeControl: false,
+				disableDefaultUI: true,
+				center: { lat: 52.713709, lng: -1.586320 },
+				zoom: 6.35,
+			}
+		);
+		map.setTilt(45);
 
 		new AutocompleteDirectionsHandler(map);
 	}		
@@ -38,7 +46,11 @@ window.addEventListener('DOMContentLoaded', () => {
 			orgLatLng;
 			dstLatLng;
 			GmapsCubicBezier;
-
+			step;
+			numSteps;
+			timePerStep;
+			interval;
+			
 			constructor(map) {
 				this.map = map;
 				this.originPlaceId = '';
@@ -48,7 +60,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				this.orgLng = '';
 				this.dstLat = '';
 				this.dstLng = '';
-
+				
 				this.orgLatLng = '';
 				this.dstLatLng = '';
 				
@@ -82,7 +94,7 @@ window.addEventListener('DOMContentLoaded', () => {
 							strokeOpacity: 1,
 							scale: 3.5
 						},
-						offset: '-7',
+						offset: '10',
 						repeat: '20px'
 					}],
 					strokeColor: '#FF0000'
@@ -92,7 +104,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				const destinationInput = document.getElementById(
 					'destination-input',
 				);
-
+				
 				// Specify just the place data fields that you need.
 				const originAutocomplete = new google.maps.places.Autocomplete(
 					originInput,
@@ -100,19 +112,22 @@ window.addEventListener('DOMContentLoaded', () => {
 						componentRestrictions: { country: 'uk' },
 						fields: ['place_id', 'geometry'],
 					},
-				);
-				// Specify just the place data fields that you need.
-				const destinationAutocomplete = new google.maps.places.Autocomplete(
+					);
+					// Specify just the place data fields that you need.
+					const destinationAutocomplete = new google.maps.places.Autocomplete(
 					destinationInput,
 					{
 						componentRestrictions: { country: 'uk' },
 						fields: ['place_id', 'geometry'],
 					},
-				);
-
-				this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
-				this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
-				document.getElementById('clear-button').addEventListener(
+					);
+					
+					
+					
+					// On IDLE make map rotate and show WEBGL Stuff
+					this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+					this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+					document.getElementById('clear-button').addEventListener(
 					'click',
 					() => {						
 						this.orgLat = '';
@@ -127,30 +142,37 @@ window.addEventListener('DOMContentLoaded', () => {
 						this.orgMarker.setVisible(false);
 						this.shadowLine.getPath().pop();
 						this.shadowLine.getPath().pop();
-	
+
+						// console.log(this.curvedLine.getPath())
+						for(let i=0; i<this.curvedLine.getPath().Wc.length; i++){
+							this.curvedLine.getPath().pop()
+						}
 					},
 				);
 			}
-
+;
 			setupPlaceChangedListener(autocomplete, mode) {
+				
+				this.map.setHeading(90);
+				
 				// autocomplete.bindTo('bounds', this.map);
 				autocomplete.addListener('place_changed', () => {
 					const place = autocomplete.getPlace();
 					this.shadowLine.getPath().pop();
 					this.shadowLine.getPath().pop();
-					this.curvedLine.getPath().pop()
-
+					
 					if (!place.place_id) {
 						window.alert(
 							'Please enter a real address.',
 							);
-						return;
-					}
+							return;
+						}
 					let lat = place.geometry.location.lat(),
 					lng = place.geometry.location.lng();
 					
 					if (mode === 'ORIG') {
 						// this.originPlaceId = place.place_id;
+						this.map.setZoom(6.35)
 						document.cookie = `ORIG_LAT=${lat}`;
 						document.cookie = `ORIG_LNG=${lng}`;
 						document.cookie = `ORIG_PLACE_ID=${place.place_id}`;
@@ -181,6 +203,7 @@ window.addEventListener('DOMContentLoaded', () => {
 							location: place.geometry.location,
 						});
 						this.dstMarker.setVisible(true);
+	
 					}
 					
 					this.route();
@@ -205,7 +228,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				];
 				
 				this.centralize(markerList);
-
+				
 				this.shadowLine.getPath().push(this.orgLatLng);
 				this.shadowLine.getPath().push(this.dstLatLng);				
 				this.shadowLine.setMap(this.map);
@@ -227,7 +250,7 @@ window.addEventListener('DOMContentLoaded', () => {
 					this.map.setZoom(15);
 				}
 			}
-
+			
 			
 			drawDashedCurve(m1, m2, map) {
 				var lineLength = google.maps.geometry.spherical.computeDistanceBetween(m1, m2);
@@ -243,8 +266,8 @@ window.addEventListener('DOMContentLoaded', () => {
 				var pB = google.maps.geometry.spherical.computeOffset(m2, lineLength / 6.2, lineHeading2);
 					
 				
-				let resolution = 0.1
-
+				let resolution = 0.05
+				
 				var lat1 = this.orgLatLng.lat();
 				var long1 = this.orgLatLng.lng();
 				var lat2 = pA.lat();
@@ -275,7 +298,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				}
 				
 				for (let it = 0; it <= 1; it += resolution) {
-
+					
 					points.push(getBezier({
 						x: lat1,
 						y: long1
@@ -295,10 +318,11 @@ window.addEventListener('DOMContentLoaded', () => {
 					path.push(new google.maps.LatLng(points[i].x, points[i].y));
 					path.push(new google.maps.LatLng(points[i + 1].x, points[i + 1].y, false));
 				}
-	
+				
 				this.curvedLine.setPath(path)
 				this.curvedLine.setMap(this.map);
-			
+				map.setTilt(45);
+				
 			}
 	}
 	document.head.appendChild(script);
