@@ -50,16 +50,6 @@ router.get('/', async (context) => {
 		admin: permission === 'admin',
 	};
 
-	// const courierParcels = await getCourierParcels(authorised);
-	// const adminParcelsCouriers = await getAdminParcelsCouriers();
-	// const customerParcels = await getCustomerParcels(authorised);
-	// const data = {
-	// 	authorised,
-	// 	role,
-	// 	courierParcels,
-	// 	adminParcelsCouriers,
-	// 	customerParcels,
-	// };
 	if (authorised && role.admin) {
 		context.response.redirect('/admin-home');
 	} else if (authorised && role.courier) {
@@ -68,7 +58,7 @@ router.get('/', async (context) => {
 	// else if (authorised && role.customer){
 	// 	context.response.redirect('/customer-home')
 	// }
-	const body = await handle.renderView('home', authorised);
+	const body = await handle.renderView('home', {authorised});
 	context.response.body = body;
 });
 

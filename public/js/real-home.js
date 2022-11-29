@@ -7,19 +7,32 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	var script = document.createElement('script');
 	script.src =
-		'https://maps.googleapis.com/maps/api/js?key=AIzaSyBMN0tTYpnYsYcy62DPJoLB_bqZqHnNVDU&libraries=places,geometry&callback=initMap';
+		'https://maps.googleapis.com/maps/api/js?key=AIzaSyD-GBMKEl8K0qCIXA4yYzTyyXilpeK0vH8&libraries=places,geometry&callback=initMap';
 	script.async = true;
 
 	window.initMap = async function () {
 		google.maps.visualRefresh = true;
 
 		const map = new google.maps.Map(document.getElementById('map-bitch'), {
-			mapId: 'b1beacae401d047c',
+			// mapId: 'b1beacae401d047c',
+			mapId: '5b376c6ce00e84eb',
 			// mapId: '14558a00a81bc942',
 			mapTypeControl: false,
 			disableDefaultUI: true,
 			center: { lat: 52.713709, lng: -1.586320 },
 			zoom: 6.35,
+			/// Max zoom out level
+			// minZoom: 3,
+			///Stop user from seeing the edges of the map
+			restriction: {
+				latLngBounds: {
+					east: 179.9999,
+					north: 82,
+					south: -85,
+					west: -179.9999,
+				},
+				strictBounds: true,
+			},
 		});
 		map.setTilt(45);
 
@@ -91,16 +104,14 @@ window.addEventListener('DOMContentLoaded', () => {
 						strokeOpacity: 1,
 						scale: 3.5,
 					},
-					offset: '10',
+					offset: '-5',
 					repeat: '20px',
 				}],
 				strokeColor: '#FF0000',
 			});
 
-			const originInput = document.getElementById('origin-input');
-			const destinationInput = document.getElementById(
-				'destination-input',
-			);
+			const originInput = document.getElementById('input-origin-home');
+			const destinationInput = document.getElementById('input-destination-home');
 
 			// Specify just the place data fields that you need.
 			const originAutocomplete = new google.maps.places.Autocomplete(
@@ -125,32 +136,31 @@ window.addEventListener('DOMContentLoaded', () => {
 			document.getElementById('clear-button').addEventListener(
 				'click',
 				() => {
-					this.orgLat = '';
-					this.orgLng = '';
-					this.desLat = '';
-					this.desLng = '';
+					location.reload();
+					// this.orgLat = '';
+					// this.orgLng = '';
+					// this.desLat = '';
+					// this.desLng = '';
 
-					originInput.value = '';
-					destinationInput.value = '';
+					// originInput.value = '';
+					// destinationInput.value = '';
 
-					this.dstMarker.setVisible(false);
-					this.orgMarker.setVisible(false);
-					this.shadowLine.getPath().pop();
-					this.shadowLine.getPath().pop();
+					// this.dstMarker.setVisible(false);
+					// this.orgMarker.setVisible(false);
+					// this.shadowLine.getPath().pop();
+					// this.shadowLine.getPath().pop();
 
-					// console.log(this.curvedLine.getPath())
-					for (
-						let i = 0; i < this.curvedLine.getPath().Wc.length; i++
-					) {
-						this.curvedLine.getPath().pop();
-					}
+					// // console.log(this.curvedLine.getPath())
+					// for (
+					// 	let i = 0; i < this.curvedLine.getPath().Wc.length; i++
+					// ) {
+					// 	this.curvedLine.getPath().pop();
+					// }
 				},
 			);
 		}
 
 		setupPlaceChangedListener(autocomplete, mode) {
-			this.map.setHeading(90);
-
 			// autocomplete.bindTo('bounds', this.map);
 			autocomplete.addListener('place_changed', () => {
 				const place = autocomplete.getPlace();
@@ -183,6 +193,8 @@ window.addEventListener('DOMContentLoaded', () => {
 						location: place.geometry.location,
 					});
 					this.orgMarker.setVisible(true);
+
+					this.map.setCenter(this.orgLatLng);
 				} else {
 					// this.destinationPlaceId = place.place_id;
 					document.cookie = `DEST_LAT=${lat}`;
