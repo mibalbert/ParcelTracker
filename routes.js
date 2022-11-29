@@ -58,7 +58,7 @@ router.get('/', async (context) => {
 	// else if (authorised && role.customer){
 	// 	context.response.redirect('/customer-home')
 	// }
-	const body = await handle.renderView('home', {authorised});
+	const body = await handle.renderView('home', { authorised });
 	context.response.body = body;
 });
 

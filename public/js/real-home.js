@@ -111,7 +111,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			});
 
 			const originInput = document.getElementById('input-origin-home');
-			const destinationInput = document.getElementById('input-destination-home');
+			const destinationInput = document.getElementById(
+				'input-destination-home',
+			);
 
 			// Specify just the place data fields that you need.
 			const originAutocomplete = new google.maps.places.Autocomplete(
