@@ -26,13 +26,18 @@
 					<ul>
 					{{#if authorised}}
 						<li>
-							<a href="/customer-home"><span class="material-symbols-outlined">home</span><span>Home</span></a>
+							{{!-- <a href="/customer-home"><span class="material-symbols-outlined">home</span><span>Home</span></a> --}}
+							<a href="/customer-home">Home</a>
 						</li>
 						<li>
-							<a href="/logout"><span class="material-symbols-outlined">logout</span><span>Log-out</span></a>
+							{{!-- <a href="/logout"><span class="material-symbols-outlined">logout</span><span>Log-out</span></a> --}}
+							<a href="/logout">Log-out</a>
 						</li>
 					{{else}}
-						<a href="/login"><span class="material-symbols-outlined">apps</span><span>Explore</span></a>
+						<li>
+							{{!-- <a href="/login"><span class="material-symbols-outlined">apps</span><span>Explore</span></a> --}}
+							<a href="/login">Explore</a>
+						</li>
 					{{/if}}
 					</ul>
 				</div>
@@ -42,7 +47,7 @@
 			<section class="hero-main">
 				<div id="map-bitch"></div>
 				<div class="mid" >
-					<div class="input-fields-home">
+					<div class="input-fields-container-home">
 					<input
 						id="input-origin-home"
 						class="controls"

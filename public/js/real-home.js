@@ -166,6 +166,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			// autocomplete.bindTo('bounds', this.map);
 			autocomplete.addListener('place_changed', () => {
 				const place = autocomplete.getPlace();
+				//Delets the "shadow polyline" so it does not appear more than once
 				this.shadowLine.getPath().pop();
 				this.shadowLine.getPath().pop();
 
@@ -252,9 +253,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			this.map.setCenter(bounds.getCenter()); //or use custom center
 			this.map.fitBounds(bounds);
 			this.map.setZoom(this.map.getZoom() - 0.8);
-			if (this.map.getZoom() > 15) {
-				this.map.setZoom(15);
-			}
+		
 		}
 
 		drawDashedCurve(m1, m2, map) {
@@ -267,6 +266,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			if (lineHeading < 0) {
 				var lineHeading1 = lineHeading + 45;
 				var lineHeading2 = lineHeading + 135;
+				// this.curvedLine.setOffSet(-5)
 			} else {
 				var lineHeading1 = lineHeading + -45;
 				var lineHeading2 = lineHeading + -135;
@@ -330,6 +330,7 @@ window.addEventListener('DOMContentLoaded', () => {
 					y: long4,
 				}, it));
 			}
+
 			var path = [];
 			for (var i = 0; i < points.length - 1; i++) {
 				path.push(new google.maps.LatLng(points[i].x, points[i].y));
@@ -342,6 +343,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				);
 			}
 
+			// console.log(path)
 			this.curvedLine.setPath(path);
 			this.curvedLine.setMap(this.map);
 			map.setTilt(45);
