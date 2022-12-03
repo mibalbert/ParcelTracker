@@ -15,8 +15,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		const map = new google.maps.Map(document.getElementById('map-bitch'), {
 			// mapId: 'b1beacae401d047c',
-			// mapId: '5b376c6ce00e84eb',
-			mapId: '14558a00a81bc942',
+			mapId: '5b376c6ce00e84eb',
+			// mapId: '14558a00a81bc942',
 			mapTypeControl: false,
 			disableDefaultUI: true,
 			center: { lat: 52.713709, lng: -1.586320 },

@@ -207,7 +207,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	script.async = true;
 
 	window.initMap = async function () {
-
 		/**
 		 * Element selectors for commutes widget.
 		 */
@@ -272,7 +271,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		/**
 		 * Max number of destination allowed to be added to commutes panel.
 		 */
-		const MAX_NUM_DESTINATIONS = 10;
+		const MAX_NUM_DESTINATIONS = 50;
 
 		/**
 		 * Bounds to bias search within ~50km distance.
@@ -591,9 +590,8 @@ window.addEventListener('DOMContentLoaded', () => {
 					};
 					const selectedTravelMode =
 						destinationModalEl.getTravelModeInput().value;
-					const isSameDestination =
-						destination.name ===
-							destinationModalEl.destinationInput.value;
+					const isSameDestination = destination.name ===
+						destinationModalEl.destinationInput.value;
 					const isSameTravelMode =
 						destination.travelModeEnum === selectedTravelMode;
 					if (isSameDestination && isSameTravelMode) {
