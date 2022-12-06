@@ -1594,12 +1594,6 @@
 // 	document.head.appendChild(script);
 // });
 
-
-
-
-
-
-
 /* courier-route.js */
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -1708,12 +1702,3 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 	document.head.appendChild(script);
 });
-
-
-
-
-
-
-
-
-

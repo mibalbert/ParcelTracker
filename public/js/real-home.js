@@ -69,7 +69,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			this.map = map;
 			this.originPlaceId = '';
 			this.destinationPlaceId = '';
-			
+
 			this.orgLat = '';
 			this.orgLng = '';
 			this.dstLat = '';
@@ -77,10 +77,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			this.orgLatLng = '';
 			this.dstLatLng = '';
-			
+
 			this.leftMargin = 30; // Grace margin to avoid too close fits on the edge of the overlay
-			this.rightMargin = 80
-		
+			this.rightMargin = 80;
+
 			this.directionsService = new google.maps.DirectionsService();
 			this.directionsRenderer = new google.maps.DirectionsRenderer();
 			this.geocoder = new google.maps.Geocoder();
@@ -92,9 +92,9 @@ window.addEventListener('DOMContentLoaded', () => {
 				map: map,
 				animation: google.maps.Animation.DROP,
 			});
-			
+
 			this.bounds = new google.maps.LatLngBounds();
-	
+
 			this.shadowLine = new google.maps.Polyline({
 				map: this.map,
 				strokeColor: '#000000',
@@ -253,15 +253,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		centralize(markerList) {
 			markerList.forEach((marker) => {
-				this.bounds.extend(new google.maps.LatLng(marker.lat, marker.lng));
+				this.bounds.extend(
+					new google.maps.LatLng(marker.lat, marker.lng),
+				);
 			});
 			// this.map.fitBounds(bounds);
 			this.map.setCenter(bounds.getCenter()); //or use custom center
 			// sets the bounds with the offset based on the window size - in progress
-			this.map.fitBounds(bounds, { left: 600});
+			this.map.fitBounds(bounds, { left: 600 });
 			this.map.setZoom(this.map.getZoom() - 0.8);
 		}
-		
+
 		drawDashedCurve(m1, m2, map) {
 			var lineLength = google.maps.geometry.spherical
 				.computeDistanceBetween(m1, m2);
