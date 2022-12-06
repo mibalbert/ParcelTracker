@@ -15,8 +15,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		const map = new google.maps.Map(document.getElementById('map-bitch'), {
 			// mapId: 'b1beacae401d047c',
-			mapId: '5b376c6ce00e84eb',
+			// mapId: '5b376c6ce00e84eb',
 			// mapId: '14558a00a81bc942',
+			// mapId: 'ec36b480711b61d6',
+			mapId: '8b428d47b01d701d',
 			mapTypeControl: false,
 			disableDefaultUI: true,
 			center: { lat: 52.713709, lng: -1.586320 },
@@ -60,12 +62,14 @@ window.addEventListener('DOMContentLoaded', () => {
 		numSteps;
 		timePerStep;
 		interval;
+		leftMargin;
+		rightMargin;
 
 		constructor(map) {
 			this.map = map;
 			this.originPlaceId = '';
 			this.destinationPlaceId = '';
-
+			
 			this.orgLat = '';
 			this.orgLng = '';
 			this.dstLat = '';
@@ -73,7 +77,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			this.orgLatLng = '';
 			this.dstLatLng = '';
-
+			
+			this.leftMargin = 30; // Grace margin to avoid too close fits on the edge of the overlay
+			this.rightMargin = 80
+		
 			this.directionsService = new google.maps.DirectionsService();
 			this.directionsRenderer = new google.maps.DirectionsRenderer();
 			this.geocoder = new google.maps.Geocoder();
@@ -85,9 +92,9 @@ window.addEventListener('DOMContentLoaded', () => {
 				map: map,
 				animation: google.maps.Animation.DROP,
 			});
-
+			
 			this.bounds = new google.maps.LatLngBounds();
-
+	
 			this.shadowLine = new google.maps.Polyline({
 				map: this.map,
 				strokeColor: '#000000',
@@ -104,7 +111,7 @@ window.addEventListener('DOMContentLoaded', () => {
 						strokeOpacity: 1,
 						scale: 3.5,
 					},
-					offset: '-5',
+					offset: '-30',
 					repeat: '20px',
 				}],
 				strokeColor: '#FF0000',
@@ -245,16 +252,75 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 
 		centralize(markerList) {
-			const bounds = new google.maps.LatLngBounds();
 			markerList.forEach((marker) => {
-				bounds.extend(new google.maps.LatLng(marker.lat, marker.lng));
+				this.bounds.extend(new google.maps.LatLng(marker.lat, marker.lng));
 			});
 			// this.map.fitBounds(bounds);
-			this.map.setCenter(bounds.getCenter()); //or use custom center
-			this.map.fitBounds(bounds);
+			this.map.setCenter(this.bounds.getCenter()); //or use custom center
+			this.map.fitBounds(this.bounds);
+			// this.offsetMap()
 			this.map.setZoom(this.map.getZoom() - 0.8);
 		}
+		
+		offsetMap() {
 
+			if (this.bounds !== false) {
+
+					// Top right corner
+					var topRightCorner = new google.maps.LatLng(this.map.getBounds().getNorthEast().lat(), this.map.getBounds().getNorthEast().lng());
+
+					// Top right point
+					var topRightPoint = this.fromLatLngToPoint(topRightCorner).x;
+
+					// Get pixel position of leftmost and rightmost points
+					var leftCoords = this.bounds.getSouthWest();
+					var leftMost = this.fromLatLngToPoint(leftCoords).x;
+					var rightMost = this.fromLatLngToPoint(this.bounds.getNorthEast()).x;
+
+					// Calculate left and right offsets
+					var leftOffset = (this.overlayWidth - leftMost);
+					var rightOffset = ((topRightPoint - this.rightMargin) - rightMost);
+
+					// Only if left offset is needed
+					if (leftOffset >= 0) {
+
+							if (leftOffset < rightOffset) {
+
+									var mapOffset = Math.round((rightOffset - leftOffset) / 2);
+
+									// Pan the map by the offset calculated on the x axis
+									this.map.panBy(-mapOffset, 0);
+
+									// Get the new left point after pan
+									var newLeftPoint = fromLatLngToPoint(leftCoords).x;
+
+									if (newLeftPoint <= this.overlayWidth) {
+
+											// Leftmost point is still under the overlay
+											// Offset map again
+											this.offsetMap();
+									}
+
+							} else {
+
+									// Cannot offset map at this zoom level otherwise both leftmost and rightmost points will not fit
+									// Zoom out and offset map again
+									this.map.setZoom(map.getZoom() - 1);
+									this.offsetMap();
+							}
+					}
+			}
+		}
+		fromLatLngToPoint(latLng) {
+
+				var scale = Math.pow(2, this.map.getZoom());
+				var nw = new google.maps.LatLng(this.map.getBounds().getNorthEast().lat(), this.map.getBounds().getSouthWest().lng());
+				var worldCoordinateNW = this.map.getProjection().fromLatLngToPoint(nw);
+				var worldCoordinate = this.map.getProjection().fromLatLngToPoint(latLng);
+		
+				return new google.maps.Point(Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale), Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale));
+		}
+	
 		drawDashedCurve(m1, m2, map) {
 			var lineLength = google.maps.geometry.spherical
 				.computeDistanceBetween(m1, m2);
