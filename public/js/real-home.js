@@ -251,7 +251,8 @@ window.addEventListener('DOMContentLoaded', () => {
 			});
 			// this.map.fitBounds(bounds);
 			this.map.setCenter(bounds.getCenter()); //or use custom center
-			this.map.fitBounds(bounds);
+			// sets the bounds with the offset based on the window size - in progress
+			this.map.fitBounds(bounds, { left: 600});
 			this.map.setZoom(this.map.getZoom() - 0.8);
 		}
 
