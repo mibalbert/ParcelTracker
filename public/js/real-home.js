@@ -256,71 +256,12 @@ window.addEventListener('DOMContentLoaded', () => {
 				this.bounds.extend(new google.maps.LatLng(marker.lat, marker.lng));
 			});
 			// this.map.fitBounds(bounds);
-			this.map.fitBounds(this.bounds);
-			this.map.setCenter(this.bounds.getCenter()); //or use custom center
-			// this.offsetMap()
+			this.map.setCenter(bounds.getCenter()); //or use custom center
+			// sets the bounds with the offset based on the window size - in progress
+			this.map.fitBounds(bounds, { left: 600});
 			this.map.setZoom(this.map.getZoom() - 0.8);
 		}
 		
-		// offsetMap() {
-
-		// 	if (this.bounds !== false) {
-
-		// 			// Top right corner
-		// 			var topRightCorner = new google.maps.LatLng(this.map.getBounds().getNorthEast().lat(), this.map.getBounds().getNorthEast().lng());
-
-		// 			// Top right point
-		// 			var topRightPoint = this.fromLatLngToPoint(topRightCorner).x;
-
-		// 			// Get pixel position of leftmost and rightmost points
-		// 			var leftCoords = this.bounds.getSouthWest();
-		// 			var leftMost = this.fromLatLngToPoint(leftCoords).x;
-		// 			var rightMost = this.fromLatLngToPoint(this.bounds.getNorthEast()).x;
-
-		// 			// Calculate left and right offsets
-		// 			var leftOffset = (this.overlayWidth - leftMost);
-		// 			var rightOffset = ((topRightPoint - this.rightMargin) - rightMost);
-
-		// 			// Only if left offset is needed
-		// 			if (leftOffset >= 0) {
-
-		// 					if (leftOffset < rightOffset) {
-
-		// 							var mapOffset = Math.round((rightOffset - leftOffset) / 2);
-
-		// 							// Pan the map by the offset calculated on the x axis
-		// 							this.map.panBy(-mapOffset, 0);
-
-		// 							// Get the new left point after pan
-		// 							var newLeftPoint = fromLatLngToPoint(leftCoords).x;
-
-		// 							if (newLeftPoint <= this.overlayWidth) {
-
-		// 									// Leftmost point is still under the overlay
-		// 									// Offset map again
-		// 									this.offsetMap();
-		// 							}
-
-		// 					} else {
-
-		// 							// Cannot offset map at this zoom level otherwise both leftmost and rightmost points will not fit
-		// 							// Zoom out and offset map again
-		// 							this.map.setZoom(map.getZoom() - 1);
-		// 							this.offsetMap();
-		// 					}
-		// 			}
-		// 	}
-		// }
-		// fromLatLngToPoint(latLng) {
-
-		// 		var scale = Math.pow(2, this.map.getZoom());
-		// 		var nw = new google.maps.LatLng(this.map.getBounds().getNorthEast().lat(), this.map.getBounds().getSouthWest().lng());
-		// 		var worldCoordinateNW = this.map.getProjection().fromLatLngToPoint(nw);
-		// 		var worldCoordinate = this.map.getProjection().fromLatLngToPoint(latLng);
-		
-		// 		return new google.maps.Point(Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale), Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale));
-		// }
-	
 		drawDashedCurve(m1, m2, map) {
 			var lineLength = google.maps.geometry.spherical
 				.computeDistanceBetween(m1, m2);
