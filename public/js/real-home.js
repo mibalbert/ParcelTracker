@@ -47,7 +47,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		shadowLine;
 		shadowLine2;
 		curvedLine;
-		bounds;
 		geocoder;
 		orgMarker;
 		dstMarker;
@@ -93,8 +92,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				animation: google.maps.Animation.DROP,
 			});
 
-			this.bounds = new google.maps.LatLngBounds();
-
+			
 			this.shadowLine = new google.maps.Polyline({
 				map: this.map,
 				strokeColor: '#000000',
@@ -204,7 +202,8 @@ window.addEventListener('DOMContentLoaded', () => {
 					});
 					this.orgMarker.setVisible(true);
 
-					this.map.setCenter(this.orgLatLng);
+					this.map.setCenter(this.orgLatLng, {left: 600});
+
 				} else {
 					// this.destinationPlaceId = place.place_id;
 					document.cookie = `DEST_LAT=${lat}`;
@@ -252,16 +251,32 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 
 		centralize(markerList) {
+
+			const bounds = new google.maps.LatLngBounds();
+
 			markerList.forEach((marker) => {
-				this.bounds.extend(
+				bounds.extend(
 					new google.maps.LatLng(marker.lat, marker.lng),
 				);
 			});
+
+			// let left = 0
+			// let width = window.innerWidth 
+			// if (width < 600) {
+			// 	left = 200
+			// }	else if (width < 900) {
+			// 	left = 600
+			// } else {
+			// 	left = 800
+			// }
+
 			// this.map.fitBounds(bounds);
-			this.map.setCenter(bounds.getCenter()); //or use custom center
+			// this.map.setCenter(bounds.getCenter()); //or use custom center
 			// sets the bounds with the offset based on the window size - in progress
-			this.map.fitBounds(bounds, { left: 600 });
-			this.map.setZoom(this.map.getZoom() - 0.8);
+			// this.map.fitBounds(bounds, { left: left });
+			this.map.fitBounds(bounds);
+			this.map.setZoom(this.map.getZoom() - 0.85);
+			// this.map.setZoom(this.map.getZoom());
 		}
 
 		drawDashedCurve(m1, m2, map) {

@@ -15,8 +15,8 @@
 
 /* Header */
 
-  .header-container {
-    font-family: 'Libre Franklin';  
+.header-container {
+  font-family: 'Libre Franklin';  
   font-weight: normal;
   font-size: 150%;
   padding: 1rem 9rem;
@@ -89,6 +89,13 @@
   font-size: 15px;
   font-weight: 700;
 }
+
+
+/* .hero-main {
+  width: 100vw;
+} */
+
+
 
 /* Home-page Map */
 
