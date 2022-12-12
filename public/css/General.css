@@ -1,0 +1,96 @@
+
+/* style.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,300&display=swap');
+
+
+* {
+  font-family :'Libre Franklin', 'Roboto', sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+
+/* .hero-main {
+  width: 100vw;
+} */
+
+  
+
+/* Home-page Map */
+
+#map-bitch {
+  width: auto; 
+  min-width: 100% !important;
+  height: 75vh;
+  /* position: absolute;
+  top: 0; */
+}
+
+/* Home-page Input Fields */
+
+.mid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: block;
+  /* margin-top: 55vh; */
+  margin-top: -5vh;
+  z-index: 48;
+}
+
+.input-fields-container-home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 44;
+}
+
+#input-origin-home, #input-destination-home {
+  width: 400px;
+  height: 80px;
+  font-size: 20px; 
+  padding: 0 1rem;
+  margin: 0 1rem;
+  /* -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-style: 3px solid hsl(198, 97%, 44%); */
+}
+
+.clear-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Home-page App description */
+
+.hero-section {
+  margin-top: 10vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Courier-Route page */
+
+
+
+.routes-map {
+  height: 400px;
+  width: 400px;
+}

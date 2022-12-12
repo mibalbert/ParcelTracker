@@ -1,0 +1,75 @@
+
+/* Header.css */
+
+
+/* Header */
+
+.header-container {
+  font-family: 'Libre Franklin';  
+  font-weight: normal;
+  font-size: 150%;
+  padding: 1rem 9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(2, 10, 2);
+}
+
+/* .header-container > .logo-container {
+} */
+
+.logo-container > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 15px;
+  font-family: 'Libre Franklin';
+  font-weight: 600;
+  font-size: 40px;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  
+}
+
+.logo-container > a > p{
+  padding-left: 20px;
+}
+/* padding-left: 20px; */
+#parcel-icon {
+  height: 50px;
+  width: 50px;
+  background-color: beige;
+}
+.header-menu {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0.5rem;
+}
+
+.header-menu > ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none; 
+}
+
+.header-menu > ul > li > a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;  
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  margin: 0 2rem;
+  color:rgb(255, 255, 255);;
+}
+
+.header-menu > ul > li > a > span:first-of-type {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.header-menu > ul > li > a > span:last-of-type {
+  font-size: 15px;
+  font-weight: 700;
+}
+

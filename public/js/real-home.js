@@ -17,8 +17,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			// mapId: 'b1beacae401d047c',
 			// mapId: '5b376c6ce00e84eb',
 			// mapId: '14558a00a81bc942',
-			// mapId: 'ec36b480711b61d6',
-			mapId: '8b428d47b01d701d',
+			mapId: 'ec36b480711b61d6',
+			// mapId: '8b428d47b01d701d',
+			
 			mapTypeControl: false,
 			disableDefaultUI: true,
 			center: { lat: 52.713709, lng: -1.586320 },
@@ -102,16 +103,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			this.curvedLine = new google.maps.Polyline({
 				// geodesic: true,
-				strokeOpacity: 0.0,
-				icons: [{
-					icon: {
-						path: 'M 0,-1 0,1',
-						strokeOpacity: 1,
-						scale: 3.5,
-					},
+				// strokeOpacity: 0.0,
+				strokeOpacity: 1,
+				scale: 3.5,
 					offset: '-30',
-					repeat: '20px',
-				}],
+				// icons: [{
+				// 	icon: {
+				// 		path: 'M 0,-1 0,1',
+				// 	},
+				// 	repeat: '20px',
+				// }],
 				strokeColor: '#FF0000',
 			});
 
@@ -260,22 +261,24 @@ window.addEventListener('DOMContentLoaded', () => {
 				);
 			});
 
-			// let left = 0
-			// let width = window.innerWidth 
+			let left = 0
+			let width = window.innerWidth 
 			// if (width < 600) {
 			// 	left = 200
 			// }	else if (width < 900) {
 			// 	left = 600
 			// } else {
-			// 	left = 800
+			// 	left = 900
 			// }
+
+			left = width*0.6
 
 			// this.map.fitBounds(bounds);
 			// this.map.setCenter(bounds.getCenter()); //or use custom center
 			// sets the bounds with the offset based on the window size - in progress
-			// this.map.fitBounds(bounds, { left: left });
-			this.map.fitBounds(bounds);
-			this.map.setZoom(this.map.getZoom() - 0.85);
+			this.map.fitBounds(bounds, { left: left });
+			// this.map.fitBounds(bounds);
+			this.map.setZoom(this.map.getZoom() - 0.95);
 			// this.map.setZoom(this.map.getZoom());
 		}
 
