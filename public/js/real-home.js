@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			// mapId: '14558a00a81bc942',
 			mapId: 'ec36b480711b61d6',
 			// mapId: '8b428d47b01d701d',
-			
+
 			mapTypeControl: false,
 			disableDefaultUI: true,
 			center: { lat: 52.713709, lng: -1.586320 },
@@ -93,7 +93,6 @@ window.addEventListener('DOMContentLoaded', () => {
 				animation: google.maps.Animation.DROP,
 			});
 
-			
 			this.shadowLine = new google.maps.Polyline({
 				map: this.map,
 				strokeColor: '#000000',
@@ -106,7 +105,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				// strokeOpacity: 0.0,
 				strokeOpacity: 1,
 				scale: 3.5,
-					offset: '-30',
+				offset: '-30',
 				// icons: [{
 				// 	icon: {
 				// 		path: 'M 0,-1 0,1',
@@ -203,8 +202,7 @@ window.addEventListener('DOMContentLoaded', () => {
 					});
 					this.orgMarker.setVisible(true);
 
-					this.map.setCenter(this.orgLatLng, {left: 600});
-
+					this.map.setCenter(this.orgLatLng, { left: 600 });
 				} else {
 					// this.destinationPlaceId = place.place_id;
 					document.cookie = `DEST_LAT=${lat}`;
@@ -252,7 +250,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 
 		centralize(markerList) {
-
 			const bounds = new google.maps.LatLngBounds();
 
 			markerList.forEach((marker) => {
@@ -261,8 +258,8 @@ window.addEventListener('DOMContentLoaded', () => {
 				);
 			});
 
-			let left = 0
-			let width = window.innerWidth 
+			let left = 0;
+			let width = window.innerWidth;
 			// if (width < 600) {
 			// 	left = 200
 			// }	else if (width < 900) {
@@ -271,7 +268,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			// 	left = 900
 			// }
 
-			left = width*0.6
+			left = width * 0.6;
 
 			// this.map.fitBounds(bounds);
 			// this.map.setCenter(bounds.getCenter()); //or use custom center
