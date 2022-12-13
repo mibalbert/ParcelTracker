@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				strictBounds: true,
 			},
 		});
-		map.setTilt(45);		
+		map.setTilt(45);
 		new AutocompleteDirectionsHandler(map);
 	};
 	class AutocompleteDirectionsHandler {
