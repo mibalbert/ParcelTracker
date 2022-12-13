@@ -37,8 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				strictBounds: true,
 			},
 		});
-		map.setTilt(45);
-
+		map.setTilt(45);		
 		new AutocompleteDirectionsHandler(map);
 	};
 	class AutocompleteDirectionsHandler {
@@ -268,7 +267,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			// 	left = 900
 			// }
 
-			left = width * 0.6;
+			left = width * 0.7;
 
 			// this.map.fitBounds(bounds);
 			// this.map.setCenter(bounds.getCenter()); //or use custom center

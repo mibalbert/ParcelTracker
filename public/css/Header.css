@@ -4,6 +4,13 @@
 
 /* Header */
 
+
+.header-container {
+  min-width: 100vw;
+  background-color: black;
+}
+
+/* 
 .header-container {
   font-family: 'Libre Franklin';  
   font-weight: normal;
@@ -13,10 +20,16 @@
   justify-content: space-between;
   align-items: center;
   background-color: rgb(2, 10, 2);
+  width: 100vw;
+  overflow: hidden;
 }
 
-/* .header-container > .logo-container {
-} */
+.header-menu {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0.5rem;
+  width: 100vw;
+  
+}
 
 .logo-container > a {
   display: flex;
@@ -34,15 +47,11 @@
 .logo-container > a > p{
   padding-left: 20px;
 }
-/* padding-left: 20px; */
+
 #parcel-icon {
   height: 50px;
   width: 50px;
   background-color: beige;
-}
-.header-menu {
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 0.5rem;
 }
 
 .header-menu > ul {
@@ -72,4 +81,4 @@
   font-size: 15px;
   font-weight: 700;
 }
-
+ */

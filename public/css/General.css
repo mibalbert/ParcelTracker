@@ -13,20 +13,21 @@
 }
 
 
+body, header {
+  width: fit-content;
+  overflow: hidden;
+}
 /* .hero-main {
-  width: 100vw;
+  width: fit-content;
+  overflow: hidden;
 } */
 
   
-
 /* Home-page Map */
 
 #map-bitch {
-  width: auto; 
-  min-width: 100% !important;
+  min-width: 100vw; 
   height: 75vh;
-  /* position: absolute;
-  top: 0; */
 }
 
 /* Home-page Input Fields */
